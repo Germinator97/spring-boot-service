@@ -44,14 +44,10 @@ public class CountryController {
 	// @Autowired
 	// private CreateCountry createCountry;
  
-	@GetMapping("/find/code/{code}")
-	public ResponseEntity<Object> findByCode(@PathVariable Optional<String> code) {
-		if (!code.isPresent()) {
-			return ResponseHandler.generateResponse(400, false, HttpStatus.BAD_REQUEST.name(), null, HttpStatus.BAD_REQUEST);
-		}
-
+	@RequestMapping(value = {"/find/code", "/find/code/{id}"})
+	public ResponseEntity<Object> findByCode(@PathVariable String code) {
 		try {
-			Country country = findCountryByCode.find(code.get());
+			Country country = findCountryByCode.find(code);
 
 			if (country == null) {
 				return ResponseHandler.generateResponse(404, false, HttpStatus.NOT_FOUND.name(), null, HttpStatus.NOT_FOUND);
@@ -62,15 +58,15 @@ public class CountryController {
 		}
 	}
 
-	@GetMapping("/find/code")
-	public ResponseEntity<Object> findByCodeNull() {
-		return ResponseHandler.generateResponse(400, false, HttpStatus.BAD_REQUEST.name(), null, HttpStatus.BAD_REQUEST);
-	}
+	// @GetMapping("/find/code")
+	// public ResponseEntity<Object> findByCodeNull() {
+	// 	return ResponseHandler.generateResponse(400, false, HttpStatus.BAD_REQUEST.name(), null, HttpStatus.BAD_REQUEST);
+	// }
 
-	@GetMapping("/find/name")
-	public ResponseEntity<Object> findByNameNull() {
-		return ResponseHandler.generateResponse(400, false, HttpStatus.BAD_REQUEST.name(), null, HttpStatus.BAD_REQUEST);
-	}
+	// @GetMapping("/find/name")
+	// public ResponseEntity<Object> findByNameNull() {
+	// 	return ResponseHandler.generateResponse(400, false, HttpStatus.BAD_REQUEST.name(), null, HttpStatus.BAD_REQUEST);
+	// }
 
 	@GetMapping("/find/name/{name}")
 	public ResponseEntity<Object> findByName(@PathVariable Optional<String> name) {
