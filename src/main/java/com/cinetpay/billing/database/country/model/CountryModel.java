@@ -16,6 +16,7 @@ import com.cinetpay.billing.models.Partner_Account;
 import com.cinetpay.billing.models.Service_Account;
 import com.cinetpay.billing.models.Vendor_Account;
 
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -48,7 +49,7 @@ public class CountryModel {
     private Boolean is_active;
 
     @Column(columnDefinition = "timestamp default CURRENT_TIMESTAMP", name = "created_at", nullable = false)
-    @CreatedDate
+    @CreationTimestamp
     private Timestamp created_at;
     
 	@Column(columnDefinition = "timestamp default CURRENT_TIMESTAMP", name = "updated_at", nullable = false)
@@ -80,6 +81,10 @@ public class CountryModel {
     public void generateId() {
         this.id = UUID.randomUUID().toString();
         System.out.println(this.id);
+    }
+
+    public void passCode(String sequence) {
+        this.code = sequence;
     }
 
     public void setId(String id) {

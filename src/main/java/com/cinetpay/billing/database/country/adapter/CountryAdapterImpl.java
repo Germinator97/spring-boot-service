@@ -3,8 +3,6 @@
  */
 package com.cinetpay.billing.database.country.adapter;
 
-import java.util.List;
-
 import com.cinetpay.billing.database.country.model.CountryModel;
 import com.cinetpay.billing.database.country.repository.CountryRepository;
 import com.cinetpay.billing.entities.Country;
@@ -36,7 +34,7 @@ public class CountryAdapterImpl implements CountryAdapter {
 	}
 
 	public Country create(CountryDto dto, String sequence) {
-		CountryModel model = CountryInMapper.toModel(dto);
+		CountryModel model = CountryInMapper.toModel(dto, sequence);
 
 		CountryModel country = countryRepository.save(model);
 

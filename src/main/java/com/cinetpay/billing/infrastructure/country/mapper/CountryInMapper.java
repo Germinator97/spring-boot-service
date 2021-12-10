@@ -29,7 +29,7 @@ public class CountryInMapper {
 		return country;
     }
 
-	public static CountryModel toModel(CountryDto dto) {
+	public static CountryModel toModel(CountryDto dto, String sequence) {
 		if (dto == null) {
 			return null;
 		}
@@ -37,6 +37,7 @@ public class CountryInMapper {
 		CountryModel model = new CountryModel();
 		model.setName(dto.getName());
 		model.generateId();
+		model.passCode(sequence);
  
 		return model;
     }

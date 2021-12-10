@@ -45,6 +45,7 @@ public class CountryController {
 	@Autowired
 	private CreateCountry createCountry;
 
+	@Autowired
 	private SequenceRepository sequenceRepository;
  
 	@RequestMapping(value = {"/find/code", "/find/code/{code}"}, method = RequestMethod.GET)
@@ -84,13 +85,25 @@ public class CountryController {
 				return ResponseHandler.generateResponse(400, false, HttpStatus.FOUND.name(), null, HttpStatus.FOUND);
 			}
 
+			System.out.println(sequenceRepository);
+
 			Optional<Sequence> sequence = sequenceRepository.findById(1);
 
-			Country country = createCountry.create(countryDto, sequence);
+			System.out.println(sequence.get().getCountry());
 
-			return ResponseHandler.generateResponse(200, true,  HttpStatus.FOUND.name(), CountryOutMapper.toDto(country), HttpStatus.OK);
+			if (sequence.isPresent()) {
+				Country country = createCountry.create(countryDto, sequence.get().getCountry());
+
+				return ResponseHandler.generateResponse(200, true,  HttpStatus.FOUND.name(), CountryOutMapper.toDto(country), HttpStatus.OK);
+			}
+
+			else {
+				return ResponseHandler.generateResponse(400, false, HttpStatus.FOUND.name(), null, HttpStatus.FOUND);
+			}
+
+			
 		} catch (Exception e) {
-			return ResponseHandler.generateResponse(500, false,  e.getMessage(), null, HttpStatus.INTERNAL_SERVER_ERROR);
+			return ResponseHandler.generateResponse(500, false,  e.toString(), null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
