@@ -3,6 +3,8 @@
  */
 package com.cinetpay.billing.database.country.adapter;
 
+import java.util.List;
+
 import com.cinetpay.billing.database.country.model.CountryModel;
 import com.cinetpay.billing.database.country.repository.CountryRepository;
 import com.cinetpay.billing.entities.Country;
@@ -42,9 +44,8 @@ public class CountryAdapterImpl implements CountryAdapter {
 	}
 
 	public Country findLast(){
-		CountryModel country = countryRepository.findIdB;
 
-		return CountryInMapper.toEntity(country);
+		return null;
 	}
 
 }

@@ -4,6 +4,7 @@
 package com.cinetpay.billing.database.country.repository;
 
 import java.io.Serializable;
+import java.util.List;
 
 import com.cinetpay.billing.database.country.model.CountryModel;
 
@@ -14,13 +15,10 @@ import org.springframework.data.jpa.repository.Query;
  * @author mac
  *
  */
-public interface CountryRepository extends JpaRepository<CountryModel, Long> {
+public interface CountryRepository extends JpaRepository<CountryModel, String> {
 
 	public CountryModel findByCode(String code);
 
 	public CountryModel findByName(String name);
-
-	// @Query("select c.code from countries c orderdy c.created_at limit 1")
-	// public CountryModel findLast();
 
 }
