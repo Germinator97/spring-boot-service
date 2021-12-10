@@ -20,6 +20,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 /**
  * @author mac
@@ -29,6 +30,7 @@ import lombok.Data;
 @Table(name = "countries")
 @EntityListeners(AuditingEntityListener.class)
 @Data
+@Accessors(chain = true)
 public class CountryModel {
 
 	@Id

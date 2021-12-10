@@ -21,5 +21,4 @@ public class FindCountryByCode {
 		return adapter.findByCode(code);
 	}
 
-
 }

@@ -14,12 +14,10 @@ import lombok.Data;
 @Data
 public class CountryDto {
 	
-	@NotNull(message = "The number of bags is required.")
-	@Min(value = 1, message = "The number of bags must be greater than 0")
-	@Max(value = 3, message = "The number of bags must be greater than 3")
-	@NotEmpty(message = "The extras must have at least one item.")
 	private String code;
 	
+	@NotNull(message = "The country code must not be null.")
+	@NotEmpty(message = "The country code must not be empty.")
     private String name;
 
     private Boolean is_active;

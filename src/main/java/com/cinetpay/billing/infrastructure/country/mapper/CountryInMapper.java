@@ -5,6 +5,7 @@ package com.cinetpay.billing.infrastructure.country.mapper;
 
 import com.cinetpay.billing.database.country.model.CountryModel;
 import com.cinetpay.billing.entities.Country;
+import com.cinetpay.billing.infrastructure.country.dto.CountryDto;
 
 /**
  * @author mac
@@ -27,5 +28,18 @@ public class CountryInMapper {
  
 		return country;
     }
+
+	// public static CountryModel toModel(CountryDto dto) {
+	// 	if (dto == null) {
+	// 		return null;
+	// 	}
+ 
+	// 	CountryModel model = new CountryModel();
+	// 	model.setCode(dto.getCode());
+	// 	model.setName(dto.getName());
+	// 	model.setIs_active(dto.getIs_active());
+ 
+	// 	return model;
+    // }
 
 }

@@ -17,8 +17,8 @@ public class FindCountryByName {
 		this.adapter = adapter;
 	}
 	
-	public Country find(String code) {
-		return adapter.findByName(code);
+	public Country find(String name) {
+		return adapter.findByName(name);
 	}
 
 

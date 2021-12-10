@@ -54,6 +54,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
       Map<String, List<String>> result = new HashMap<>();
       result.put("errors", errors);
   
-      return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+      return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }
