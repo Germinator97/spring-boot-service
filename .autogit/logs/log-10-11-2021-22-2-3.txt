@@ -1,0 +1,18 @@
+-------------------- Auto-Git Log --------------------
+		Fri Dec 10 2021 22:02:03 GMT+0000 (Greenwich Mean Time)
+------------------------------------------------------
+
+Modified files:
+* src/main/java/com/cinetpay/billing/database/country/adapter/CountryAdapterImpl.java
+* src/main/java/com/cinetpay/billing/database/country/repository/CountryRepository.java
+
+
+Created files:
+* .autogit/logs/log-10-11-2021-21-31-14.txt
+* src/main/java/com/cinetpay/billing/models/Sequence.java
+
+
+Deleted files:
+
+
+Renamed files:

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.cinetpay.billing.configuration;
+package com.cinetpay.billing.configurations;
 
 import com.cinetpay.billing.database.country.adapter.CountryAdapterImpl;
 import com.cinetpay.billing.use_cases.country.CountryAdapter;
@@ -9,6 +9,7 @@ import com.cinetpay.billing.use_cases.country.CreateCountry;
 import com.cinetpay.billing.use_cases.country.FindCountryByCode;
 import com.cinetpay.billing.use_cases.country.FindCountryByName;
 
+import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -17,7 +18,7 @@ import org.springframework.context.annotation.Configuration;
  *
  */
 @Configuration
-public class Config {
+public class CountryConfiguration {
 
     @Bean
     public FindCountryByCode findCountryByCode(CountryAdapter countryAdapter) {

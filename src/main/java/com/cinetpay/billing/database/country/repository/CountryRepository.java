@@ -3,13 +3,9 @@
  */
 package com.cinetpay.billing.database.country.repository;
 
-import java.io.Serializable;
-import java.util.List;
-
 import com.cinetpay.billing.database.country.model.CountryModel;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 
 /**
  * @author mac
