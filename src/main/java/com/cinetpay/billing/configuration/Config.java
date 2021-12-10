@@ -29,10 +29,10 @@ public class Config {
         return new FindCountryByName(countryAdapter);
     }
  
-    // @Bean
-    // public CreateCountry countryAdapter(CountryAdapter countryAdapter) {
-    //     return new CreateCountry(countryAdapter);
-    // }
+    @Bean
+    public CreateCountry countryCountry(CountryAdapter countryAdapter) {
+        return new CreateCountry(countryAdapter);
+    }
 
     @Bean
     public CountryAdapter countryAdapter() {

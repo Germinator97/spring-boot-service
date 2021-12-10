@@ -168,4 +168,8 @@ public class CountryModel {
         this.partners_accounts = partners_accounts;
     }
 
+    public String generateId() {
+        return null;
+    }
+
 }

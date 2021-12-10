@@ -29,17 +29,15 @@ public class CountryInMapper {
 		return country;
     }
 
-	// public static CountryModel toModel(CountryDto dto) {
-	// 	if (dto == null) {
-	// 		return null;
-	// 	}
+	public static CountryModel toModel(CountryDto dto) {
+		if (dto == null) {
+			return null;
+		}
  
-	// 	CountryModel model = new CountryModel();
-	// 	model.setCode(dto.getCode());
-	// 	model.setName(dto.getName());
-	// 	model.setIs_active(dto.getIs_active());
+		CountryModel model = new CountryModel();
+		model.setName(dto.getName());
  
-	// 	return model;
-    // }
+		return model;
+    }
 
 }

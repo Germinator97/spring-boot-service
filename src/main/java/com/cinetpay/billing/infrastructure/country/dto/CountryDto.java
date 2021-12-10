@@ -16,8 +16,8 @@ public class CountryDto {
 	
 	private String code;
 	
-	@NotNull(message = "The country code must not be null.")
-	@NotEmpty(message = "The country code must not be empty.")
+	@NotNull(message = "The country name must not be null.")
+	@NotEmpty(message = "The country name must not be empty.")
     private String name;
 
     private Boolean is_active;

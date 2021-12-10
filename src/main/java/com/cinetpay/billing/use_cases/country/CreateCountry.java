@@ -5,14 +5,14 @@ import com.cinetpay.billing.infrastructure.country.dto.CountryDto;
 
 public class CreateCountry {
 
-    // private CountryAdapter adapter;
+    private CountryAdapter adapter;
 	
-	// public CreateCountry(CountryAdapter adapter) {
-	// 	this.adapter = adapter;
-	// }
+	public CreateCountry(CountryAdapter adapter) {
+		this.adapter = adapter;
+	}
 	
-	// public Country create(CountryDto country) {
-	// 	return adapter.create(country);
-	// }
+	public Country create(CountryDto country) {
+		return adapter.create(country);
+	}
 
 }

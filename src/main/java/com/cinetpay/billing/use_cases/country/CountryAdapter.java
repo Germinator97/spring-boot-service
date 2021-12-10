@@ -16,6 +16,6 @@ public interface CountryAdapter {
 
 	Country findByName(String name);
 
-	// Country create(CountryDto country);
+	Country create(CountryDto country);
 
 }

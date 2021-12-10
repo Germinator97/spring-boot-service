@@ -1,0 +1,19 @@
+-------------------- Auto-Git Log --------------------
+		Fri Dec 10 2021 20:30:56 GMT+0000 (Greenwich Mean Time)
+------------------------------------------------------
+
+Modified files:
+* src/main/java/com/cinetpay/billing/exceptions/GlobalExceptionHandler.java
+* src/main/java/com/cinetpay/billing/infrastructure/country/CountryController.java
+
+
+Created files:
+* .autogit/logs/log-10-11-2021-20-0-48.txt
+
+
+Deleted files:
+* src/main/java/com/cinetpay/billing/configuration/WebConfig.java
+* src/main/java/com/cinetpay/billing/exceptions/InterceptorHandler.java
+
+
+Renamed files:
