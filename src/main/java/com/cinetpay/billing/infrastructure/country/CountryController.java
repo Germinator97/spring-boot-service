@@ -10,7 +10,6 @@ import javax.validation.Valid;
 import com.cinetpay.billing.configuration.ResponseHandler;
 import com.cinetpay.billing.database.country.mapper.CountryOutMapper;
 import com.cinetpay.billing.entities.Country;
-import com.cinetpay.billing.exceptions.ResourceNotFoundException;
 import com.cinetpay.billing.infrastructure.country.dto.CountryDto;
 import com.cinetpay.billing.use_cases.country.CreateCountry;
 import com.cinetpay.billing.use_cases.country.FindCountryByCode;
@@ -48,16 +47,16 @@ public class CountryController {
 	@GetMapping("/find/code/{code}")
 	public ResponseEntity<Object> findByCode(@PathVariable Optional<String> code) {
 		if (!code.isPresent()) {
-			return ResponseHandler.generateResponse(400, false, HttpStatus.BAD_REQUEST.getReasonPhrase(), null, HttpStatus.BAD_REQUEST);
+			return ResponseHandler.generateResponse(400, false, HttpStatus.BAD_REQUEST.name(), null, HttpStatus.BAD_REQUEST);
 		}
 
 		try {
 			Country country = findCountryByCode.find(code.get());
 
 			if (country == null) {
-				return ResponseHandler.generateResponse(404, false, HttpStatus.NOT_FOUND.getReasonPhrase(), null, HttpStatus.NOT_FOUND);
+				return ResponseHandler.generateResponse(404, false, HttpStatus.NOT_FOUND.name(), null, HttpStatus.NOT_FOUND);
 			}
-			return ResponseHandler.generateResponse(200, true,  HttpStatus.FOUND.getReasonPhrase(), CountryOutMapper.toDto(country), HttpStatus.OK);
+			return ResponseHandler.generateResponse(200, true,  HttpStatus.FOUND.name(), CountryOutMapper.toDto(country), HttpStatus.OK);
 		} catch (Exception e) {
 			return ResponseHandler.generateResponse(500, false,  e.getMessage(), null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -65,46 +64,46 @@ public class CountryController {
 
 	@GetMapping("/find/code")
 	public ResponseEntity<Object> findByCodeNull() {
-		return ResponseHandler.generateResponse(400, false, HttpStatus.BAD_REQUEST.getReasonPhrase(), null, HttpStatus.BAD_REQUEST);
+		return ResponseHandler.generateResponse(400, false, HttpStatus.BAD_REQUEST.name(), null, HttpStatus.BAD_REQUEST);
 	}
 
 	@GetMapping("/find/name")
 	public ResponseEntity<Object> findByNameNull() {
-		return ResponseHandler.generateResponse(400, false, HttpStatus.BAD_REQUEST.getReasonPhrase(), null, HttpStatus.BAD_REQUEST);
+		return ResponseHandler.generateResponse(400, false, HttpStatus.BAD_REQUEST.name(), null, HttpStatus.BAD_REQUEST);
 	}
 
 	@GetMapping("/find/name/{name}")
 	public ResponseEntity<Object> findByName(@PathVariable Optional<String> name) {
 		if (!name.isPresent()) {
-			return ResponseHandler.generateResponse(400, false, HttpStatus.BAD_REQUEST.getReasonPhrase(), null, HttpStatus.BAD_REQUEST);
+			return ResponseHandler.generateResponse(400, false, HttpStatus.BAD_REQUEST.name(), null, HttpStatus.BAD_REQUEST);
 		}
 
 		try {
 			Country country = findCountryByName.find(name.get());
 
 			if (country == null) {
-				return ResponseHandler.generateResponse(404, false, HttpStatus.NOT_FOUND.getReasonPhrase(), null, HttpStatus.NOT_FOUND);
+				return ResponseHandler.generateResponse(404, false, HttpStatus.NOT_FOUND.name(), null, HttpStatus.NOT_FOUND);
 			}
-			return ResponseHandler.generateResponse(200, true,  HttpStatus.FOUND.getReasonPhrase(), CountryOutMapper.toDto(country), HttpStatus.OK);
+			return ResponseHandler.generateResponse(200, true,  HttpStatus.FOUND.name(), CountryOutMapper.toDto(country), HttpStatus.OK);
 		} catch (Exception e) {
 			return ResponseHandler.generateResponse(500, false,  e.getMessage(), null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@PostMapping("/create")
-	public ResponseEntity<Object> create(@Valid @RequestBody CountryDto countryDto) throws ResourceNotFoundException {
+	public ResponseEntity<Object> create(@Valid @RequestBody CountryDto countryDto) {
 		try {
-			return ResponseHandler.generateResponse(400, false, HttpStatus.FOUND.getReasonPhrase(), null, HttpStatus.FOUND);
-			
+			return ResponseHandler.generateResponse(400, false, HttpStatus.FOUND.name(), null, HttpStatus.FOUND);
+
 			// Country optionalCountry = findCountryByName.find(countryDto.getName());
 
 			// if (optionalCountry != null) {
-			// 	return ResponseHandler.generateResponse(400, false, HttpStatus.FOUND.getReasonPhrase(), null, HttpStatus.FOUND);
+			// 	return ResponseHandler.generateResponse(400, false, HttpStatus.FOUND.name(), null, HttpStatus.FOUND);
 			// }
 
 			// Country country = createCountry.create(countryDto);
 
-			// return ResponseHandler.generateResponse(200, true,  HttpStatus.FOUND.getReasonPhrase(), CountryOutMapper.toDto(country), HttpStatus.OK);
+			// return ResponseHandler.generateResponse(200, true,  HttpStatus.FOUND.name(), CountryOutMapper.toDto(country), HttpStatus.OK);
 		} catch (Exception e) {
 			return ResponseHandler.generateResponse(500, false,  e.getMessage(), null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
