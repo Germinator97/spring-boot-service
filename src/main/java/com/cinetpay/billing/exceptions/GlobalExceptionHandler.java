@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import com.cinetpay.billing.configuration.ResponseHandler;
+import com.cinetpay.billing.configurations.ResponseHandler;
 
 import java.util.Set;
 import org.springframework.context.support.DefaultMessageSourceResolvable;

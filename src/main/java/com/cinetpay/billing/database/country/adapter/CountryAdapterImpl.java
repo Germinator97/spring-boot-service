@@ -35,17 +35,12 @@ public class CountryAdapterImpl implements CountryAdapter {
 		return CountryInMapper.toEntity(country);
 	}
 
-	public Country create(CountryDto dto) {
+	public Country create(CountryDto dto, String sequence) {
 		CountryModel model = CountryInMapper.toModel(dto);
 
 		CountryModel country = countryRepository.save(model);
 
 		return CountryInMapper.toEntity(country);
-	}
-
-	public Country findLast(){
-
-		return null;
 	}
 
 }

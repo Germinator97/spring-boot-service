@@ -13,43 +13,45 @@ public class Sequence {
     @GeneratedValue(strategy = GenerationType.AUTO)
 	protected int id;
 
-    @Column(columnDefinition = "varchar(255)", name = "billing", nullable = false)
-    private String billing;
-
-    @Column(columnDefinition = "varchar(255)", name = "billing_service", nullable = false)
-    private String billing_service;
-
-    @Column(columnDefinition = "varchar(255)", name = "commission_partner", nullable = false)
-    private String commission_partner;
-
-    @Column(columnDefinition = "varchar(255)", name = "commission_service", nullable = false)
-    private String commission_service;
-
     @Column(columnDefinition = "varchar(255)", name = "country", nullable = false)
     private String country;
 
     @Column(columnDefinition = "varchar(255)", name = "currency", nullable = false)
     private String currency;
 
-    @Column(columnDefinition = "varchar(255)", name = "customer_account", nullable = false)
-    private String customer_account;
-
-    @Column(columnDefinition = "varchar(255)", name = "merchant_account", nullable = false)
-    private String merchant_account;
-
-    @Column(columnDefinition = "varchar(255)", name = "partner_account", nullable = false)
-    private String partner_account;
-
-    @Column(columnDefinition = "varchar(255)", name = "partner", nullable = false)
-    private String partner;
-
     @Column(columnDefinition = "varchar(255)", name = "product", nullable = false)
     private String product;
 
-    @Column(columnDefinition = "varchar(255)", name = "vendor_account", nullable = false)
-    private String vendor_account;
+    public int getId() {
+        return id;
+    }
 
-    @Column(columnDefinition = "varchar(255)", name = "service_account", nullable = false)
-    private String service_account;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    public String getProduct() {
+        return product;
+    }
+
+    public void setProduct(String product) {
+        this.product = product;
+    }
     
 }

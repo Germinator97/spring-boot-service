@@ -3,12 +3,16 @@
  */
 package com.cinetpay.billing.infrastructure.country.controller;
 
+import java.util.Optional;
+
 import javax.validation.Valid;
 
-import com.cinetpay.billing.configuration.ResponseHandler;
+import com.cinetpay.billing.configurations.ResponseHandler;
+import com.cinetpay.billing.configurations.SequenceRepository;
 import com.cinetpay.billing.database.country.mapper.CountryOutMapper;
 import com.cinetpay.billing.entities.Country;
 import com.cinetpay.billing.infrastructure.country.dto.CountryDto;
+import com.cinetpay.billing.models.Sequence;
 import com.cinetpay.billing.use_cases.country.CreateCountry;
 import com.cinetpay.billing.use_cases.country.FindCountryByCode;
 import com.cinetpay.billing.use_cases.country.FindCountryByName;
@@ -40,6 +44,8 @@ public class CountryController {
 
 	@Autowired
 	private CreateCountry createCountry;
+
+	private SequenceRepository sequenceRepository;
  
 	@RequestMapping(value = {"/find/code", "/find/code/{code}"}, method = RequestMethod.GET)
 	public ResponseEntity<Object> findByCode(@PathVariable(name = "code") String code) {
@@ -78,7 +84,9 @@ public class CountryController {
 				return ResponseHandler.generateResponse(400, false, HttpStatus.FOUND.name(), null, HttpStatus.FOUND);
 			}
 
-			Country country = createCountry.create(countryDto);
+			Optional<Sequence> sequence = sequenceRepository.findById(1);
+
+			Country country = createCountry.create(countryDto, sequence);
 
 			return ResponseHandler.generateResponse(200, true,  HttpStatus.FOUND.name(), CountryOutMapper.toDto(country), HttpStatus.OK);
 		} catch (Exception e) {

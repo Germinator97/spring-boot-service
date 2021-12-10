@@ -11,8 +11,8 @@ public class CreateCountry {
 		this.adapter = adapter;
 	}
 	
-	public Country create(CountryDto country) {
-		return adapter.create(country);
+	public Country create(CountryDto country, String sequence) {
+		return adapter.create(country, sequence);
 	}
 
 }

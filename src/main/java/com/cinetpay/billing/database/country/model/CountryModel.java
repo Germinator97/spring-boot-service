@@ -82,11 +82,6 @@ public class CountryModel {
         System.out.println(this.id);
     }
 
-    public void generateCode() {
-        this.code = "O3." + UUID.randomUUID().toString();
-        System.out.println(this.id);
-    }
-
     public void setId(String id) {
         this.id = id;
     }

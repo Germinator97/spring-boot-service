@@ -16,8 +16,6 @@ public interface CountryAdapter {
 
 	Country findByName(String name);
 
-	Country create(CountryDto country);
-
-	Country findLast();
+	Country create(CountryDto country, String sequence);
 
 }
