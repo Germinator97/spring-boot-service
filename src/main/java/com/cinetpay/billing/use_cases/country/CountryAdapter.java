@@ -18,4 +18,6 @@ public interface CountryAdapter {
 
 	Country create(CountryDto country);
 
+	Country findLast();
+
 }

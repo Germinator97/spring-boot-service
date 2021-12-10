@@ -41,4 +41,10 @@ public class CountryAdapterImpl implements CountryAdapter {
 		return CountryInMapper.toEntity(country);
 	}
 
+	public Country findLast(){
+		CountryModel country = countryRepository.findIdB;
+
+		return CountryInMapper.toEntity(country);
+	}
+
 }

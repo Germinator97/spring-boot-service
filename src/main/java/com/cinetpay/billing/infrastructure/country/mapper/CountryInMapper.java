@@ -36,6 +36,7 @@ public class CountryInMapper {
  
 		CountryModel model = new CountryModel();
 		model.setName(dto.getName());
+		model.generateId();
  
 		return model;
     }
