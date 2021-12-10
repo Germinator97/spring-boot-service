@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -44,43 +45,29 @@ public class CountryController {
 	// @Autowired
 	// private CreateCountry createCountry;
  
-	@RequestMapping(value = {"/find/code", "/find/code/{id}"})
-	public ResponseEntity<Object> findByCode(@PathVariable String code) {
+	@RequestMapping(value = {"/find/code", "/find/code/{code}"}, method = RequestMethod.GET)
+	public ResponseEntity<Object> findByCode(@PathVariable(name = "code") String code) {
 		try {
 			Country country = findCountryByCode.find(code);
 
-			if (country == null) {
-				return ResponseHandler.generateResponse(404, false, HttpStatus.NOT_FOUND.name(), null, HttpStatus.NOT_FOUND);
-			}
-			return ResponseHandler.generateResponse(200, true,  HttpStatus.FOUND.name(), CountryOutMapper.toDto(country), HttpStatus.OK);
+				if (country == null) {
+					return ResponseHandler.generateResponse(404, false, HttpStatus.NOT_FOUND.name(), null, HttpStatus.NOT_FOUND);
+				}
+				return ResponseHandler.generateResponse(200, true,  HttpStatus.FOUND.name(), CountryOutMapper.toDto(country), HttpStatus.OK);
 		} catch (Exception e) {
 			return ResponseHandler.generateResponse(500, false,  e.getMessage(), null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
-	// @GetMapping("/find/code")
-	// public ResponseEntity<Object> findByCodeNull() {
-	// 	return ResponseHandler.generateResponse(400, false, HttpStatus.BAD_REQUEST.name(), null, HttpStatus.BAD_REQUEST);
-	// }
-
-	// @GetMapping("/find/name")
-	// public ResponseEntity<Object> findByNameNull() {
-	// 	return ResponseHandler.generateResponse(400, false, HttpStatus.BAD_REQUEST.name(), null, HttpStatus.BAD_REQUEST);
-	// }
-
-	@GetMapping("/find/name/{name}")
-	public ResponseEntity<Object> findByName(@PathVariable Optional<String> name) {
-		if (!name.isPresent()) {
-			return ResponseHandler.generateResponse(400, false, HttpStatus.BAD_REQUEST.name(), null, HttpStatus.BAD_REQUEST);
-		}
-
+	@RequestMapping(value = {"/find/name", "/find/name/{name}"}, method = RequestMethod.GET)
+	public ResponseEntity<Object> findByName(@PathVariable(name = "name") String name) {
 		try {
-			Country country = findCountryByName.find(name.get());
+			Country country = findCountryByName.find(name);
 
-			if (country == null) {
-				return ResponseHandler.generateResponse(404, false, HttpStatus.NOT_FOUND.name(), null, HttpStatus.NOT_FOUND);
-			}
-			return ResponseHandler.generateResponse(200, true,  HttpStatus.FOUND.name(), CountryOutMapper.toDto(country), HttpStatus.OK);
+				if (country == null) {
+					return ResponseHandler.generateResponse(404, false, HttpStatus.NOT_FOUND.name(), null, HttpStatus.NOT_FOUND);
+				}
+				return ResponseHandler.generateResponse(200, true,  HttpStatus.FOUND.name(), CountryOutMapper.toDto(country), HttpStatus.OK);
 		} catch (Exception e) {
 			return ResponseHandler.generateResponse(500, false,  e.getMessage(), null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}

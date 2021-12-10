@@ -41,21 +41,12 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleMissingPathVariable(
         MissingPathVariableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
 
-          System.out.println(ex);
-          System.out.println(headers);
-          System.out.println(status);
-          System.out.println(request);
-
-      return ResponseHandler.generateResponse(status.value(), false, status.name(), ex.getVariableName(), status);
+      return ResponseHandler.generateResponse(status.value(), false, ex.getMessage(),null, status);
     }
 
     @Override
     protected ResponseEntity<Object> handleHttpRequestMethodNotSupported(
 			HttpRequestMethodNotSupportedException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-          System.out.println(ex);
-          System.out.println(headers);
-          System.out.println(status);
-          System.out.println(request);
 
           Set<HttpMethod> supportedMethods = ex.getSupportedHttpMethods();
 
