@@ -77,11 +77,4 @@ public class Billing {
     @JoinColumn(name = "currency")
     private Currency currency;
 
-	/**
-	 * 
-	 */
-	public Billing() {
-		// TODO Auto-generated constructor stub
-	}
-
 }

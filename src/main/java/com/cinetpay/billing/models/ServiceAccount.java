@@ -4,7 +4,6 @@
 package com.cinetpay.billing.models;
 
 import java.sql.Timestamp;
-import java.util.Set;
 
 import javax.persistence.*;
 
@@ -12,16 +11,14 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import com.cinetpay.billing.enumerations.*;
-
 /**
  * @author Germinator
  *
  */
 @Entity
-@Table(name = "billings_services")
+@Table(name = "services_accounts")
 @EntityListeners(AuditingEntityListener.class)
-public class Billing_Service {
+public class ServiceAccount {
 	
 	@Id
 	@Column(columnDefinition = "varchar(255)", nullable = false, unique = true)
@@ -32,37 +29,24 @@ public class Billing_Service {
 	
     @Column(columnDefinition = "varchar(255)", name = "owner", nullable = false)
     private String owner;
+	
+    @Column(columnDefinition = "varchar(255)", name = "account", nullable = false, unique = true)
+    private String account;
     
-    @Enumerated(EnumType.STRING)
-    @Column(name = "option", nullable = false)
-    private Option option;
-    
-    @Enumerated(EnumType.STRING)
-    @Column(name = "mode", nullable = false)
-    private Mode mode;
-    
-    @Enumerated(EnumType.STRING)
-    @Column(name = "type", nullable = false)
-    private Type type;
-    
-    @Enumerated(EnumType.STRING)
-    @Column(name = "period")
-    private Period period;
-    
-    @Column(columnDefinition = "integer", name = "frequency")
-    private Integer frequency;
+    @Column(columnDefinition = "Decimal(20,2) default 0", name = "balance", nullable = false)
+    private Double balance;
 
-    @Column(name = "is_active", columnDefinition = "boolean default true")
-    private Boolean is_active = true;
+    @Column(name = "is_blocked", columnDefinition = "boolean default false")
+    private Boolean isBlocked = false;
 
     @Column(columnDefinition = "timestamp default CURRENT_TIMESTAMP", name = "created_at")
     @CreationTimestamp
-    private Timestamp created_at;
+    private Timestamp createdAt;
     
 	@Column(columnDefinition = "timestamp default CURRENT_TIMESTAMP", name = "updated_at")
     @CreationTimestamp
     @LastModifiedDate
-    private Timestamp updated_at;
+    private Timestamp updatedAt;
 	
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "product")
@@ -73,21 +57,7 @@ public class Billing_Service {
     private Country country;
 	
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "partner")
-    private Partner partner;
-	
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "currency")
     private Currency currency;
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "billing_service", cascade = CascadeType.ALL)
-    private Set<Commission_Service> commissions_services;
-
-	/**
-	 * 
-	 */
-	public Billing_Service() {
-		// TODO Auto-generated constructor stub
-	}
 
 }

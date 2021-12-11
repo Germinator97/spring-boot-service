@@ -18,11 +18,11 @@ public class Country {
 	
     private String name;
 
-    private Boolean is_active;
+    private Boolean isActive;
 
-    private LocalDateTime created_at;
+    private LocalDateTime createdAt;
     
-    private LocalDateTime updated_at;
+    private LocalDateTime updatedAt;
 
 	public void generateId() {
         this.id = UUID.randomUUID().toString();
@@ -33,88 +33,52 @@ public class Country {
         this.code = sequence;
     }
 
-	/**
-	 * @return the id
-	 */
-	public String getId() {
-		return id;
-	}
+    public String getId() {
+        return id;
+    }
 
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(String id) {
-		this.id = id;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	/**
-	 * @return the code
-	 */
-	public String getCode() {
-		return code;
-	}
+    public String getCode() {
+        return code;
+    }
 
-	/**
-	 * @param code the code to set
-	 */
-	public void setCode(String code) {
-		this.code = code;
-	}
+    public void setCode(String code) {
+        this.code = code;
+    }
 
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	/**
-	 * @param name the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	/**
-	 * @return the is_active
-	 */
-	public Boolean getIs_active() {
-		return is_active;
-	}
+    public Boolean getIsActive() {
+        return isActive;
+    }
 
-	/**
-	 * @param is_active the is_active to set
-	 */
-	public void setIs_active(Boolean is_active) {
-		this.is_active = is_active;
-	}
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
+    }
 
-	/**
-	 * @return the created_at
-	 */
-	public LocalDateTime getCreated_at() {
-		return created_at;
-	}
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
 
-	/**
-	 * @param created_at the created_at to set
-	 */
-	public void setCreated_at(LocalDateTime created_at) {
-		this.created_at = created_at;
-	}
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
 
-	/**
-	 * @return the updated_at
-	 */
-	public LocalDateTime getUpdated_at() {
-		return updated_at;
-	}
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
 
-	/**
-	 * @param updated_at the updated_at to set
-	 */
-	public void setUpdated_at(LocalDateTime updated_at) {
-		this.updated_at = updated_at;
-	}
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 	
 }

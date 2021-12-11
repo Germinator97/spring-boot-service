@@ -8,12 +8,12 @@ import java.util.Set;
 
 import javax.persistence.*;
 
-import com.cinetpay.billing.models.Billing_Service;
-import com.cinetpay.billing.models.Commission_Partner;
-import com.cinetpay.billing.models.Merchant_Account;
-import com.cinetpay.billing.models.Partner_Account;
-import com.cinetpay.billing.models.Service_Account;
-import com.cinetpay.billing.models.Vendor_Account;
+import com.cinetpay.billing.models.BillingService;
+import com.cinetpay.billing.models.CommissionPartner;
+import com.cinetpay.billing.models.MerchantAccount;
+import com.cinetpay.billing.models.PartnerAccount;
+import com.cinetpay.billing.models.ServiceAccount;
+import com.cinetpay.billing.models.VendorAccount;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -42,33 +42,33 @@ public class CountryModel {
     private String name;
 
     @Column(name = "is_active", columnDefinition = "boolean default true")
-    private Boolean is_active = true;
+    private Boolean isActive = true;
 
     @Column(updatable = false, columnDefinition = "timestamp default CURRENT_TIMESTAMP", name = "created_at")
     @CreationTimestamp
-    private LocalDateTime created_at;
+    private LocalDateTime createdAt;
     
 	@Column(columnDefinition = "timestamp default CURRENT_TIMESTAMP", name = "updated_at")
     @UpdateTimestamp
-    private LocalDateTime updated_at;
+    private LocalDateTime updatedAt;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "country", cascade = CascadeType.ALL)
-    private Set<Commission_Partner> commissions_partners;
+    private Set<CommissionPartner> commissionsPartners;
     
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "country", cascade = CascadeType.ALL)
-    private Set<Billing_Service> billings_services;
+    private Set<BillingService> billingsServices;
     
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "country", cascade = CascadeType.ALL)
-    private Set<Vendor_Account> vendors_accounts;
+    private Set<VendorAccount> vendorsAccounts;
     
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "country", cascade = CascadeType.ALL)
-    private Set<Merchant_Account> merchants_accounts;
+    private Set<MerchantAccount> merchantsAccounts;
     
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "country", cascade = CascadeType.ALL)
-    private Set<Service_Account> services_accounts;
+    private Set<ServiceAccount> servicesAccounts;
     
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "country", cascade = CascadeType.ALL)
-    private Set<Partner_Account> partners_accounts;
+    private Set<PartnerAccount> partnersAccounts;
 
     public String getId() {
         return id;
@@ -94,76 +94,76 @@ public class CountryModel {
         this.name = name;
     }
 
-    public Boolean getIs_active() {
-        return is_active;
+    public Boolean getIsActive() {
+        return isActive;
     }
 
-    public void setIs_active(Boolean is_active) {
-        this.is_active = is_active;
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
     }
 
-    public LocalDateTime getCreated_at() {
-        return created_at;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreated_at(LocalDateTime created_at) {
-        this.created_at = created_at;
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public LocalDateTime getUpdated_at() {
-        return updated_at;
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
     }
 
-    public void setUpdated_at(LocalDateTime updated_at) {
-        this.updated_at = updated_at;
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
-    public Set<Commission_Partner> getCommissions_partners() {
-        return commissions_partners;
+    public Set<CommissionPartner> getCommissionsPartners() {
+        return commissionsPartners;
     }
 
-    public void setCommissions_partners(Set<Commission_Partner> commissions_partners) {
-        this.commissions_partners = commissions_partners;
+    public void setCommissionsPartners(Set<CommissionPartner> commissionsPartners) {
+        this.commissionsPartners = commissionsPartners;
     }
 
-    public Set<Billing_Service> getBillings_services() {
-        return billings_services;
+    public Set<BillingService> getBillingsServices() {
+        return billingsServices;
     }
 
-    public void setBillings_services(Set<Billing_Service> billings_services) {
-        this.billings_services = billings_services;
+    public void setBillingsServices(Set<BillingService> billingsServices) {
+        this.billingsServices = billingsServices;
     }
 
-    public Set<Vendor_Account> getVendors_accounts() {
-        return vendors_accounts;
+    public Set<VendorAccount> getVendorsAccounts() {
+        return vendorsAccounts;
     }
 
-    public void setVendors_accounts(Set<Vendor_Account> vendors_accounts) {
-        this.vendors_accounts = vendors_accounts;
+    public void setVendorsAccounts(Set<VendorAccount> vendorsAccounts) {
+        this.vendorsAccounts = vendorsAccounts;
     }
 
-    public Set<Merchant_Account> getMerchants_accounts() {
-        return merchants_accounts;
+    public Set<MerchantAccount> getMerchantsAccounts() {
+        return merchantsAccounts;
     }
 
-    public void setMerchants_accounts(Set<Merchant_Account> merchants_accounts) {
-        this.merchants_accounts = merchants_accounts;
+    public void setMerchantsAccounts(Set<MerchantAccount> merchantsAccounts) {
+        this.merchantsAccounts = merchantsAccounts;
     }
 
-    public Set<Service_Account> getServices_accounts() {
-        return services_accounts;
+    public Set<ServiceAccount> getServicesAccounts() {
+        return servicesAccounts;
     }
 
-    public void setServices_accounts(Set<Service_Account> services_accounts) {
-        this.services_accounts = services_accounts;
+    public void setServicesAccounts(Set<ServiceAccount> servicesAccounts) {
+        this.servicesAccounts = servicesAccounts;
     }
 
-    public Set<Partner_Account> getPartners_accounts() {
-        return partners_accounts;
+    public Set<PartnerAccount> getPartnersAccounts() {
+        return partnersAccounts;
     }
 
-    public void setPartners_accounts(Set<Partner_Account> partners_accounts) {
-        this.partners_accounts = partners_accounts;
+    public void setPartnersAccounts(Set<PartnerAccount> partnersAccounts) {
+        this.partnersAccounts = partnersAccounts;
     }
-
+    
 }

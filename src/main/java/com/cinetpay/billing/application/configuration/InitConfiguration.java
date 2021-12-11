@@ -3,14 +3,26 @@ package com.cinetpay.billing.application.configuration;
 import java.util.Optional;
 
 import com.cinetpay.billing.application.SequenceRepository;
+import com.cinetpay.billing.application.mapper.Mapper;
 import com.cinetpay.billing.models.Sequence;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class InitConfiguration {
+
+    @Bean
+	public ModelMapper modelMapper() {
+		return new ModelMapper();
+	}
+
+    @Bean
+	public Mapper mapper() {
+		return new Mapper();
+	}
     
     @Bean
     public ApplicationRunner initializer(SequenceRepository repository) {

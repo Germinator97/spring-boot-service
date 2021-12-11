@@ -21,9 +21,9 @@ public class CountryOutMapper {
 		countryDto.setId(entity.getId());
 		countryDto.setCode(entity.getCode());
 		countryDto.setName(entity.getName());
-		countryDto.setIs_active(entity.getIs_active());
-		countryDto.setCreated_at(entity.getCreated_at());
-		countryDto.setUpdated_at(entity.getUpdated_at());
+		countryDto.setIsActive(entity.getIsActive());
+		countryDto.setCreatedAt(entity.getCreatedAt());
+		countryDto.setUpdatedAt(entity.getUpdatedAt());
  
 		return countryDto;
     }
@@ -37,9 +37,9 @@ public class CountryOutMapper {
 		country.setId(countryDto.getId());
 		country.setCode(countryDto.getCode());
 		country.setName(countryDto.getName());
-		country.setIs_active(countryDto.getIs_active());
-		country.setCreated_at(countryDto.getCreated_at());
-		country.setUpdated_at(countryDto.getUpdated_at());
+		country.setIsActive(countryDto.getIsActive());
+		country.setCreatedAt(countryDto.getCreatedAt());
+		country.setUpdatedAt(countryDto.getUpdatedAt());
  
 		return country;
     }

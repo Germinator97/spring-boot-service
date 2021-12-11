@@ -24,53 +24,11 @@ public class CountryDto {
 	@NotEmpty(message = "The country name must not be empty.")
     private String name;
 
-    private Boolean is_active;
+    private Boolean isActive;
 
-	private LocalDateTime created_at;
+	private LocalDateTime createdAt;
 
-    private LocalDateTime updated_at;
-
-	/**
-	 * @return the code
-	 */
-	public String getCode() {
-		return code;
-	}
-
-	/**
-	 * @param code the code to set
-	 */
-	public void setCode(String code) {
-		this.code = code;
-	}
-
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * @param name the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	/**
-	 * @return the is_active
-	 */
-	public Boolean getIs_active() {
-		return is_active;
-	}
-
-	/**
-	 * @param is_active the is_active to set
-	 */
-	public void setIs_active(Boolean is_active) {
-		this.is_active = is_active;
-	}
+    private LocalDateTime updatedAt;
 
     public String getId() {
         return id;
@@ -80,22 +38,44 @@ public class CountryDto {
         this.id = id;
     }
 
-    public LocalDateTime getCreated_at() {
-        return created_at;
+    public String getCode() {
+        return code;
     }
 
-    public void setCreated_at(LocalDateTime created_at) {
-        this.created_at = created_at;
+    public void setCode(String code) {
+        this.code = code;
     }
 
-    public LocalDateTime getUpdated_at() {
-        return updated_at;
+    public String getName() {
+        return name;
     }
 
-    public void setUpdated_at(LocalDateTime updated_at) {
-        this.updated_at = updated_at;
+    public void setName(String name) {
+        this.name = name;
     }
 
-	
+    public Boolean getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 
 }

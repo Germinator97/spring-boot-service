@@ -19,9 +19,17 @@ public class DeleteCountryDto {
     @Pattern(regexp = "^true$|^false$", message = "The country is_active must be : true or false")
     private String is_active;
 
-    private LocalDateTime created_at;
+    private LocalDateTime createdAt;
 
-    private LocalDateTime updated_at;
+    private LocalDateTime updatedAt;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getCode() {
         return code;
@@ -39,38 +47,29 @@ public class DeleteCountryDto {
         this.name = name;
     }
 
-    public String getIs_active() {
+    public String getIsActive() {
         return is_active;
     }
 
-    public void setIs_active(String is_active) {
-        this.is_active = is_active;
+    public void setIsActive(String isActive) {
+        this.is_active = isActive;
     }
 
-    public String getId() {
-        return id;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public LocalDateTime getCreated_at() {
-        return created_at;
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
     }
 
-    public void setCreated_at(LocalDateTime created_at) {
-        this.created_at = created_at;
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
-    public LocalDateTime getUpdated_at() {
-        return updated_at;
-    }
-
-    public void setUpdated_at(LocalDateTime updated_at) {
-        this.updated_at = updated_at;
-    }
-
-    
 
 }

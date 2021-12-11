@@ -32,148 +32,33 @@ public class Product {
     private String name;
 
     @Column(name = "is_active", columnDefinition = "boolean default true")
-    private Boolean is_active = true;
+    private Boolean isActive = true;
 
     @Column(columnDefinition = "timestamp default CURRENT_TIMESTAMP", name = "created_at")
     @CreationTimestamp
-    private Timestamp created_at;
+    private Timestamp createdAt;
     
 	@Column(columnDefinition = "timestamp default CURRENT_TIMESTAMP", name = "updated_at")
     @CreationTimestamp
     @LastModifiedDate
-    private Timestamp updated_at;
+    private Timestamp updatedAt;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL)
-    private Set<Commission_Partner> commissions_partners;
+    private Set<CommissionPartner> commissionsPartners;
     
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL)
-    private Set<Billing_Service> billings_services;
+    private Set<BillingService> billingsServices;
     
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL)
-    private Set<Vendor_Account> vendors_accounts;
+    private Set<VendorAccount> vendorsAccounts;
     
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL)
-    private Set<Merchant_Account> merchants_accounts;
+    private Set<MerchantAccount> merchantsAccounts;
     
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL)
-    private Set<Service_Account> services_accounts;
+    private Set<ServiceAccount> servicesAccounts;
     
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL)
-    private Set<Partner_Account> partners_accounts;
-
-	/**
-	 * @return the id
-	 */
-	public String getId() {
-		return id;
-	}
-
-
-
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(String id) {
-		this.id = id;
-	}
-
-
-
-	/**
-	 * @return the code
-	 */
-	public String getCode() {
-		return code;
-	}
-
-
-
-	/**
-	 * @param code the code to set
-	 */
-	public void setCode(String code) {
-		this.code = code;
-	}
-
-
-
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
-
-
-
-	/**
-	 * @param name the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
-
-
-
-	/**
-	 * @return the is_active
-	 */
-	public Boolean getIs_active() {
-		return is_active;
-	}
-
-
-
-	/**
-	 * @param is_active the is_active to set
-	 */
-	public void setIs_active(Boolean is_active) {
-		this.is_active = is_active;
-	}
-
-
-
-	/**
-	 * @return the created_at
-	 */
-	public Timestamp getCreated_at() {
-		return created_at;
-	}
-
-
-
-	/**
-	 * @param created_at the created_at to set
-	 */
-	public void setCreated_at(Timestamp created_at) {
-		this.created_at = created_at;
-	}
-
-
-
-	/**
-	 * @return the updated_at
-	 */
-	public Timestamp getUpdated_at() {
-		return updated_at;
-	}
-
-
-
-	/**
-	 * @param updated_at the updated_at to set
-	 */
-	public void setUpdated_at(Timestamp updated_at) {
-		this.updated_at = updated_at;
-	}
-
-
-
-	/**
-	 * 
-	 */
-	public Product() {
-		// TODO Auto-generated constructor stub
-	}
+    private Set<PartnerAccount> partnersAccounts;
 
 }

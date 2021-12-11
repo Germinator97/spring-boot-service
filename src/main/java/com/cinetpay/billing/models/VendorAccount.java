@@ -16,9 +16,9 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
  *
  */
 @Entity
-@Table(name = "customers_accounts")
+@Table(name = "vendors_accounts")
 @EntityListeners(AuditingEntityListener.class)
-public class Customer_Account {
+public class VendorAccount {
 	
 	@Id
 	@Column(columnDefinition = "varchar(255)", nullable = false, unique = true)
@@ -27,9 +27,6 @@ public class Customer_Account {
     @Column(columnDefinition = "varchar(255)", name = "vendor", nullable = false)
     private String vendor;
 	
-    @Column(columnDefinition = "varchar(255)", name = "owner", nullable = false)
-    private String owner;
-	
     @Column(columnDefinition = "varchar(255)", name = "account", nullable = false, unique = true)
     private String account;
     
@@ -37,26 +34,27 @@ public class Customer_Account {
     private Double balance;
 
     @Column(name = "is_blocked", columnDefinition = "boolean default false")
-    private Boolean is_blocked = false;
+    private Boolean isBlocked = false;
 
     @Column(columnDefinition = "timestamp default CURRENT_TIMESTAMP", name = "created_at")
     @CreationTimestamp
-    private Timestamp created_at;
+    private Timestamp createdAt;
     
 	@Column(columnDefinition = "timestamp default CURRENT_TIMESTAMP", name = "updated_at")
     @CreationTimestamp
     @LastModifiedDate
-    private Timestamp updated_at;
+    private Timestamp updatedAt;
+	
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "product")
+    private Product product;
+	
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "country")
+    private Country country;
 	
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "currency")
     private Currency currency;
-
-	/**
-	 * 
-	 */
-	public Customer_Account() {
-		// TODO Auto-generated constructor stub
-	}
 
 }

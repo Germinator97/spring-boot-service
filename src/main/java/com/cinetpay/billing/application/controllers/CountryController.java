@@ -7,11 +7,11 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
-import com.cinetpay.billing.application.ResponseHandler;
 import com.cinetpay.billing.application.SequenceRepository;
 import com.cinetpay.billing.application.adapter.CountryOutMapper;
 import com.cinetpay.billing.application.dto.CountryDto;
 import com.cinetpay.billing.application.dto.DeleteCountryDto;
+import com.cinetpay.billing.application.response.ResponseHandler;
 import com.cinetpay.billing.domain.country.entity.Country;
 import com.cinetpay.billing.domain.country.repository.CountryRepository;
 import com.cinetpay.billing.models.Sequence;
@@ -86,13 +86,10 @@ public class CountryController {
 		try {
 			Country optionalCountry = countryRepository.findByName(countryDto.getName());
 
-			System.out.println("optionalCountry");
-			System.out.println(optionalCountry);
-
 			if (optionalCountry != null) {
 
-				if (!optionalCountry.getIs_active()) {
-					optionalCountry.setIs_active(true);
+				if (!optionalCountry.getIsActive()) {
+					optionalCountry.setIsActive(true);
 
 					Country country = countryRepository.update(optionalCountry);
 		
@@ -110,7 +107,7 @@ public class CountryController {
 				Country data =  CountryOutMapper.toEntity(countryDto);
 				data.generateId();
 				data.passCode(code);
-				data.setIs_active(true);
+				data.setIsActive(true);
 				Country country = countryRepository.create(data);
 
 				String[] array = code.split("\\.");
@@ -163,7 +160,7 @@ public class CountryController {
 				return ResponseHandler.generateResponse(404, false, HttpStatus.NOT_FOUND.name(), null, HttpStatus.NOT_FOUND);
 			}
 
-			exist.setIs_active(Boolean.valueOf(countryDto.getIs_active()));
+			exist.setIsActive(Boolean.valueOf(countryDto.getIsActive()));
 
 			Country country = countryRepository.update(exist);
 

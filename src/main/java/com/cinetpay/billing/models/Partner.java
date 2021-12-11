@@ -41,13 +41,13 @@ public class Partner {
     private Timestamp updated_at;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "partner", cascade = CascadeType.ALL)
-    private Set<Commission_Partner> commissions_partners;
+    private Set<CommissionPartner> commissions_partners;
     
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "partner", cascade = CascadeType.ALL)
-    private Set<Billing_Service> billings_services;
+    private Set<BillingService> billings_services;
     
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "partner", cascade = CascadeType.ALL)
-    private Set<Partner_Account> partners_accounts;
+    private Set<PartnerAccount> partners_accounts;
 	
 	
 

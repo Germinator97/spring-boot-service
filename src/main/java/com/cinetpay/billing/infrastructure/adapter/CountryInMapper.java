@@ -21,9 +21,9 @@ public class CountryInMapper {
 		country.setId(model.getId());
 		country.setCode(model.getCode());
 		country.setName(model.getName());
-		country.setIs_active(model.getIs_active());
-		country.setCreated_at(model.getCreated_at());
-		country.setUpdated_at(model.getUpdated_at());
+		country.setIsActive(model.getIsActive());
+		country.setCreatedAt(model.getCreatedAt());
+		country.setUpdatedAt(model.getUpdatedAt());
  
 		return country;
     }
@@ -37,9 +37,9 @@ public class CountryInMapper {
 		model.setId(country.getId());
 		model.setCode(country.getCode());
 		model.setName(country.getName());
-		model.setIs_active(country.getIs_active());
-		model.setCreated_at(country.getCreated_at());
-		model.setUpdated_at(country.getUpdated_at());
+		model.setIsActive(country.getIsActive());
+		model.setCreatedAt(country.getCreatedAt());
+		model.setUpdatedAt(country.getUpdatedAt());
  
 		return model;
     }

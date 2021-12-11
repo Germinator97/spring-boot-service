@@ -3,7 +3,7 @@ package com.cinetpay.billing.infrastructure.exceptions;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.cinetpay.billing.application.ResponseHandler;
+import com.cinetpay.billing.application.response.ResponseHandler;
 
 import java.util.Set;
 import org.springframework.context.support.DefaultMessageSourceResolvable;

@@ -16,9 +16,9 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
  *
  */
 @Entity
-@Table(name = "services_accounts")
+@Table(name = "customers_accounts")
 @EntityListeners(AuditingEntityListener.class)
-public class Service_Account {
+public class CustomerAccount {
 	
 	@Id
 	@Column(columnDefinition = "varchar(255)", nullable = false, unique = true)
@@ -37,34 +37,19 @@ public class Service_Account {
     private Double balance;
 
     @Column(name = "is_blocked", columnDefinition = "boolean default false")
-    private Boolean is_blocked = false;
+    private Boolean isBlocked = false;
 
     @Column(columnDefinition = "timestamp default CURRENT_TIMESTAMP", name = "created_at")
     @CreationTimestamp
-    private Timestamp created_at;
+    private Timestamp createdAt;
     
 	@Column(columnDefinition = "timestamp default CURRENT_TIMESTAMP", name = "updated_at")
     @CreationTimestamp
     @LastModifiedDate
-    private Timestamp updated_at;
-	
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "product")
-    private Product product;
-	
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "country")
-    private Country country;
+    private Timestamp updatedAt;
 	
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "currency")
     private Currency currency;
-
-	/**
-	 * 
-	 */
-	public Service_Account() {
-		// TODO Auto-generated constructor stub
-	}
 
 }

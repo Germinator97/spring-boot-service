@@ -16,56 +16,40 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
  *
  */
 @Entity
-@Table(name = "commissions_partners")
+@Table(name = "commissions_services")
 @EntityListeners(AuditingEntityListener.class)
-public class Commission_Partner {
+public class CommissionService {
 	
 	@Id
 	@Column(columnDefinition = "varchar(255)", nullable = false, unique = true)
 	protected String id;
 	
-    @Column(columnDefinition = "varchar(255)", name = "vendor", nullable = false)
-    private String vendor;
+    @Column(columnDefinition = "Decimal(20,2) default 0", name = "min", nullable = false)
+    private Double min;
+    
+    @Column(columnDefinition = "Decimal(20,2) default 0", name = "max", nullable = false)
+    private Double max;
 	
     @Column(columnDefinition = "Decimal(10,2) default 0", name = "commission_fixe", nullable = false)
-    private Double commission_fixe;
+    private Double commissionFixe;
     
     @Column(columnDefinition = "Decimal(2,2) default 0", name = "commission_variable", nullable = false)
-    private Double commission_variable;
+    private Double commissionVariable;
 
     @Column(name = "is_active", columnDefinition = "boolean default true")
-    private Boolean is_active = true;
-
+    private Boolean isActive = true;
+    
     @Column(columnDefinition = "timestamp default CURRENT_TIMESTAMP", name = "created_at")
     @CreationTimestamp
-    private Timestamp created_at;
+    private Timestamp createdAt;
     
 	@Column(columnDefinition = "timestamp default CURRENT_TIMESTAMP", name = "updated_at")
     @CreationTimestamp
     @LastModifiedDate
-    private Timestamp updated_at;
-	
+    private Timestamp updatedAt;
+    
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "product")
-    private Product product;
-	
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "country")
-    private Country country;
-	
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "partner")
-    private Partner partner;
-	
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "currency")
-    private Currency currency;
-
-	/**
-	 * 
-	 */
-	public Commission_Partner() {
-		// TODO Auto-generated constructor stub
-	}
+    @JoinColumn(name = "billingService")
+    private BillingService billingService;
 
 }
