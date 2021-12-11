@@ -22,9 +22,9 @@ public class InitConfiguration {
 
         else {
             Sequence sequence = new Sequence();
-            sequence.setCountry("03.0001");
-            sequence.setCurrency("04.01");
-            sequence.setProduct("02.001");
+            sequence.setCountry("03.1000");
+            sequence.setCurrency("04.10");
+            sequence.setProduct("02.100");
             return args -> repository.save(sequence);
         }
 

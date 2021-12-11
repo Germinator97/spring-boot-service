@@ -46,13 +46,14 @@ public class CountryModel {
     private String name;
 
     @Column(name = "is_active", columnDefinition = "boolean default true", nullable = false)
-    private Boolean is_active;
+    private Boolean is_active = true;
 
     @Column(columnDefinition = "timestamp default CURRENT_TIMESTAMP", name = "created_at", nullable = false)
     @CreationTimestamp
     private Timestamp created_at;
     
 	@Column(columnDefinition = "timestamp default CURRENT_TIMESTAMP", name = "updated_at", nullable = false)
+    @CreationTimestamp
     @LastModifiedDate
     private Timestamp updated_at;
 	

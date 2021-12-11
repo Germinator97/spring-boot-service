@@ -1,0 +1,22 @@
+-------------------- Auto-Git Log --------------------
+		Fri Dec 10 2021 23:32:30 GMT+0000 (Greenwich Mean Time)
+------------------------------------------------------
+
+Modified files:
+* src/main/java/com/cinetpay/billing/configurations/CountryConfiguration.java
+* src/main/java/com/cinetpay/billing/configurations/InitConfiguration.java
+* src/main/java/com/cinetpay/billing/database/country/adapter/CountryAdapterImpl.java
+* src/main/java/com/cinetpay/billing/database/country/model/CountryModel.java
+* src/main/java/com/cinetpay/billing/exceptions/GlobalExceptionHandler.java
+* src/main/java/com/cinetpay/billing/infrastructure/country/controller/CountryController.java
+* src/main/java/com/cinetpay/billing/infrastructure/country/mapper/CountryInMapper.java
+
+
+Created files:
+* .autogit/logs/log-10-11-2021-23-2-21.txt
+
+
+Deleted files:
+
+
+Renamed files:

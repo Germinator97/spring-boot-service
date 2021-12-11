@@ -85,14 +85,22 @@ public class CountryController {
 				return ResponseHandler.generateResponse(400, false, HttpStatus.FOUND.name(), null, HttpStatus.FOUND);
 			}
 
-			System.out.println(sequenceRepository);
-
 			Optional<Sequence> sequence = sequenceRepository.findById(1);
 
-			System.out.println(sequence.get().getCountry());
+			String code = sequence.get().getCountry();
 
 			if (sequence.isPresent()) {
-				Country country = createCountry.create(countryDto, sequence.get().getCountry());
+				Country country = createCountry.create(countryDto, code);
+
+
+				String[] array = code.split("\\.");
+				String prefix = array[0];
+				String suffix = array[1];
+				Integer newSuffix = Integer.parseInt(suffix) + 1;
+				String nextCoce = prefix + "." + newSuffix.toString();
+
+				sequence.get().setCountry(nextCoce);
+				sequenceRepository.save(sequence.get());
 
 				return ResponseHandler.generateResponse(200, true,  HttpStatus.FOUND.name(), CountryOutMapper.toDto(country), HttpStatus.OK);
 			}
