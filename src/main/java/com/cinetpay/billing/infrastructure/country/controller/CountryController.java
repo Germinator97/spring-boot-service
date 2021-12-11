@@ -86,6 +86,15 @@ public class CountryController {
 			Country optionalCountry = findCountryByName.find(countryDto.getName());
 
 			if (optionalCountry != null) {
+
+				if (!optionalCountry.getIs_active()) {
+					optionalCountry.setIs_active(true);
+
+					Country country = updateCountry.update(optionalCountry);
+		
+					return ResponseHandler.generateResponse(200, true,  HttpStatus.OK.name(), CountryOutMapper.toDto(country), HttpStatus.OK);
+				}
+
 				return ResponseHandler.generateResponse(400, false, HttpStatus.FOUND.name(), null, HttpStatus.FOUND);
 			}
 
@@ -106,7 +115,7 @@ public class CountryController {
 				sequence.get().setCountry(nextCoce);
 				sequenceRepository.save(sequence.get());
 
-				return ResponseHandler.generateResponse(200, true,  HttpStatus.FOUND.name(), CountryOutMapper.toDto(country), HttpStatus.OK);
+				return ResponseHandler.generateResponse(200, true,  HttpStatus.CREATED.name(), CountryOutMapper.toDto(country), HttpStatus.OK);
 			}
 
 			else {
@@ -129,6 +138,25 @@ public class CountryController {
 			}
 
 			exist.setName(countryDto.getName());
+
+			Country country = updateCountry.update(exist);
+
+			return ResponseHandler.generateResponse(200, true,  HttpStatus.OK.name(), CountryOutMapper.toDto(country), HttpStatus.OK);
+		} catch (Exception e) {
+			return ResponseHandler.generateResponse(500, false,  e.getMessage(), null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@RequestMapping(value = {"/delete", "/delete/{name}"}, method = RequestMethod.POST)
+	public ResponseEntity<Object> delete(@PathVariable(name = "name") String name, @Valid @RequestBody CountryDto countryDto) {
+		try {
+			Country exist = findCountryByName.find(name);
+
+			if (exist == null) {
+				return ResponseHandler.generateResponse(404, false, HttpStatus.NOT_FOUND.name(), null, HttpStatus.NOT_FOUND);
+			}
+
+			exist.setIs_active(countryDto.getIs_active());
 
 			Country country = updateCountry.update(exist);
 

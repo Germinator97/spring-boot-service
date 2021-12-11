@@ -3,7 +3,7 @@
  */
 package com.cinetpay.billing.entities;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 /**
  * @author mac
@@ -19,9 +19,9 @@ public class Country {
 
     private Boolean is_active;
 
-    private Timestamp created_at;
+    private LocalDateTime created_at;
     
-    private Timestamp updated_at;
+    private LocalDateTime updated_at;
 
 	/**
 	 * @return the id
@@ -82,28 +82,28 @@ public class Country {
 	/**
 	 * @return the created_at
 	 */
-	public Timestamp getCreated_at() {
+	public LocalDateTime getCreated_at() {
 		return created_at;
 	}
 
 	/**
 	 * @param created_at the created_at to set
 	 */
-	public void setCreated_at(Timestamp created_at) {
+	public void setCreated_at(LocalDateTime created_at) {
 		this.created_at = created_at;
 	}
 
 	/**
 	 * @return the updated_at
 	 */
-	public Timestamp getUpdated_at() {
+	public LocalDateTime getUpdated_at() {
 		return updated_at;
 	}
 
 	/**
 	 * @param updated_at the updated_at to set
 	 */
-	public void setUpdated_at(Timestamp updated_at) {
+	public void setUpdated_at(LocalDateTime updated_at) {
 		this.updated_at = updated_at;
 	}
 	

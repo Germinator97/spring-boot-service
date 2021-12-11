@@ -3,7 +3,7 @@
  */
 package com.cinetpay.billing.database.country.model;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.UUID;
 
@@ -17,7 +17,7 @@ import com.cinetpay.billing.models.Service_Account;
 import com.cinetpay.billing.models.Vendor_Account;
 
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.data.annotation.LastModifiedDate;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import lombok.Data;
@@ -45,14 +45,13 @@ public class CountryModel {
     @Column(name = "is_active", columnDefinition = "boolean default true")
     private Boolean is_active = true;
 
-    @Column(columnDefinition = "timestamp default CURRENT_TIMESTAMP", name = "created_at")
+    @Column(updatable = false, columnDefinition = "timestamp default CURRENT_TIMESTAMP", name = "created_at")
     @CreationTimestamp
-    private Timestamp created_at;
+    private LocalDateTime created_at;
     
 	@Column(columnDefinition = "timestamp default CURRENT_TIMESTAMP", name = "updated_at")
-    @CreationTimestamp
-    @LastModifiedDate
-    private Timestamp updated_at;
+    @UpdateTimestamp
+    private LocalDateTime updated_at;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "country", cascade = CascadeType.ALL)
     private Set<Commission_Partner> commissions_partners;
@@ -113,19 +112,19 @@ public class CountryModel {
         this.is_active = is_active;
     }
 
-    public Timestamp getCreated_at() {
+    public LocalDateTime getCreated_at() {
         return created_at;
     }
 
-    public void setCreated_at(Timestamp created_at) {
+    public void setCreated_at(LocalDateTime created_at) {
         this.created_at = created_at;
     }
 
-    public Timestamp getUpdated_at() {
+    public LocalDateTime getUpdated_at() {
         return updated_at;
     }
 
-    public void setUpdated_at(Timestamp updated_at) {
+    public void setUpdated_at(LocalDateTime updated_at) {
         this.updated_at = updated_at;
     }
 
