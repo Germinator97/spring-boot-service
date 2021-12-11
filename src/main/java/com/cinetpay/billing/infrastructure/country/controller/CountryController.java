@@ -16,6 +16,7 @@ import com.cinetpay.billing.models.Sequence;
 import com.cinetpay.billing.use_cases.country.CreateCountry;
 import com.cinetpay.billing.use_cases.country.FindCountryByCode;
 import com.cinetpay.billing.use_cases.country.FindCountryByName;
+import com.cinetpay.billing.use_cases.country.UpdateCountry;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -47,6 +48,9 @@ public class CountryController {
 
 	@Autowired
 	private SequenceRepository sequenceRepository;
+
+	@Autowired
+	private UpdateCountry updateCountry;
  
 	@RequestMapping(value = {"/find/code", "/find/code/{code}"}, method = RequestMethod.GET)
 	public ResponseEntity<Object> findByCode(@PathVariable(name = "code") String code) {
@@ -112,6 +116,25 @@ public class CountryController {
 			
 		} catch (Exception e) {
 			return ResponseHandler.generateResponse(500, false,  e.toString(), null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@RequestMapping(value = {"/update", "/update/{name}"}, method = RequestMethod.POST)
+	public ResponseEntity<Object> update(@PathVariable(name = "name") String name, @Valid @RequestBody CountryDto countryDto) {
+		try {
+			Country exist = findCountryByName.find(name);
+
+			if (exist == null) {
+				return ResponseHandler.generateResponse(404, false, HttpStatus.NOT_FOUND.name(), null, HttpStatus.NOT_FOUND);
+			}
+
+			exist.setName(countryDto.getName());
+
+			Country country = updateCountry.update(exist);
+
+			return ResponseHandler.generateResponse(200, true,  HttpStatus.OK.name(), CountryOutMapper.toDto(country), HttpStatus.OK);
+		} catch (Exception e) {
+			return ResponseHandler.generateResponse(500, false,  e.getMessage(), null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
