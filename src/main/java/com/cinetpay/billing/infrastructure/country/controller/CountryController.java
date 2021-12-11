@@ -7,12 +7,13 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
-import com.cinetpay.billing.configurations.ResponseHandler;
-import com.cinetpay.billing.configurations.SequenceRepository;
-import com.cinetpay.billing.database.country.mapper.CountryOutMapper;
-import com.cinetpay.billing.entities.Country;
-import com.cinetpay.billing.infrastructure.country.dto.CountryDto;
-import com.cinetpay.billing.infrastructure.country.dto.DeleteCountryDto;
+import com.cinetpay.billing.application.ResponseHandler;
+import com.cinetpay.billing.application.SequenceRepository;
+import com.cinetpay.billing.application.adapter.CountryOutMapper;
+import com.cinetpay.billing.application.dto.CountryDto;
+import com.cinetpay.billing.application.dto.DeleteCountryDto;
+import com.cinetpay.billing.domain.country.entity.Country;
+import com.cinetpay.billing.domain.country.repository.CountryRepository;
 import com.cinetpay.billing.models.Sequence;
 import com.cinetpay.billing.use_cases.country.CreateCountry;
 import com.cinetpay.billing.use_cases.country.FindCountryByCode;
@@ -38,25 +39,28 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/country")
 public class CountryController {
 
-	@Autowired
-	private FindCountryByCode findCountryByCode;
+	// @Autowired
+	// private FindCountryByCode findCountryByCode;
 
-	@Autowired
-	private FindCountryByName findCountryByName;
+	// @Autowired
+	// private FindCountryByName findCountryByName;
 
-	@Autowired
-	private CreateCountry createCountry;
+	// @Autowired
+	// private CreateCountry createCountry;
 
 	@Autowired
 	private SequenceRepository sequenceRepository;
 
+	// @Autowired
+	// private UpdateCountry updateCountry;
+
 	@Autowired
-	private UpdateCountry updateCountry;
+	private CountryRepository countryRepository;
  
 	@RequestMapping(value = {"/find/code", "/find/code/{code}"}, method = RequestMethod.GET)
 	public ResponseEntity<Object> findByCode(@PathVariable(name = "code") String code) {
 		try {
-			Country country = findCountryByCode.find(code);
+			Country country = countryRepository.findByCode(code);
 
 				if (country == null) {
 					return ResponseHandler.generateResponse(404, false, HttpStatus.NOT_FOUND.name(), null, HttpStatus.NOT_FOUND);
@@ -70,7 +74,7 @@ public class CountryController {
 	@RequestMapping(value = {"/find/name", "/find/name/{name}"}, method = RequestMethod.GET)
 	public ResponseEntity<Object> findByName(@PathVariable(name = "name") String name) {
 		try {
-			Country country = findCountryByName.find(name);
+			Country country = countryRepository.findByName(name);
 
 				if (country == null) {
 					return ResponseHandler.generateResponse(404, false, HttpStatus.NOT_FOUND.name(), null, HttpStatus.NOT_FOUND);
@@ -84,14 +88,14 @@ public class CountryController {
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public ResponseEntity<Object> create(@Valid @RequestBody CountryDto countryDto) {
 		try {
-			Country optionalCountry = findCountryByName.find(countryDto.getName());
+			Country optionalCountry = countryRepository.findByName(countryDto.getName());
 
 			if (optionalCountry != null) {
 
 				if (!optionalCountry.getIs_active()) {
 					optionalCountry.setIs_active(true);
 
-					Country country = updateCountry.update(optionalCountry);
+					Country country = countryRepository.update(optionalCountry);
 		
 					return ResponseHandler.generateResponse(200, true,  HttpStatus.OK.name(), CountryOutMapper.toDto(country), HttpStatus.OK);
 				}
@@ -104,8 +108,8 @@ public class CountryController {
 			String code = sequence.get().getCountry();
 
 			if (sequence.isPresent()) {
-				Country country = createCountry.create(countryDto, code);
-
+				Country data =  CountryOutMapper.toDto(countryDto);
+				Country country = countryRepository.create(data);
 
 				String[] array = code.split("\\.");
 				String prefix = array[0];
@@ -132,7 +136,7 @@ public class CountryController {
 	@RequestMapping(value = {"/update", "/update/{name}"}, method = RequestMethod.POST)
 	public ResponseEntity<Object> update(@PathVariable(name = "name") String name, @Valid @RequestBody CountryDto countryDto) {
 		try {
-			Country exist = findCountryByName.find(name);
+			Country exist = countryRepository.findByName(name);
 
 			if (exist == null) {
 				return ResponseHandler.generateResponse(404, false, HttpStatus.NOT_FOUND.name(), null, HttpStatus.NOT_FOUND);
@@ -140,7 +144,7 @@ public class CountryController {
 
 			exist.setName(countryDto.getName());
 
-			Country country = updateCountry.update(exist);
+			Country country = countryRepository.update(exist);
 
 			return ResponseHandler.generateResponse(200, true,  HttpStatus.OK.name(), CountryOutMapper.toDto(country), HttpStatus.OK);
 		} catch (Exception e) {
@@ -151,7 +155,7 @@ public class CountryController {
 	@RequestMapping(value = {"/delete", "/delete/{name}"}, method = RequestMethod.POST)
 	public ResponseEntity<Object> delete(@PathVariable(name = "name") String name, @Valid @RequestBody DeleteCountryDto countryDto) {
 		try {
-			Country exist = findCountryByName.find(name);
+			Country exist = countryRepository.findByName(name);
 
 			if (exist == null) {
 				return ResponseHandler.generateResponse(404, false, HttpStatus.NOT_FOUND.name(), null, HttpStatus.NOT_FOUND);
@@ -159,7 +163,7 @@ public class CountryController {
 
 			exist.setIs_active(Boolean.valueOf(countryDto.getIs_active()));
 
-			Country country = updateCountry.update(exist);
+			Country country = countryRepository.update(exist);
 
 			return ResponseHandler.generateResponse(200, true,  HttpStatus.OK.name(), CountryOutMapper.toDto(country), HttpStatus.OK);
 		} catch (Exception e) {

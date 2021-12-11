@@ -1,7 +1,7 @@
 package com.cinetpay.billing.use_cases.country;
 
-import com.cinetpay.billing.entities.Country;
-import com.cinetpay.billing.infrastructure.country.dto.CountryDto;
+import com.cinetpay.billing.application.dto.CountryDto;
+import com.cinetpay.billing.domain.country.entity.Country;
 
 public class CreateCountry {
 

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.cinetpay.billing.entities;
+package com.cinetpay.billing.domain.country.entity;
 
 import java.time.LocalDateTime;
 

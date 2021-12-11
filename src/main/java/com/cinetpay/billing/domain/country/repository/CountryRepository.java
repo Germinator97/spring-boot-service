@@ -7,7 +7,7 @@ public interface CountryRepository {
 
 	public Country findByName(String name);
 
-	public Country create(Country country, String sequence);
+	public Country create(Country country);
 
 	public Country update(Country data);
 }

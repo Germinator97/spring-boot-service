@@ -1,11 +1,11 @@
 /**
  * 
  */
-package com.cinetpay.billing.infrastructure.country.mapper;
+package com.cinetpay.billing.infrastructure.adapter;
 
-import com.cinetpay.billing.database.country.model.CountryModel;
-import com.cinetpay.billing.entities.Country;
-import com.cinetpay.billing.infrastructure.country.dto.CountryDto;
+import com.cinetpay.billing.application.dto.CountryDto;
+import com.cinetpay.billing.domain.country.entity.Country;
+import com.cinetpay.billing.infrastructure.entities.CountryModel;
 
 /**
  * @author mac
@@ -27,6 +27,22 @@ public class CountryInMapper {
 		country.setUpdated_at(model.getUpdated_at());
  
 		return country;
+    }
+
+	public static CountryModel toModel(Country country) {
+		if (country == null) {
+			return null;
+		}
+ 
+		CountryModel model = new CountryModel();
+		model.setId(country.getId());
+		model.setCode(country.getCode());
+		model.setName(country.getName());
+		model.setIs_active(country.getIs_active());
+		model.setCreated_at(country.getCreated_at());
+		model.setUpdated_at(country.getUpdated_at());
+ 
+		return model;
     }
 
 	public static CountryModel toCreateModel(CountryDto dto, String sequence) {

@@ -20,29 +20,29 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class CountryConfiguration {
 
-    @Bean
-    public FindCountryByCode findCountryByCode(CountryAdapter countryAdapter) {
-        return new FindCountryByCode(countryAdapter);
-    }
+    // @Bean
+    // public FindCountryByCode findCountryByCode(CountryAdapter countryAdapter) {
+    //     return new FindCountryByCode(countryAdapter);
+    // }
 
-    @Bean
-    public FindCountryByName findCountryByName(CountryAdapter countryAdapter) {
-        return new FindCountryByName(countryAdapter);
-    }
+    // @Bean
+    // public FindCountryByName findCountryByName(CountryAdapter countryAdapter) {
+    //     return new FindCountryByName(countryAdapter);
+    // }
  
-    @Bean
-    public CreateCountry countryCountry(CountryAdapter countryAdapter) {
-        return new CreateCountry(countryAdapter);
-    }
+    // @Bean
+    // public CreateCountry countryCountry(CountryAdapter countryAdapter) {
+    //     return new CreateCountry(countryAdapter);
+    // }
 
-    @Bean
-    public UpdateCountry updateCountry(CountryAdapter countryAdapter) {
-        return new UpdateCountry(countryAdapter);
-    }
+    // @Bean
+    // public UpdateCountry updateCountry(CountryAdapter countryAdapter) {
+    //     return new UpdateCountry(countryAdapter);
+    // }
 
-    @Bean
-    public CountryAdapter countryAdapter() {
-        return new CountryAdapterImpl();
-    }
+    // @Bean
+    // public CountryAdapter countryAdapter() {
+    //     return new CountryAdapterImpl();
+    // }
 
 }

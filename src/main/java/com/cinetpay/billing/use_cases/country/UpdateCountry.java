@@ -1,6 +1,6 @@
 package com.cinetpay.billing.use_cases.country;
 
-import com.cinetpay.billing.entities.Country;
+import com.cinetpay.billing.domain.country.entity.Country;
 
 public class UpdateCountry {
     private CountryAdapter adapter;

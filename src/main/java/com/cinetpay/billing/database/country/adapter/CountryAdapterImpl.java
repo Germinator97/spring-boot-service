@@ -3,11 +3,11 @@
  */
 package com.cinetpay.billing.database.country.adapter;
 
-import com.cinetpay.billing.database.country.model.CountryModel;
-import com.cinetpay.billing.database.country.repository.CountryRepository;
+import com.cinetpay.billing.application.dto.CountryDto;
 import com.cinetpay.billing.domain.country.entity.Country;
-import com.cinetpay.billing.infrastructure.country.dto.CountryDto;
-import com.cinetpay.billing.infrastructure.country.mapper.CountryInMapper;
+import com.cinetpay.billing.infrastructure.adapter.CountryInMapper;
+import com.cinetpay.billing.infrastructure.entities.CountryModel;
+import com.cinetpay.billing.infrastructure.repository.CountryJpaRepository;
 import com.cinetpay.billing.use_cases.country.CountryAdapter;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class CountryAdapterImpl implements CountryAdapter {
 
 	@Autowired
-	private CountryRepository countryRepository;
+	private CountryJpaRepository countryRepository;
 
 	public Country findByCode(String code){
 		CountryModel country = countryRepository.findByCode(code);

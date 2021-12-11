@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.cinetpay.billing.database.country.model;
+package com.cinetpay.billing.infrastructure.entities;
 
 import java.time.LocalDateTime;
 import java.util.Set;
