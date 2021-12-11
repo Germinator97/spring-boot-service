@@ -12,6 +12,7 @@ import com.cinetpay.billing.configurations.SequenceRepository;
 import com.cinetpay.billing.database.country.mapper.CountryOutMapper;
 import com.cinetpay.billing.entities.Country;
 import com.cinetpay.billing.infrastructure.country.dto.CountryDto;
+import com.cinetpay.billing.infrastructure.country.dto.DeleteCountryDto;
 import com.cinetpay.billing.models.Sequence;
 import com.cinetpay.billing.use_cases.country.CreateCountry;
 import com.cinetpay.billing.use_cases.country.FindCountryByCode;
@@ -148,7 +149,7 @@ public class CountryController {
 	}
 
 	@RequestMapping(value = {"/delete", "/delete/{name}"}, method = RequestMethod.POST)
-	public ResponseEntity<Object> delete(@PathVariable(name = "name") String name, @Valid @RequestBody CountryDto countryDto) {
+	public ResponseEntity<Object> delete(@PathVariable(name = "name") String name, @Valid @RequestBody DeleteCountryDto countryDto) {
 		try {
 			Country exist = findCountryByName.find(name);
 
@@ -156,7 +157,7 @@ public class CountryController {
 				return ResponseHandler.generateResponse(404, false, HttpStatus.NOT_FOUND.name(), null, HttpStatus.NOT_FOUND);
 			}
 
-			exist.setIs_active(countryDto.getIs_active());
+			exist.setIs_active(Boolean.valueOf(countryDto.getIs_active()));
 
 			Country country = updateCountry.update(exist);
 

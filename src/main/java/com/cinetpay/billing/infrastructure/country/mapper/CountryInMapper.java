@@ -51,6 +51,7 @@ public class CountryInMapper {
 		model.setId(country.getId());
 		model.setCode(country.getCode());
 		model.setName(country.getName());
+		model.setIs_active(country.getIs_active());
  
 		return model;
     }
