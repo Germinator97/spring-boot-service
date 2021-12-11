@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 
 import javax.validation.constraints.*;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -16,18 +17,24 @@ import lombok.Data;
 @Data
 public class CountryDto {
 
+	@Schema(hidden = true)
 	protected String id;
 	
+	@Schema(hidden = true)
 	private String code;
 	
 	@NotNull(message = "The country name must not be null.")
 	@NotEmpty(message = "The country name must not be empty.")
+    @Schema(description = "The country name ISO2",  type = "string", required = true, example ="CI")
     private String name;
 
+	@Schema(hidden = true)
     private Boolean isActive;
 
+	@Schema(hidden = true)
 	private LocalDateTime createdAt;
 
+	@Schema(hidden = true)
     private LocalDateTime updatedAt;
 
     public String getId() {

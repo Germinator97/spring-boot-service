@@ -165,5 +165,4 @@ public class CountryModel {
     public void setPartnersAccounts(Set<PartnerAccount> partnersAccounts) {
         this.partnersAccounts = partnersAccounts;
     }
-    
 }

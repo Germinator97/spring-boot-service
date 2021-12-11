@@ -32,7 +32,6 @@ public class CountryRepositoryAdapter implements CountryRepository{
 
     @Override
     public Country create(Country data) {
-        System.out.println("Country");
         CountryModel model = mapper.mapper(data, CountryModel.class);
         CountryModel country = countryJpaRepository.save(model);
         return mapper.mapper(country, Country.class);

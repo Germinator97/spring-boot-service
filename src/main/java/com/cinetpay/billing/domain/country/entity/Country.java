@@ -18,7 +18,7 @@ public class Country {
 	
     private String name;
 
-    private Boolean isActive;
+    private Boolean is_active;
 
     private LocalDateTime createdAt;
     
@@ -58,11 +58,11 @@ public class Country {
     }
 
     public Boolean getIsActive() {
-        return isActive;
+        return is_active;
     }
 
     public void setIsActive(Boolean isActive) {
-        this.isActive = isActive;
+        this.is_active = isActive;
     }
 
     public LocalDateTime getCreatedAt() {

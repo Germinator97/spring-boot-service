@@ -40,6 +40,5 @@ public class InitConfiguration {
             sequence.setProduct("02.100");
             return args -> repository.save(sequence);
         }
-
     }
 }
