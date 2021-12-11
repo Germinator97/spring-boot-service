@@ -8,7 +8,7 @@ import java.util.Set;
 
 import javax.persistence.*;
 
-import org.springframework.data.annotation.CreatedDate;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -31,14 +31,15 @@ public class Currency {
     @Column(columnDefinition = "varchar(255)", name = "name", nullable = false, unique = true)
     private String name;
 
-    @Column(name = "is_active", columnDefinition = "boolean default true", nullable = false)
-    private Boolean is_active;
+    @Column(name = "is_active", columnDefinition = "boolean default true")
+    private Boolean is_active = true;
 
-    @Column(columnDefinition = "timestamp default CURRENT_TIMESTAMP", name = "created_at", nullable = false)
-    @CreatedDate
+    @Column(columnDefinition = "timestamp default CURRENT_TIMESTAMP", name = "created_at")
+    @CreationTimestamp
     private Timestamp created_at;
     
-	@Column(columnDefinition = "timestamp default CURRENT_TIMESTAMP", name = "updated_at", nullable = false)
+	@Column(columnDefinition = "timestamp default CURRENT_TIMESTAMP", name = "updated_at")
+    @CreationTimestamp
     @LastModifiedDate
     private Timestamp updated_at;
 	

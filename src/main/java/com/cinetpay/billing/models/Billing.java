@@ -7,7 +7,7 @@ import java.sql.Timestamp;
 
 import javax.persistence.*;
 
-import org.springframework.data.annotation.CreatedDate;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -52,11 +52,12 @@ public class Billing {
     @Column(columnDefinition = "Decimal(20,2) default 0", name = "last_balance", nullable = false)
     private Double last_balance;
 	
-    @Column(columnDefinition = "timestamp default CURRENT_TIMESTAMP", name = "created_at", nullable = false)
-    @CreatedDate
+    @Column(columnDefinition = "timestamp default CURRENT_TIMESTAMP", name = "created_at")
+    @CreationTimestamp
     private Timestamp created_at;
     
-	@Column(columnDefinition = "timestamp default CURRENT_TIMESTAMP", name = "updated_at", nullable = false)
+	@Column(columnDefinition = "timestamp default CURRENT_TIMESTAMP", name = "updated_at")
+    @CreationTimestamp
     @LastModifiedDate
     private Timestamp updated_at;
 	

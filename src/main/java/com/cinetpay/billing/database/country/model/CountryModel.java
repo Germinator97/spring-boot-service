@@ -17,22 +17,19 @@ import com.cinetpay.billing.models.Service_Account;
 import com.cinetpay.billing.models.Vendor_Account;
 
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import lombok.Data;
-import lombok.experimental.Accessors;
 
 /**
  * @author mac
  *
  */
- @Entity
+@Entity
 @Table(name = "countries")
 @EntityListeners(AuditingEntityListener.class)
 @Data
-@Accessors(chain = true)
 public class CountryModel {
 
 	@Id
@@ -45,14 +42,14 @@ public class CountryModel {
     @Column(columnDefinition = "varchar(255)", name = "name", nullable = false, unique = true)
     private String name;
 
-    @Column(name = "is_active", columnDefinition = "boolean default true", nullable = false)
+    @Column(name = "is_active", columnDefinition = "boolean default true")
     private Boolean is_active = true;
 
-    @Column(columnDefinition = "timestamp default CURRENT_TIMESTAMP", name = "created_at", nullable = false)
+    @Column(columnDefinition = "timestamp default CURRENT_TIMESTAMP", name = "created_at")
     @CreationTimestamp
     private Timestamp created_at;
     
-	@Column(columnDefinition = "timestamp default CURRENT_TIMESTAMP", name = "updated_at", nullable = false)
+	@Column(columnDefinition = "timestamp default CURRENT_TIMESTAMP", name = "updated_at")
     @CreationTimestamp
     @LastModifiedDate
     private Timestamp updated_at;

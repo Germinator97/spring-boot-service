@@ -7,7 +7,7 @@ import java.sql.Timestamp;
 
 import javax.persistence.*;
 
-import org.springframework.data.annotation.CreatedDate;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -36,14 +36,15 @@ public class Merchant_Account {
     @Column(columnDefinition = "Decimal(20,2) default 0", name = "balance", nullable = false)
     private Double balance;
 
-    @Column(name = "is_blocked", columnDefinition = "boolean default false", nullable = false)
-    private Boolean is_blocked;
+    @Column(name = "is_blocked", columnDefinition = "boolean default false")
+    private Boolean is_blocked = false;
 
-    @Column(columnDefinition = "timestamp default CURRENT_TIMESTAMP", name = "created_at", nullable = false)
-    @CreatedDate
+    @Column(columnDefinition = "timestamp default CURRENT_TIMESTAMP", name = "created_at")
+    @CreationTimestamp
     private Timestamp created_at;
     
-	@Column(columnDefinition = "timestamp default CURRENT_TIMESTAMP", name = "updated_at", nullable = false)
+	@Column(columnDefinition = "timestamp default CURRENT_TIMESTAMP", name = "updated_at")
+    @CreationTimestamp
     @LastModifiedDate
     private Timestamp updated_at;
 	
