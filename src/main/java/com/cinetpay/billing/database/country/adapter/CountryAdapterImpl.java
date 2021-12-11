@@ -5,7 +5,7 @@ package com.cinetpay.billing.database.country.adapter;
 
 import com.cinetpay.billing.database.country.model.CountryModel;
 import com.cinetpay.billing.database.country.repository.CountryRepository;
-import com.cinetpay.billing.entities.Country;
+import com.cinetpay.billing.domain.country.entity.Country;
 import com.cinetpay.billing.infrastructure.country.dto.CountryDto;
 import com.cinetpay.billing.infrastructure.country.mapper.CountryInMapper;
 import com.cinetpay.billing.use_cases.country.CountryAdapter;

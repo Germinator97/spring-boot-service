@@ -1,7 +1,8 @@
-package com.cinetpay.billing.configurations;
+package com.cinetpay.billing.application.configuration;
 
 import java.util.Optional;
 
+import com.cinetpay.billing.application.SequenceRepository;
 import com.cinetpay.billing.models.Sequence;
 
 import org.springframework.boot.ApplicationRunner;

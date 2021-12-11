@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.cinetpay.billing.database.country.repository;
+package com.cinetpay.billing.infrastructure.repository;
 
 import com.cinetpay.billing.database.country.model.CountryModel;
 

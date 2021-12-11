@@ -1,4 +1,4 @@
-package com.cinetpay.billing.configurations;
+package com.cinetpay.billing.application;
 
 import java.util.HashMap;
 import java.util.Map;

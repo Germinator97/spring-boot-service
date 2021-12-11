@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.cinetpay.billing.configurations;
+package com.cinetpay.billing.application.configuration;
 
 import com.cinetpay.billing.database.country.adapter.CountryAdapterImpl;
 import com.cinetpay.billing.use_cases.country.CountryAdapter;

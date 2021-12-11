@@ -3,7 +3,7 @@
  */
 package com.cinetpay.billing.use_cases.country;
 
-import com.cinetpay.billing.entities.Country;
+import com.cinetpay.billing.domain.country.entity.Country;
 import com.cinetpay.billing.infrastructure.country.dto.CountryDto;
 
 /**
