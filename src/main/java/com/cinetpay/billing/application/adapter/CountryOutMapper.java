@@ -28,7 +28,7 @@ public class CountryOutMapper {
 		return countryDto;
     }
 
-	public static Country toDto(CountryDto countryDto) {
+	public static Country toEntity(CountryDto countryDto) {
 		if (countryDto == null) {
 			return null;
 		}

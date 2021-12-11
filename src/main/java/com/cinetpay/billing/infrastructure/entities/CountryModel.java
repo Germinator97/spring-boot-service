@@ -5,7 +5,6 @@ package com.cinetpay.billing.infrastructure.entities;
 
 import java.time.LocalDateTime;
 import java.util.Set;
-import java.util.UUID;
 
 import javax.persistence.*;
 
@@ -73,15 +72,6 @@ public class CountryModel {
 
     public String getId() {
         return id;
-    }
-
-    public void generateId() {
-        this.id = UUID.randomUUID().toString();
-        System.out.println(this.id);
-    }
-
-    public void passCode(String sequence) {
-        this.code = sequence;
     }
 
     public void setId(String id) {

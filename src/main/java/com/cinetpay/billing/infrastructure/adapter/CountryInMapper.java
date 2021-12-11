@@ -3,7 +3,6 @@
  */
 package com.cinetpay.billing.infrastructure.adapter;
 
-import com.cinetpay.billing.application.dto.CountryDto;
 import com.cinetpay.billing.domain.country.entity.Country;
 import com.cinetpay.billing.infrastructure.entities.CountryModel;
 
@@ -41,33 +40,6 @@ public class CountryInMapper {
 		model.setIs_active(country.getIs_active());
 		model.setCreated_at(country.getCreated_at());
 		model.setUpdated_at(country.getUpdated_at());
- 
-		return model;
-    }
-
-	public static CountryModel toCreateModel(CountryDto dto, String sequence) {
-		if (dto == null) {
-			return null;
-		}
- 
-		CountryModel model = new CountryModel();
-		model.setName(dto.getName());
-		model.generateId();
-		model.passCode(sequence);
- 
-		return model;
-    }
-
-	public static CountryModel toUpdateModel(Country country) {
-		if (country == null) {
-			return null;
-		}
- 
-		CountryModel model = new CountryModel();
-		model.setId(country.getId());
-		model.setCode(country.getCode());
-		model.setName(country.getName());
-		model.setIs_active(country.getIs_active());
  
 		return model;
     }

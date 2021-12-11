@@ -22,7 +22,7 @@ public class CountryRepositoryAdapter implements CountryRepository{
 
     @Override
     public Country findByName(String name) {
-        CountryModel country = countryJpaRepository.findByCode(name);
+        CountryModel country = countryJpaRepository.findByName(name);
         return CountryInMapper.toEntity(country);
     }
 

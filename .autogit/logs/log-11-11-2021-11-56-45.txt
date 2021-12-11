@@ -1,0 +1,34 @@
+-------------------- Auto-Git Log --------------------
+		Sat Dec 11 2021 11:56:45 GMT+0000 (Greenwich Mean Time)
+------------------------------------------------------
+
+Modified files:
+* src/main/java/com/cinetpay/billing/application/SequenceRepository.java
+* src/main/java/com/cinetpay/billing/application/configuration/CountryConfiguration.java
+* src/main/java/com/cinetpay/billing/database/country/adapter/CountryAdapterImpl.java
+* src/main/java/com/cinetpay/billing/domain/country/entity/Country.java
+* src/main/java/com/cinetpay/billing/domain/country/repository/CountryRepository.java
+* src/main/java/com/cinetpay/billing/exceptions/GlobalExceptionHandler.java
+* src/main/java/com/cinetpay/billing/infrastructure/country/controller/CountryController.java
+* src/main/java/com/cinetpay/billing/use_cases/country/CountryAdapter.java
+* src/main/java/com/cinetpay/billing/use_cases/country/CreateCountry.java
+* src/main/java/com/cinetpay/billing/use_cases/country/FindCountryByName.java
+* src/main/java/com/cinetpay/billing/use_cases/country/UpdateCountry.java
+
+
+Created files:
+* .autogit/logs/log-11-11-2021-11-26-37.txt
+* src/main/java/com/cinetpay/billing/application/adapter/CountryOutMapper.java
+* src/main/java/com/cinetpay/billing/infrastructure/adapter/CountryRepositoryAdapter.java
+
+
+Deleted files:
+* src/main/java/com/cinetpay/billing/database/country/mapper/CountryOutMapper.java
+
+
+Renamed files:
+* [object Object]
+* [object Object]
+* [object Object]
+* [object Object]
+* [object Object]

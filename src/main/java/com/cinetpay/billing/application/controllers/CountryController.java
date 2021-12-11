@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.cinetpay.billing.infrastructure.country.controller;
+package com.cinetpay.billing.application.controllers;
 
 import java.util.Optional;
 
@@ -15,10 +15,6 @@ import com.cinetpay.billing.application.dto.DeleteCountryDto;
 import com.cinetpay.billing.domain.country.entity.Country;
 import com.cinetpay.billing.domain.country.repository.CountryRepository;
 import com.cinetpay.billing.models.Sequence;
-import com.cinetpay.billing.use_cases.country.CreateCountry;
-import com.cinetpay.billing.use_cases.country.FindCountryByCode;
-import com.cinetpay.billing.use_cases.country.FindCountryByName;
-import com.cinetpay.billing.use_cases.country.UpdateCountry;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -90,6 +86,9 @@ public class CountryController {
 		try {
 			Country optionalCountry = countryRepository.findByName(countryDto.getName());
 
+			System.out.println("optionalCountry");
+			System.out.println(optionalCountry);
+
 			if (optionalCountry != null) {
 
 				if (!optionalCountry.getIs_active()) {
@@ -108,7 +107,10 @@ public class CountryController {
 			String code = sequence.get().getCountry();
 
 			if (sequence.isPresent()) {
-				Country data =  CountryOutMapper.toDto(countryDto);
+				Country data =  CountryOutMapper.toEntity(countryDto);
+				data.generateId();
+				data.passCode(code);
+				data.setIs_active(true);
 				Country country = countryRepository.create(data);
 
 				String[] array = code.split("\\.");
