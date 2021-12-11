@@ -8,12 +8,12 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import com.cinetpay.billing.application.SequenceRepository;
-import com.cinetpay.billing.application.dto.CountryDto;
-import com.cinetpay.billing.application.dto.DeleteCountryDto;
+import com.cinetpay.billing.application.dtos.country.CountryDto;
+import com.cinetpay.billing.application.dtos.country.DeleteCountryDto;
 import com.cinetpay.billing.application.mapper.Mapper;
 import com.cinetpay.billing.application.response.ResponseHandler;
-import com.cinetpay.billing.domain.country.entity.Country;
-import com.cinetpay.billing.domain.country.repository.CountryRepository;
+import com.cinetpay.billing.domain.country.entities.Country;
+import com.cinetpay.billing.domain.country.repositories.CountryRepository;
 import com.cinetpay.billing.models.Sequence;
 
 import org.springframework.beans.factory.annotation.Autowired;

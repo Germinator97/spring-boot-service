@@ -1,34 +1,40 @@
-package com.cinetpay.billing.application.dto;
+/**
+ * 
+ */
+package com.cinetpay.billing.application.dtos.country;
 
 import java.time.LocalDateTime;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.*;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
+/**
+ * @author mac
+ *
+ */
 @Data
-public class DeleteCountryDto {
+public class CountryDto {
 
-    @Schema(hidden = true)
-    protected String id;
-
-    @Schema(hidden = true)
-    private String code;
+	@Schema(hidden = true)
+	protected String id;
 	
-    @Schema(hidden = true)
+	@Schema(hidden = true)
+	private String code;
+	
+	@NotNull(message = "The country name must not be null.")
+	@NotEmpty(message = "The country name must not be empty.")
+    @Schema(description = "The country name ISO2",  type = "string", required = true, example ="CI")
     private String name;
 
-    @NotNull(message = "The country is_active must not be null.")
-    @Pattern(regexp = "^true$|^false$", message = "The country is_active must be : true or false")
-    @Schema(description = "The country status active",  type = "boolean", required = true, allowableValues = {"true", "false"})
-    private String is_active;
+	@Schema(hidden = true)
+    private Boolean isActive;
 
-    @Schema(hidden = true)
-    private LocalDateTime createdAt;
+	@Schema(hidden = true)
+	private LocalDateTime createdAt;
 
-    @Schema(hidden = true)
+	@Schema(hidden = true)
     private LocalDateTime updatedAt;
 
     public String getId() {
@@ -55,12 +61,12 @@ public class DeleteCountryDto {
         this.name = name;
     }
 
-    public String getIsActive() {
-        return is_active;
+    public Boolean getIsActive() {
+        return isActive;
     }
 
-    public void setIsActive(String isActive) {
-        this.is_active = isActive;
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
     }
 
     public LocalDateTime getCreatedAt() {
@@ -78,6 +84,5 @@ public class DeleteCountryDto {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
-
 
 }

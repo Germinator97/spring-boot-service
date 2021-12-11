@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.cinetpay.billing.domain.country.entity;
+package com.cinetpay.billing.domain.country.entities;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -18,7 +18,7 @@ public class Country {
 	
     private String name;
 
-    private Boolean is_active;
+    private Boolean isActive;
 
     private LocalDateTime createdAt;
     
@@ -58,11 +58,11 @@ public class Country {
     }
 
     public Boolean getIsActive() {
-        return is_active;
+        return isActive;
     }
 
     public void setIsActive(Boolean isActive) {
-        this.is_active = isActive;
+        this.isActive = isActive;
     }
 
     public LocalDateTime getCreatedAt() {

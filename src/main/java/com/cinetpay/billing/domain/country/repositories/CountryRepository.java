@@ -1,6 +1,6 @@
-package com.cinetpay.billing.domain.country.repository;
+package com.cinetpay.billing.domain.country.repositories;
 
-import com.cinetpay.billing.domain.country.entity.Country;
+import com.cinetpay.billing.domain.country.entities.Country;
 
 public interface CountryRepository {
     public Country findByCode(String code);

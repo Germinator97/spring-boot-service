@@ -1,4 +1,4 @@
-package com.cinetpay.billing.infrastructure.exceptions;
+package com.cinetpay.billing.infrastructure.exception;
 
 import java.util.List;
 import java.util.stream.Collectors;

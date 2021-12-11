@@ -1,10 +1,10 @@
-package com.cinetpay.billing.infrastructure.adapter;
+package com.cinetpay.billing.infrastructure.adapters;
 
 import com.cinetpay.billing.application.mapper.Mapper;
-import com.cinetpay.billing.domain.country.entity.Country;
-import com.cinetpay.billing.domain.country.repository.CountryRepository;
+import com.cinetpay.billing.domain.country.entities.Country;
+import com.cinetpay.billing.domain.country.repositories.CountryRepository;
 import com.cinetpay.billing.infrastructure.entities.CountryModel;
-import com.cinetpay.billing.infrastructure.repository.CountryJpaRepository;
+import com.cinetpay.billing.infrastructure.repositories.CountryJpaRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

@@ -1,40 +1,34 @@
-/**
- * 
- */
-package com.cinetpay.billing.application.dto;
+package com.cinetpay.billing.application.dtos.country;
 
 import java.time.LocalDateTime;
 
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-/**
- * @author mac
- *
- */
 @Data
-public class CountryDto {
+public class DeleteCountryDto {
 
-	@Schema(hidden = true)
-	protected String id;
+    @Schema(hidden = true)
+    protected String id;
+
+    @Schema(hidden = true)
+    private String code;
 	
-	@Schema(hidden = true)
-	private String code;
-	
-	@NotNull(message = "The country name must not be null.")
-	@NotEmpty(message = "The country name must not be empty.")
-    @Schema(description = "The country name ISO2",  type = "string", required = true, example ="CI")
+    @Schema(hidden = true)
     private String name;
 
-	@Schema(hidden = true)
-    private Boolean isActive;
+    @NotNull(message = "The country is_active must not be null.")
+    @Pattern(regexp = "^true$|^false$", message = "The country is_active must be : true or false")
+    @Schema(description = "The country status active",  type = "boolean", required = true, allowableValues = {"true", "false"})
+    private String isActive;
 
-	@Schema(hidden = true)
-	private LocalDateTime createdAt;
+    @Schema(hidden = true)
+    private LocalDateTime createdAt;
 
-	@Schema(hidden = true)
+    @Schema(hidden = true)
     private LocalDateTime updatedAt;
 
     public String getId() {
@@ -61,11 +55,11 @@ public class CountryDto {
         this.name = name;
     }
 
-    public Boolean getIsActive() {
+    public String getIsActive() {
         return isActive;
     }
 
-    public void setIsActive(Boolean isActive) {
+    public void setIsActive(String isActive) {
         this.isActive = isActive;
     }
 
@@ -84,5 +78,6 @@ public class CountryDto {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
+
 
 }

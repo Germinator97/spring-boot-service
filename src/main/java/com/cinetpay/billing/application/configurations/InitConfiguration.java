@@ -1,4 +1,4 @@
-package com.cinetpay.billing.application.configuration;
+package com.cinetpay.billing.application.configurations;
 
 import java.util.Optional;
 
