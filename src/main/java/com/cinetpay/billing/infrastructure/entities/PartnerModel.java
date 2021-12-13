@@ -14,10 +14,7 @@ import javax.persistence.Table;
 
 import com.cinetpay.billing.models.BillingService;
 import com.cinetpay.billing.models.CommissionPartner;
-import com.cinetpay.billing.models.MerchantAccount;
 import com.cinetpay.billing.models.PartnerAccount;
-import com.cinetpay.billing.models.ServiceAccount;
-import com.cinetpay.billing.models.VendorAccount;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -26,17 +23,14 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import lombok.Data;
 
 @Entity
-@Table(name = "products")
+@Table(name = "partners")
 @EntityListeners(AuditingEntityListener.class)
 @Data
-public class ProductModel {
+public class PartnerModel {
 
-	@Id
+    @Id
 	@Column(columnDefinition = "varchar(255)", nullable = false, unique = true)
 	protected String id;
-	
-	@Column(columnDefinition = "varchar(255)", name = "code", nullable = false, unique = true)
-	private String code;
 	
     @Column(columnDefinition = "varchar(255)", name = "name", nullable = false, unique = true)
     private String name;
@@ -52,22 +46,13 @@ public class ProductModel {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "partner", cascade = CascadeType.ALL)
     private Set<CommissionPartner> commissionsPartners;
     
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "partner", cascade = CascadeType.ALL)
     private Set<BillingService> billingsServices;
     
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL)
-    private Set<VendorAccount> vendorsAccounts;
-    
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL)
-    private Set<MerchantAccount> merchantsAccounts;
-    
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL)
-    private Set<ServiceAccount> servicesAccounts;
-    
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "partner", cascade = CascadeType.ALL)
     private Set<PartnerAccount> partnersAccounts;
 
     public String getId() {
@@ -76,14 +61,6 @@ public class ProductModel {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
     }
 
     public String getName() {
@@ -132,30 +109,6 @@ public class ProductModel {
 
     public void setBillingsServices(Set<BillingService> billingsServices) {
         this.billingsServices = billingsServices;
-    }
-
-    public Set<VendorAccount> getVendorsAccounts() {
-        return vendorsAccounts;
-    }
-
-    public void setVendorsAccounts(Set<VendorAccount> vendorsAccounts) {
-        this.vendorsAccounts = vendorsAccounts;
-    }
-
-    public Set<MerchantAccount> getMerchantsAccounts() {
-        return merchantsAccounts;
-    }
-
-    public void setMerchantsAccounts(Set<MerchantAccount> merchantsAccounts) {
-        this.merchantsAccounts = merchantsAccounts;
-    }
-
-    public Set<ServiceAccount> getServicesAccounts() {
-        return servicesAccounts;
-    }
-
-    public void setServicesAccounts(Set<ServiceAccount> servicesAccounts) {
-        this.servicesAccounts = servicesAccounts;
     }
 
     public Set<PartnerAccount> getPartnersAccounts() {
