@@ -20,4 +20,16 @@ public class Mapper {
         return modelMapper.map(source, destinationType);
     }
 
+    /**
+     * @param <D> destination type
+     * @param sources list object to map from
+     * @param destinationType type to map to
+     */
+    public <D> D mapperList(Object[] sources,  Class<D> destinationType) {
+        if (sources.length == 0) {
+            return null;
+        }
+        return modelMapper.map(sources[0], destinationType);
+}
+
 }

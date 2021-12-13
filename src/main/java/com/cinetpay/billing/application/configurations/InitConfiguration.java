@@ -1,10 +1,8 @@
 package com.cinetpay.billing.application.configurations;
 
-import java.util.Optional;
-
-import com.cinetpay.billing.application.SequenceRepository;
 import com.cinetpay.billing.application.mapper.Mapper;
-import com.cinetpay.billing.models.Sequence;
+import com.cinetpay.billing.domain.country.repositories.SequenceRepository;
+import com.cinetpay.billing.domain.country.entities.Sequence;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.ApplicationRunner;
@@ -25,11 +23,11 @@ public class InitConfiguration {
 	}
     
     @Bean
-    public ApplicationRunner initializer(SequenceRepository repository) {
+    public ApplicationRunner initializer(SequenceRepository repository) throws Exception {
 
-        Optional<Sequence> exist = repository.findById(1);
+        Sequence exist = repository.find();
 
-        if (exist.isPresent()) {
+        if (exist != null) {
             return null;
         }
 
@@ -38,7 +36,7 @@ public class InitConfiguration {
             sequence.setCountry("03.1000");
             sequence.setCurrency("04.10");
             sequence.setProduct("02.100");
-            return args -> repository.save(sequence);
+            return args -> repository.update(sequence);
         }
     }
 }

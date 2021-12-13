@@ -3,18 +3,16 @@
  */
 package com.cinetpay.billing.application.controllers;
 
-import java.util.Optional;
-
 import javax.validation.Valid;
 
-import com.cinetpay.billing.application.SequenceRepository;
 import com.cinetpay.billing.application.dtos.country.CountryDto;
 import com.cinetpay.billing.application.dtos.country.DeleteCountryDto;
 import com.cinetpay.billing.application.mapper.Mapper;
 import com.cinetpay.billing.application.response.ResponseHandler;
 import com.cinetpay.billing.domain.country.entities.Country;
+import com.cinetpay.billing.domain.country.entities.Sequence;
 import com.cinetpay.billing.domain.country.repositories.CountryRepository;
-import com.cinetpay.billing.models.Sequence;
+import com.cinetpay.billing.domain.country.repositories.SequenceRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -94,33 +92,26 @@ public class CountryController {
 				return ResponseHandler.generateResponse(400, false, HttpStatus.FOUND.name(), null, HttpStatus.FOUND);
 			}
 
-			Optional<Sequence> sequence = sequenceRepository.findById(1);
+			Sequence sequence = sequenceRepository.find();
 
-			String code = sequence.get().getCountry();
+			String code = sequence.getCountry();
 
-			if (sequence.isPresent()) {
-				Country data = mapper.mapper(countryDto, Country.class);
-				data.generateId();
-				data.passCode(code);
-				data.setIsActive(true);
-				Country country = countryRepository.create(data);
+			Country data = mapper.mapper(countryDto, Country.class);
+			data.generateId();
+			data.passCode(code);
+			data.setIsActive(true);
+			Country country = countryRepository.create(data);
 
-				String[] array = code.split("\\.");
-				String prefix = array[0];
-				String suffix = array[1];
-				Integer newSuffix = Integer.parseInt(suffix) + 1;
-				String nextCoce = prefix + "." + newSuffix.toString();
+			String[] array = code.split("\\.");
+			String prefix = array[0];
+			String suffix = array[1];
+			Integer newSuffix = Integer.parseInt(suffix) + 1;
+			String nextCoce = prefix + "." + newSuffix.toString();
 
-				sequence.get().setCountry(nextCoce);
-				sequenceRepository.save(sequence.get());
+			sequence.setCountry(nextCoce);
+			sequenceRepository.update(sequence);
 
-				return ResponseHandler.generateResponse(HttpStatus.OK.value(), true,  HttpStatus.CREATED.name(), country, HttpStatus.OK);
-			}
-
-			else {
-				return ResponseHandler.generateResponse(400, false, HttpStatus.FOUND.name(), null, HttpStatus.FOUND);
-			}
-
+			return ResponseHandler.generateResponse(HttpStatus.OK.value(), true,  HttpStatus.CREATED.name(), country, HttpStatus.OK);
 			
 		} catch (Exception e) {
 			return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), false,  e.toString(), null, HttpStatus.INTERNAL_SERVER_ERROR);
