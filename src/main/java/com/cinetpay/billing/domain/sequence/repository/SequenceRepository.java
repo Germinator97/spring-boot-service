@@ -1,6 +1,6 @@
-package com.cinetpay.billing.domain.country.repositories;
+package com.cinetpay.billing.domain.sequence.repository;
 
-import com.cinetpay.billing.domain.country.entities.Sequence;
+import com.cinetpay.billing.domain.sequence.entity.Sequence;
 
 public interface SequenceRepository {
 

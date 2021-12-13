@@ -1,16 +1,13 @@
-/**
- * 
- */
 package com.cinetpay.billing.application.controllers;
 
 import javax.validation.Valid;
 
-import com.cinetpay.billing.application.dtos.country.CountryDto;
-import com.cinetpay.billing.application.dtos.country.DeleteCountryDto;
+import com.cinetpay.billing.application.dtos.Product.DeleteProductDto;
+import com.cinetpay.billing.application.dtos.Product.ProductDto;
 import com.cinetpay.billing.application.mapper.Mapper;
 import com.cinetpay.billing.application.response.ResponseHandler;
-import com.cinetpay.billing.domain.country.entity.Country;
-import com.cinetpay.billing.domain.country.repository.CountryRepository;
+import com.cinetpay.billing.domain.product.entity.Product;
+import com.cinetpay.billing.domain.product.repository.ProductRepository;
 import com.cinetpay.billing.domain.sequence.entity.Sequence;
 import com.cinetpay.billing.domain.sequence.repository.SequenceRepository;
 
@@ -27,14 +24,10 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;
 
-/**
- * @author mac
- *
- */
 @Validated
 @RestController
-@RequestMapping(value = "/country")
-public class CountryController {
+@RequestMapping(value = "/product")
+public class ProductController {
 
     @Autowired
 	private Mapper mapper;
@@ -43,36 +36,36 @@ public class CountryController {
 	private SequenceRepository sequenceRepository;
 
 	@Autowired
-	private CountryRepository countryRepository;
+	private ProductRepository productRepository;
 
 	@RequestMapping(value = {"/find/name", "/find/name/{name}"}, method = RequestMethod.GET)
-	public ResponseEntity<Object> findByName(@PathVariable(name = "name") @Parameter(name ="name", schema = @Schema(description = "The country name ISO2",  type = "string", required = true, example ="CI")) String name) {
+	public ResponseEntity<Object> findByName(@PathVariable(name = "name") @Parameter(name ="name", schema = @Schema(description = "The product name",  type = "string", required = true, example ="PAYIN")) String name) {
 		try {
-			Country country = countryRepository.findByName(name);
+			Product product = productRepository.findByName(name);
 
-			if (country == null) {
+			if (product == null) {
 				return ResponseHandler.generateResponse(HttpStatus.NOT_FOUND.value(), false, HttpStatus.NOT_FOUND.name(), null, HttpStatus.NOT_FOUND);
 			}
 
-			return ResponseHandler.generateResponse(HttpStatus.OK.value(), true,  HttpStatus.FOUND.name(), country, HttpStatus.OK);
+			return ResponseHandler.generateResponse(HttpStatus.OK.value(), true,  HttpStatus.FOUND.name(), product, HttpStatus.OK);
 		} catch (Exception e) {
 			return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), false,  e.getMessage(), null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public ResponseEntity<Object> create(@Valid @RequestBody CountryDto countryDto) {
+	public ResponseEntity<Object> create(@Valid @RequestBody ProductDto productDto) {
 		try {
-			Country optionalCountry = countryRepository.findByName(countryDto.getName());
+			Product optionalProduct = productRepository.findByName(productDto.getName());
 
-			if (optionalCountry != null) {
+			if (optionalProduct != null) {
 
-				if (!optionalCountry.getIsActive()) {
-					optionalCountry.setIsActive(true);
+				if (!optionalProduct.getIsActive()) {
+					optionalProduct.setIsActive(true);
 
-					Country country = countryRepository.update(optionalCountry);
+					Product product = productRepository.update(optionalProduct);
 		
-					return ResponseHandler.generateResponse(HttpStatus.OK.value(), true,  HttpStatus.OK.name(), country, HttpStatus.OK);
+					return ResponseHandler.generateResponse(HttpStatus.OK.value(), true,  HttpStatus.OK.name(), product, HttpStatus.OK);
 				}
 
 				return ResponseHandler.generateResponse(400, false, HttpStatus.FOUND.name(), null, HttpStatus.FOUND);
@@ -80,13 +73,13 @@ public class CountryController {
 
 			Sequence sequence = sequenceRepository.find();
 
-			String code = sequence.getCountry();
+			String code = sequence.getProduct();
 
-			Country data = mapper.mapper(countryDto, Country.class);
+			Product data = mapper.mapper(productDto, Product.class);
 			data.generateId();
 			data.passCode(code);
 			data.setIsActive(true);
-			Country country = countryRepository.create(data);
+			Product product = productRepository.create(data);
 
 			String[] array = code.split("\\.");
 			String prefix = array[0];
@@ -94,10 +87,10 @@ public class CountryController {
 			Integer newSuffix = Integer.parseInt(suffix) + 1;
 			String nextCoce = prefix + "." + newSuffix.toString();
 
-			sequence.setCountry(nextCoce);
+			sequence.setProduct(nextCoce);
 			sequenceRepository.update(sequence);
 
-			return ResponseHandler.generateResponse(HttpStatus.OK.value(), true,  HttpStatus.CREATED.name(), country, HttpStatus.OK);
+			return ResponseHandler.generateResponse(HttpStatus.OK.value(), true,  HttpStatus.CREATED.name(), product, HttpStatus.OK);
 			
 		} catch (Exception e) {
 			return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), false,  e.toString(), null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -105,41 +98,42 @@ public class CountryController {
 	}
 
 	@RequestMapping(value = {"/update", "/update/{name}"}, method = RequestMethod.POST)
-	public ResponseEntity<Object> update(@PathVariable(name = "name") String name, @Valid @RequestBody CountryDto countryDto) {
+	public ResponseEntity<Object> update(@PathVariable(name = "name") String name, @Valid @RequestBody ProductDto productDto) {
 		try {
-			Country exist = countryRepository.findByName(name);
+			Product exist = productRepository.findByName(name);
 
 			if (exist == null) {
 				return ResponseHandler.generateResponse(HttpStatus.NOT_FOUND.value(), false, HttpStatus.NOT_FOUND.name(), null, HttpStatus.NOT_FOUND);
 			}
 
-			exist.setName(countryDto.getName());
+			exist.setName(productDto.getName());
 
-			Country country = countryRepository.update(exist);
+			Product product = productRepository.update(exist);
 
-			return ResponseHandler.generateResponse(HttpStatus.OK.value(), true,  HttpStatus.OK.name(), country, HttpStatus.OK);
+			return ResponseHandler.generateResponse(HttpStatus.OK.value(), true,  HttpStatus.OK.name(), product, HttpStatus.OK);
 		} catch (Exception e) {
 			return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), false,  e.getMessage(), null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@RequestMapping(value = {"/delete", "/delete/{name}"}, method = RequestMethod.POST)
-	public ResponseEntity<Object> delete(@PathVariable(name = "name") String name, @Valid @RequestBody DeleteCountryDto countryDto) {
+	public ResponseEntity<Object> delete(@PathVariable(name = "name") String name, @Valid @RequestBody DeleteProductDto productDto) {
 		try {
-			Country exist = countryRepository.findByName(name);
+			Product exist = productRepository.findByName(name);
 
 			if (exist == null) {
 				return ResponseHandler.generateResponse(HttpStatus.NOT_FOUND.value(), false, HttpStatus.NOT_FOUND.name(), null, HttpStatus.NOT_FOUND);
 			}
 
-			exist.setIsActive(Boolean.valueOf(countryDto.getIsActive()));
+			exist.setIsActive(Boolean.valueOf(productDto.getIsActive()));
 
-			Country country = countryRepository.update(exist);
+			Product product = productRepository.update(exist);
 
-			return ResponseHandler.generateResponse(HttpStatus.OK.value(), true,  HttpStatus.OK.name(), country, HttpStatus.OK);
+			return ResponseHandler.generateResponse(HttpStatus.OK.value(), true,  HttpStatus.OK.name(), product, HttpStatus.OK);
 		} catch (Exception e) {
 			return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), false,  e.getMessage(), null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
+    
 }

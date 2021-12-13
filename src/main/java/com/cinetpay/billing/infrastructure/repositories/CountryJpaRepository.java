@@ -13,8 +13,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface CountryJpaRepository extends JpaRepository<CountryModel, String> {
 
-	public CountryModel findByCode(String code);
-
 	public CountryModel findByName(String name);
 
 }

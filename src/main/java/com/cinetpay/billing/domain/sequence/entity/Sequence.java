@@ -1,4 +1,4 @@
-package com.cinetpay.billing.domain.country.entities;
+package com.cinetpay.billing.domain.sequence.entity;
 
 public class Sequence {
 

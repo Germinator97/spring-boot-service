@@ -1,8 +1,8 @@
 package com.cinetpay.billing.application.configurations;
 
 import com.cinetpay.billing.application.mapper.Mapper;
-import com.cinetpay.billing.domain.country.repositories.SequenceRepository;
-import com.cinetpay.billing.domain.country.entities.Sequence;
+import com.cinetpay.billing.domain.sequence.entity.Sequence;
+import com.cinetpay.billing.domain.sequence.repository.SequenceRepository;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.ApplicationRunner;

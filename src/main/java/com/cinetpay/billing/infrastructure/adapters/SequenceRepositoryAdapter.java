@@ -3,8 +3,8 @@ package com.cinetpay.billing.infrastructure.adapters;
 import java.util.List;
 
 import com.cinetpay.billing.application.mapper.Mapper;
-import com.cinetpay.billing.domain.country.entities.Sequence;
-import com.cinetpay.billing.domain.country.repositories.SequenceRepository;
+import com.cinetpay.billing.domain.sequence.entity.Sequence;
+import com.cinetpay.billing.domain.sequence.repository.SequenceRepository;
 import com.cinetpay.billing.infrastructure.entities.SequenceModel;
 import com.cinetpay.billing.infrastructure.repositories.SequenceJpaRepository;
 
