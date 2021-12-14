@@ -27,10 +27,10 @@ public class CommissionPartner {
     @Column(columnDefinition = "varchar(255)", name = "vendor", nullable = false)
     private String vendor;
 	
-    @Column(columnDefinition = "Decimal(10,2) default 0", name = "commission_fixe", nullable = false)
+    @Column(columnDefinition = "default 0", name = "commission_fixe", nullable = false)
     private Double commissionFixe;
     
-    @Column(columnDefinition = "Decimal(2,2) default 0", name = "commission_variable", nullable = false)
+    @Column(columnDefinition = "default 0", name = "commission_variable", nullable = false)
     private Double commissionVariable;
 
     @Column(name = "is_active", columnDefinition = "boolean default true")
@@ -44,21 +44,18 @@ public class CommissionPartner {
     @CreationTimestamp
     @LastModifiedDate
     private Timestamp updatedAt;
-	
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "product")
-    private Product product;
-	
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "country")
-    private Country country;
-	
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "partner")
-    private Partner partner;
-	
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "currency")
-    private Currency currency;
+
+    @Column(columnDefinition = "varchar(255)", name = "product", nullable = false)
+    private String product;
+
+    @Column(columnDefinition = "varchar(255)", name = "country", nullable = false)
+    private String country;
+
+
+    @Column(columnDefinition = "varchar(255)", name = "partner", nullable = false)
+    private String partner;
+
+    @Column(columnDefinition = "varchar(255)", name = "currency", nullable = false)
+    private String currency;
 
 }
