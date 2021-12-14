@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.cinetpay.billing.infrastructure.enumerations;
+package com.cinetpay.billing.infrastructure.enums;
 
 /**
  * @author Germinator

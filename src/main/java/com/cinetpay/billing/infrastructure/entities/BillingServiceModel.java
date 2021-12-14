@@ -13,10 +13,10 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.cinetpay.billing.infrastructure.enumerations.Mode;
-import com.cinetpay.billing.infrastructure.enumerations.Option;
-import com.cinetpay.billing.infrastructure.enumerations.Period;
-import com.cinetpay.billing.infrastructure.enumerations.Type;
+import com.cinetpay.billing.infrastructure.enums.Mode;
+import com.cinetpay.billing.infrastructure.enums.Option;
+import com.cinetpay.billing.infrastructure.enums.Period;
+import com.cinetpay.billing.infrastructure.enums.Type;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;

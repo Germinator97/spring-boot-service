@@ -4,10 +4,10 @@ import java.time.LocalDateTime;
 import java.util.Set;
 
 import com.cinetpay.billing.domain.commissions.service.entity.CommissionService;
-import com.cinetpay.billing.infrastructure.enumerations.Mode;
-import com.cinetpay.billing.infrastructure.enumerations.Option;
-import com.cinetpay.billing.infrastructure.enumerations.Period;
-import com.cinetpay.billing.infrastructure.enumerations.Type;
+import com.cinetpay.billing.infrastructure.enums.Mode;
+import com.cinetpay.billing.infrastructure.enums.Option;
+import com.cinetpay.billing.infrastructure.enums.Period;
+import com.cinetpay.billing.infrastructure.enums.Type;
 
 public class BillingService {
 

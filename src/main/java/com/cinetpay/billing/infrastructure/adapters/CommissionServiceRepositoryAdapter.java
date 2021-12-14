@@ -28,6 +28,24 @@ public class CommissionServiceRepositoryAdapter implements CommissionServiceRepo
     }
 
     @Override
+    public CommissionService findInInterval(BillingService billing, Double amount) {
+        System.out.println(billing);
+        System.out.println(amount);
+        BillingServiceModel model = mapper.mapper(billing, BillingServiceModel.class);
+        System.out.println(model);
+        CommissionServiceModel commission = commissionServiceJpaRepository.findInInterval(model, amount);
+        System.out.println(commission);
+        return mapper.mapper(commission, CommissionService.class);
+    }
+
+    @Override
+    public CommissionService findForOne(BillingService billing) {
+        BillingServiceModel model = mapper.mapper(billing, BillingServiceModel.class);
+        CommissionServiceModel commission = commissionServiceJpaRepository.findForOne(model);
+        return mapper.mapper(commission, CommissionService.class);
+    }
+
+    @Override
     public CommissionService create(CommissionService data) {
         CommissionServiceModel model = mapper.mapper(data, CommissionServiceModel.class);
         CommissionServiceModel commission = commissionServiceJpaRepository.save(model);

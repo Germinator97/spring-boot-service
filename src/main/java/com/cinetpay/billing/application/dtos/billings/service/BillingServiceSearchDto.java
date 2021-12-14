@@ -3,7 +3,8 @@ package com.cinetpay.billing.application.dtos.billings.service;
 import java.time.LocalDateTime;
 import java.util.Set;
 
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import com.cinetpay.billing.application.dtos.commissions.service.CommissionServiceDto;
 import com.cinetpay.billing.infrastructure.enums.Mode;
@@ -14,12 +15,8 @@ import com.cinetpay.billing.infrastructure.enums.Type;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-/**
- * @author mac
- *
- */
 @Data
-public class BillingServiceDto {
+public class BillingServiceSearchDto {
 
     @Schema(hidden = true)
 	protected String id;
@@ -52,19 +49,19 @@ public class BillingServiceDto {
     @Schema(description = "The owner service",  type = "string", required = true, example ="1xBet")
     private String owner;
     
-    @Schema(description = "The billing option",  type = "string", required = false, example ="PREPAID", allowableValues = {"PREPAID", "POSTPAID"})
+    @Schema(hidden = true)
     private Option option = Option.DEFAULT;
     
-    @Schema(description = "The billing mode",  type = "string", required = false, example ="ONCE", allowableValues = {"ONCE", "INTERVAL"})
+    @Schema(hidden = true)
     private Mode mode = Mode.ONCE;
     
-    @Schema(description = "The billing type",  type = "string", required = false, example ="TRANSACTION", allowableValues = {"TRANSACTION", "VOLUME", "BALANCE"})
+    @Schema(hidden = true)
     private Type type = Type.TRANSACTION;
     
-    @Schema(description = "The billing period",  type = "string", required = false, example ="DAY", allowableValues = {"DAY", "WEEK", "MONTH"})
+    @Schema(hidden = true)
     private Period period = Period.DAY;
     
-    @Schema(description = "The billing frequency use for POSTPAID option",  type = "integer", required = false,  example = "1", allowableValues = {"DAY", "WEEK", "MONTH"})
+    @Schema(hidden = true)
     private Integer frequency = 1;
 
 	@Schema(hidden = true)
@@ -76,9 +73,7 @@ public class BillingServiceDto {
 	@Schema(hidden = true)
     private LocalDateTime updatedAt;
 
-    @NotNull(message = "The commission for the service must not be null.")
-	@NotEmpty(message = "The commission for the service must not be empty.")
-    @Schema(description = "The list of billing",  type = "array", required = true)
+    @Schema(hidden = true)
 	private Set<CommissionServiceDto> commissionsServices;
 
     public String getId() {
@@ -208,6 +203,6 @@ public class BillingServiceDto {
     public void setCommissionsServices(Set<CommissionServiceDto> commissionsServices) {
         this.commissionsServices = commissionsServices;
     }
-
+    
     
 }
