@@ -4,7 +4,6 @@
 package com.cinetpay.billing.models;
 
 import java.sql.Timestamp;
-import java.util.Set;
 
 import javax.persistence.*;
 
@@ -38,18 +37,7 @@ public class Partner {
 	@Column(columnDefinition = "timestamp default CURRENT_TIMESTAMP", name = "updated_at")
     @CreationTimestamp
     @LastModifiedDate
-    private Timestamp updated_at;
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "partner", cascade = CascadeType.ALL)
-    private Set<CommissionPartner> commissions_partners;
-    
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "partner", cascade = CascadeType.ALL)
-    private Set<BillingService> billings_services;
-    
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "partner", cascade = CascadeType.ALL)
-    private Set<PartnerAccount> partners_accounts;
-	
-	
+    private Timestamp updated_at;	
 
 	/**
 	 * @return the id

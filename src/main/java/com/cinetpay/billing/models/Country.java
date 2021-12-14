@@ -4,7 +4,6 @@
 package com.cinetpay.billing.models;
 
 import java.time.LocalDateTime;
-import java.util.Set;
 
 import javax.persistence.*;
 
@@ -41,23 +40,5 @@ public class Country {
 	@Column(columnDefinition = "timestamp default CURRENT_TIMESTAMP", name = "updated_at")
     @UpdateTimestamp
     private LocalDateTime updatedAt;
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "country", cascade = CascadeType.ALL)
-    private Set<CommissionPartner> commissionsPartners;
-    
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "country", cascade = CascadeType.ALL)
-    private Set<BillingService> billingsServices;
-    
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "country", cascade = CascadeType.ALL)
-    private Set<VendorAccount> vendorsAccounts;
-    
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "country", cascade = CascadeType.ALL)
-    private Set<MerchantAccount> merchantsAccounts;
-    
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "country", cascade = CascadeType.ALL)
-    private Set<ServiceAccount> servicesAccounts;
-    
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "country", cascade = CascadeType.ALL)
-    private Set<PartnerAccount> partnersAccounts;
 
 }

@@ -24,16 +24,16 @@ public class CommissionService {
 	@Column(columnDefinition = "varchar(255)", nullable = false, unique = true)
 	protected String id;
 	
-    @Column(columnDefinition = "Decimal(20,2) default 0", name = "min", nullable = false)
+    @Column(columnDefinition = "decimal(20,2) default 0", name = "min", nullable = false)
     private Double min;
     
-    @Column(columnDefinition = "Decimal(20,2) default 0", name = "max", nullable = false)
+    @Column(columnDefinition = "decimal(20,2) default 0", name = "max", nullable = false)
     private Double max;
 	
-    @Column(columnDefinition = "Decimal(10,2) default 0", name = "commission_fixe", nullable = false)
+    @Column(columnDefinition = "decimal(12,2) default 0", name = "commission_fixe", nullable = false)
     private Double commissionFixe;
     
-    @Column(columnDefinition = "Decimal(2,2) default 0", name = "commission_variable", nullable = false)
+    @Column(columnDefinition = "decimal(5,4) default 0", name = "commission_variable", nullable = false)
     private Double commissionVariable;
 
     @Column(name = "is_active", columnDefinition = "boolean default true")
@@ -48,7 +48,7 @@ public class CommissionService {
     @LastModifiedDate
     private Timestamp updatedAt;
     
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne
     @JoinColumn(name = "billingService")
     private BillingService billingService;
 

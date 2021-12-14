@@ -9,10 +9,10 @@ import com.cinetpay.billing.application.dtos.country.CountryDto;
 import com.cinetpay.billing.application.dtos.country.DeleteCountryDto;
 import com.cinetpay.billing.application.mapper.Mapper;
 import com.cinetpay.billing.application.response.ResponseHandler;
-import com.cinetpay.billing.domain.country.entities.Country;
-import com.cinetpay.billing.domain.country.entities.Sequence;
-import com.cinetpay.billing.domain.country.repositories.CountryRepository;
-import com.cinetpay.billing.domain.country.repositories.SequenceRepository;
+import com.cinetpay.billing.domain.country.entity.Country;
+import com.cinetpay.billing.domain.country.repository.CountryRepository;
+import com.cinetpay.billing.domain.sequence.entity.Sequence;
+import com.cinetpay.billing.domain.sequence.repository.SequenceRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -44,20 +44,6 @@ public class CountryController {
 
 	@Autowired
 	private CountryRepository countryRepository;
- 
-	@RequestMapping(value = {"/find/code", "/find/code/{code}"}, method = RequestMethod.GET)
-	public ResponseEntity<Object> findByCode(@PathVariable(name = "code") String code) {
-		try {
-			Country country = countryRepository.findByCode(code);
-
-			if (country == null) {
-				return ResponseHandler.generateResponse(HttpStatus.NOT_FOUND.value(), false, HttpStatus.NOT_FOUND.name(), null, HttpStatus.NOT_FOUND);
-			}
-			return ResponseHandler.generateResponse(HttpStatus.OK.value(), true,  HttpStatus.FOUND.name(), country, HttpStatus.OK);
-		} catch (Exception e) {
-			return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), false,  e.getMessage(), null, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
 
 	@RequestMapping(value = {"/find/name", "/find/name/{name}"}, method = RequestMethod.GET)
 	public ResponseEntity<Object> findByName(@PathVariable(name = "name") @Parameter(name ="name", schema = @Schema(description = "The country name ISO2",  type = "string", required = true, example ="CI")) String name) {
@@ -97,8 +83,7 @@ public class CountryController {
 			String code = sequence.getCountry();
 
 			Country data = mapper.mapper(countryDto, Country.class);
-			data.generateId();
-			data.passCode(code);
+			data.setCode(code);
 			data.setIsActive(true);
 			Country country = countryRepository.create(data);
 
@@ -155,5 +140,4 @@ public class CountryController {
 			return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), false,  e.getMessage(), null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-
 }

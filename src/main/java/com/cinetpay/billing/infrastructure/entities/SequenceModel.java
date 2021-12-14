@@ -31,6 +31,9 @@ public class SequenceModel {
     @Column(columnDefinition = "varchar(255)", name = "product", nullable = false)
     private String product;
 
+    @Column(columnDefinition = "varchar(255)", name = "vendor_account", nullable = false)
+    private String vendorAccount;
+
     public int getId() {
         return id;
     }
@@ -63,4 +66,11 @@ public class SequenceModel {
         this.product = product;
     }
 
+    public String getVendorAccount() {
+        return vendorAccount;
+    }
+
+    public void setVendorAccount(String vendorAccount) {
+        this.vendorAccount = vendorAccount;
+    }
 }

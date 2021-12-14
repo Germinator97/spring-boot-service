@@ -7,11 +7,11 @@ import java.sql.Timestamp;
 
 import javax.persistence.*;
 
+import com.cinetpay.billing.infrastructure.enumerations.*;
+
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import com.cinetpay.billing.enumerations.*;
 
 /**
  * @author Germinator
@@ -28,11 +28,23 @@ public class Billing {
 	
     @Column(columnDefinition = "varchar(255)", name = "vendor", nullable = false)
     private String vendor;
+
+    @Column(columnDefinition = "varchar(255)", name = "product", nullable = false)
+    private String product;
+
+    @Column(columnDefinition = "varchar(255)", name = "country", nullable = false)
+    private String country;
+
+    @Column(columnDefinition = "varchar(255)", name = "partner", nullable = false)
+    private String partner;
+
+    @Column(columnDefinition = "varchar(255)", name = "currency", nullable = false)
+    private String currency;
 	
-    @Column(columnDefinition = "Decimal(20,2) default 0", name = "amount", nullable = false)
+    @Column(columnDefinition = "decimal(20,2) default 0", name = "amount", nullable = false)
     private Double amount;
     
-    @Column(columnDefinition = "Decimal(20,2) default 0", name = "price", nullable = false)
+    @Column(columnDefinition = "decimal(20,2) default 0", name = "price", nullable = false)
     private Double price;
     
     @Enumerated(EnumType.STRING)
@@ -46,10 +58,10 @@ public class Billing {
     @Column(columnDefinition = "varchar(255)", name = "account", nullable = false)
     private String account;
     
-    @Column(columnDefinition = "Decimal(20,2) default 0", name = "balance", nullable = false)
+    @Column(columnDefinition = "decimal(20,2) default 0", name = "balance", nullable = false)
     private Double balance;
     
-    @Column(columnDefinition = "Decimal(20,2) default 0", name = "last_balance", nullable = false)
+    @Column(columnDefinition = "decimal(20,2) default 0", name = "last_balance", nullable = false)
     private Double last_balance;
 	
     @Column(columnDefinition = "timestamp default CURRENT_TIMESTAMP", name = "created_at")
@@ -60,21 +72,5 @@ public class Billing {
     @CreationTimestamp
     @LastModifiedDate
     private Timestamp updated_at;
-	
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "product")
-    private Product product;
-	
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "country")
-    private Country country;
-	
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "partner")
-    private Partner partner;
-	
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "currency")
-    private Currency currency;
 
 }
