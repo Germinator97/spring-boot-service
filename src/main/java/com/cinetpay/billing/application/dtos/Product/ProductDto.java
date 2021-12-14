@@ -1,4 +1,4 @@
-package com.cinetpay.billing.application.dtos.Product;
+package com.cinetpay.billing.application.dtos.product;
 
 import java.time.LocalDateTime;
 
@@ -10,7 +10,7 @@ import lombok.Data;
 
 @Data
 public class ProductDto {
-
+    
     @Schema(hidden = true)
 	protected String id;
 	

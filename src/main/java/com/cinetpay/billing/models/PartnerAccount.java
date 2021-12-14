@@ -26,11 +26,23 @@ public class PartnerAccount {
 	
     @Column(columnDefinition = "varchar(255)", name = "vendor", nullable = false)
     private String vendor;
+
+    @Column(columnDefinition = "varchar(255)", name = "product", nullable = false)
+    private String product;
+
+    @Column(columnDefinition = "varchar(255)", name = "country", nullable = false)
+    private String country;
+
+    @Column(columnDefinition = "varchar(255)", name = "partner", nullable = false)
+    private String partner;
+
+    @Column(columnDefinition = "varchar(255)", name = "currency", nullable = false)
+    private String currency;
 	
     @Column(columnDefinition = "varchar(255)", name = "account", nullable = false, unique = true)
     private String account;
     
-    @Column(columnDefinition = "Decimal(20,2) default 0", name = "balance", nullable = false)
+    @Column(columnDefinition = "decimal(20,2) default 0", name = "balance", nullable = false)
     private Double balance;
 
     @Column(name = "is_blocked", columnDefinition = "boolean default false")
@@ -44,21 +56,5 @@ public class PartnerAccount {
     @CreationTimestamp
     @LastModifiedDate
     private Timestamp updatedAt;
-	
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "product")
-    private Product product;
-	
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "country")
-    private Country country;
-	
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "currency")
-    private Currency currency;
-	
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "partner")
-    private Partner partner;
 
 }

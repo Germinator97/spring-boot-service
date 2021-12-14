@@ -4,7 +4,6 @@
 package com.cinetpay.billing.models;
 
 import java.sql.Timestamp;
-import java.util.Set;
 
 import javax.persistence.*;
 
@@ -42,26 +41,5 @@ public class Currency {
     @CreationTimestamp
     @LastModifiedDate
     private Timestamp updatedAt;
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "currency", cascade = CascadeType.ALL)
-    private Set<CommissionPartner> commissions_partners;
-    
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "currency", cascade = CascadeType.ALL)
-    private Set<BillingService> billingsServices;
-    
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "currency", cascade = CascadeType.ALL)
-    private Set<VendorAccount> vendorsAccounts;
-    
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "currency", cascade = CascadeType.ALL)
-    private Set<MerchantAccount> merchantsAccounts;
-    
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "currency", cascade = CascadeType.ALL)
-    private Set<ServiceAccount> servicesAccounts;
-    
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "currency", cascade = CascadeType.ALL)
-    private Set<PartnerAccount> partnersAccounts;
-    
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "currency", cascade = CascadeType.ALL)
-    private Set<CustomerAccount> customersAccounts;
 
 }

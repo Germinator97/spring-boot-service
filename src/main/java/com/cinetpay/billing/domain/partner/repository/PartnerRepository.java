@@ -8,6 +8,6 @@ public interface PartnerRepository {
 
 	public Partner create(Partner partner);
 
-	public Partner update(Partner data);
+	public Partner update(Partner partner);
     
 }

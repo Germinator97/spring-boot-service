@@ -8,11 +8,11 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import com.cinetpay.billing.infrastructure.enumerations.*;
+
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import com.cinetpay.billing.enumerations.*;
 
 /**
  * @author Germinator
@@ -29,6 +29,18 @@ public class BillingService {
 	
     @Column(columnDefinition = "varchar(255)", name = "vendor", nullable = false)
     private String vendor;
+
+    @Column(columnDefinition = "varchar(255)", name = "product", nullable = false)
+    private String product;
+
+    @Column(columnDefinition = "varchar(255)", name = "country", nullable = false)
+    private String country;
+
+    @Column(columnDefinition = "varchar(255)", name = "partner", nullable = false)
+    private String partner;
+
+    @Column(columnDefinition = "varchar(255)", name = "currency", nullable = false)
+    private String currency;
 	
     @Column(columnDefinition = "varchar(255)", name = "owner", nullable = false)
     private String owner;
@@ -64,23 +76,7 @@ public class BillingService {
     @LastModifiedDate
     private Timestamp updatedAt;
 	
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "product")
-    private Product product;
-	
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "country")
-    private Country country;
-	
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "partner")
-    private Partner partner;
-	
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "currency")
-    private Currency currency;
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "billingService", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "billingService")
     private Set<CommissionService> commissionsServices;
 
 }

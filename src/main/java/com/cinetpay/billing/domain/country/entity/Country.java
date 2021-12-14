@@ -4,7 +4,6 @@
 package com.cinetpay.billing.domain.country.entity;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 /**
  * @author mac
@@ -23,14 +22,6 @@ public class Country {
     private LocalDateTime createdAt;
     
     private LocalDateTime updatedAt;
-
-	public void generateId() {
-        this.id = UUID.randomUUID().toString();
-    }
-
-    public void passCode(String sequence) {
-        this.code = sequence;
-    }
 
     public String getId() {
         return id;

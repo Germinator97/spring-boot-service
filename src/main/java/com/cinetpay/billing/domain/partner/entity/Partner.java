@@ -1,7 +1,6 @@
 package com.cinetpay.billing.domain.partner.entity;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 public class Partner {
 
@@ -14,10 +13,6 @@ public class Partner {
     private LocalDateTime createdAt;
     
     private LocalDateTime updatedAt;
-
-	public void generateId() {
-        this.id = UUID.randomUUID().toString();
-    }
 
     public String getId() {
         return id;

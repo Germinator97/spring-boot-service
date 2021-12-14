@@ -67,7 +67,6 @@ public class PartnerController {
 			}
 
 			Partner data = mapper.mapper(partnerDto, Partner.class);
-			data.generateId();
 			data.setIsActive(true);
 			Partner country = partnerRepository.create(data);
 

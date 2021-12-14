@@ -83,8 +83,7 @@ public class CountryController {
 			String code = sequence.getCountry();
 
 			Country data = mapper.mapper(countryDto, Country.class);
-			data.generateId();
-			data.passCode(code);
+			data.setCode(code);
 			data.setIsActive(true);
 			Country country = countryRepository.create(data);
 

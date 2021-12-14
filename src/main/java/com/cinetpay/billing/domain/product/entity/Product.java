@@ -1,7 +1,6 @@
 package com.cinetpay.billing.domain.product.entity;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 public class Product {
 
@@ -16,14 +15,6 @@ public class Product {
     private LocalDateTime createdAt;
     
     private LocalDateTime updatedAt;
-
-	public void generateId() {
-        this.id = UUID.randomUUID().toString();
-    }
-
-    public void passCode(String sequence) {
-        this.code = sequence;
-    }
 
     public String getId() {
         return id;

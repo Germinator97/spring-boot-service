@@ -8,6 +8,6 @@ public interface CountryRepository {
 
 	public Country create(Country country);
 
-	public Country update(Country data);
+	public Country update(Country country);
 
 }

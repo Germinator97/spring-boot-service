@@ -2,8 +2,8 @@ package com.cinetpay.billing.application.controllers;
 
 import javax.validation.Valid;
 
-import com.cinetpay.billing.application.dtos.Product.DeleteProductDto;
-import com.cinetpay.billing.application.dtos.Product.ProductDto;
+import com.cinetpay.billing.application.dtos.product.DeleteProductDto;
+import com.cinetpay.billing.application.dtos.product.ProductDto;
 import com.cinetpay.billing.application.mapper.Mapper;
 import com.cinetpay.billing.application.response.ResponseHandler;
 import com.cinetpay.billing.domain.product.entity.Product;
@@ -76,8 +76,7 @@ public class ProductController {
 			String code = sequence.getProduct();
 
 			Product data = mapper.mapper(productDto, Product.class);
-			data.generateId();
-			data.passCode(code);
+			data.setCode(code);
 			data.setIsActive(true);
 			Product product = productRepository.create(data);
 

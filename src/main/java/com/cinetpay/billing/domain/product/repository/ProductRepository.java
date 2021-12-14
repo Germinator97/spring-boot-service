@@ -8,6 +8,6 @@ public interface ProductRepository {
 
 	public Product create(Product product);
 
-	public Product update(Product data);
+	public Product update(Product product);
     
 }
