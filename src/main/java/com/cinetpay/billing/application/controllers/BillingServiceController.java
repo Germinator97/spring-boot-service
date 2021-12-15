@@ -2,15 +2,15 @@ package com.cinetpay.billing.application.controllers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.validation.Valid;
 
+import com.cinetpay.billing.application.dtos.billings.service.BillingServiceDefaultDto;
 import com.cinetpay.billing.application.dtos.billings.service.BillingServiceDto;
 import com.cinetpay.billing.application.dtos.billings.service.BillingServiceSearchDto;
+import com.cinetpay.billing.application.dtos.commissions.service.CommissionServiceDefaultDto;
 import com.cinetpay.billing.application.dtos.commissions.service.CommissionServiceDto;
 import com.cinetpay.billing.application.mapper.Mapper;
 import com.cinetpay.billing.application.response.ResponseHandler;
@@ -51,12 +51,12 @@ public class BillingServiceController {
 
 	@ApiOperation(value = "This method is used to get the clients.")
     @RequestMapping(value = {"/search", "/search/{amount}"}, method = RequestMethod.POST)
-	public ResponseEntity<Object> create(@RequestHeader(name = "vendor", required = true) String vendor, @PathVariable(name = "amount") double amount,  @Valid @RequestBody BillingServiceSearchDto billingServiceSearchDto) {
+	public ResponseEntity<Object> create(@RequestHeader(name = "vendor", required = true) String vendor, @PathVariable(name = "amount") double amount, @Valid @RequestBody BillingServiceSearchDto billingServiceSearchDto) {
 		try {
 			BillingService optionalBillingService = billingServiceRepository.findWithService(vendor, billingServiceSearchDto.getProduct(), billingServiceSearchDto.getCountry(), billingServiceSearchDto.getPartner(), billingServiceSearchDto.getCurrency(), billingServiceSearchDto.getOwner());
 
 			if (optionalBillingService == null) {
-				return ResponseHandler.generateResponse(400, false, HttpStatus.NOT_FOUND.name(), null, HttpStatus.NOT_FOUND);
+				return ResponseHandler.generateResponse(HttpStatus.NOT_FOUND.value(), false, HttpStatus.NOT_FOUND.name(), null, HttpStatus.NOT_FOUND);
 			}
 
 			else {
@@ -74,14 +74,13 @@ public class BillingServiceController {
 	
 				else {
 					commissionServiceMerchantExist = commissionServiceRepository.findInInterval(optionalBillingService, amount);
-					System.out.println(commissionServiceMerchantExist);
 				}
 	
 				if (commissionServiceMerchantExist == null) {
-					BillingService optionalBillingServiceDefault = billingServiceRepository.findWithService(vendor, billingServiceSearchDto.getProduct(), billingServiceSearchDto.getCountry(), billingServiceSearchDto.getPartner(), billingServiceSearchDto.getCurrency(), null);
+					BillingService optionalBillingServiceDefault = billingServiceRepository.findWithOutService(vendor, billingServiceSearchDto.getProduct(), billingServiceSearchDto.getCountry(), billingServiceSearchDto.getPartner(), billingServiceSearchDto.getCurrency());
 	
 					if (optionalBillingServiceDefault == null) {
-						return ResponseHandler.generateResponse(400, false, HttpStatus.NOT_FOUND.name(), null, HttpStatus.NOT_FOUND);
+						return ResponseHandler.generateResponse(HttpStatus.NOT_FOUND.value(), false, HttpStatus.NOT_FOUND.name(), null, HttpStatus.NOT_FOUND);
 					}
 	
 					else {
@@ -90,7 +89,7 @@ public class BillingServiceController {
 						CommissionService commissionServiceDefaultExist = commissionServiceRepository.findForOne(optionalBillingServiceDefault);
 
 						if (commissionServiceDefaultExist == null) {
-							return ResponseHandler.generateResponse(400, false, HttpStatus.NOT_FOUND.name(), null, HttpStatus.NOT_FOUND);
+							return ResponseHandler.generateResponse(HttpStatus.NOT_FOUND.value(), false, HttpStatus.NOT_FOUND.name(), null, HttpStatus.NOT_FOUND);
 						}
 
 						else {
@@ -119,7 +118,6 @@ public class BillingServiceController {
 			return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), false,  e.toString(), null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-    
 
 	@ApiOperation(value = "This method is used to get the clients.")
     @RequestMapping(value = "/create", method = RequestMethod.POST)
@@ -128,7 +126,7 @@ public class BillingServiceController {
 			BillingService optionalBillingService = billingServiceRepository.findWithService(vendor, billingServiceDto.getProduct(), billingServiceDto.getCountry(), billingServiceDto.getPartner(), billingServiceDto.getCurrency(), billingServiceDto.getOwner());
 
 			if (optionalBillingService != null) {
-				return ResponseHandler.generateResponse(400, false, HttpStatus.FOUND.name(), null, HttpStatus.FOUND);
+				return ResponseHandler.generateResponse(HttpStatus.FOUND.value(), false, HttpStatus.FOUND.name(), null, HttpStatus.FOUND);
 			}
 
 			BillingService billingService = mapper.mapper(billingServiceDto, BillingService.class);
@@ -139,7 +137,7 @@ public class BillingServiceController {
 
 			BillingService billingServiceCreated = billingServiceRepository.create(billingService);
 
-			Set<CommissionServiceDto> commissions = billingServiceDto.getCommissionsServices();
+			List<CommissionServiceDto> commissions = billingServiceDto.getCommissionsServices();
 
 			CommissionServiceDto[] commissionList = commissions.toArray(new CommissionServiceDto[commissions.size()]);
 
@@ -168,9 +166,55 @@ public class BillingServiceController {
 				}
 			}
 
-			Set<CommissionService> result = new HashSet<CommissionService>(commissionsAdd);
+			billingServiceCreated.setCommissionsServices(commissionsAdd);
 
-			billingServiceCreated.setCommissionsServices(result);
+			return ResponseHandler.generateResponse(HttpStatus.OK.value(), true,  HttpStatus.CREATED.name(), billingServiceCreated, HttpStatus.OK);
+			
+		} catch (Exception e) {
+			return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), false,  e.toString(), null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+    
+	@ApiOperation(value = "This method is used to get the clients.")
+    @RequestMapping(value = "/create/default", method = RequestMethod.POST)
+	public ResponseEntity<Object> createDefault(@RequestHeader(name = "vendor", required = true) String vendor, @Valid @RequestBody BillingServiceDefaultDto billingServiceDefaultDto) {
+		try {
+			BillingService optionalBillingService = billingServiceRepository.findWithOutService(vendor, billingServiceDefaultDto.getProduct(), billingServiceDefaultDto.getCountry(), billingServiceDefaultDto.getPartner(), billingServiceDefaultDto.getCurrency());
+
+			if (optionalBillingService != null) {
+				return ResponseHandler.generateResponse(HttpStatus.FOUND.value(), false, HttpStatus.FOUND.name(), null, HttpStatus.FOUND);
+			}
+
+			BillingService billingService = mapper.mapper(billingServiceDefaultDto, BillingService.class);
+
+			billingService.setVendor(vendor);
+			billingService.setIsActive(true);
+			billingService.getCommissionsServices().clear();
+
+			BillingService billingServiceCreated = billingServiceRepository.create(billingService);
+
+			List<CommissionServiceDefaultDto> commissions = billingServiceDefaultDto.getCommissionsServices();
+
+			CommissionServiceDefaultDto[] commissionList = commissions.toArray(new CommissionServiceDefaultDto[commissions.size()]);
+
+			List<CommissionService> commissionsAdd = new ArrayList<CommissionService>();
+
+			CommissionServiceDefaultDto commission = commissionList[0];
+	
+			CommissionService commissionService = mapper.mapper(commission, CommissionService.class);
+
+			if (commissionService.getCommissionVariable() <= 1) {
+				commissionService.setBillingService(billingServiceCreated);
+				commissionService.setIsActive(true);
+
+				CommissionService commissionServiceCreated = commissionServiceRepository.create(commissionService);
+
+				commissionServiceCreated.setBillingService(null);
+
+				commissionsAdd.add(commissionServiceCreated);
+			}
+
+			billingServiceCreated.setCommissionsServices(commissionsAdd);
 
 			return ResponseHandler.generateResponse(HttpStatus.OK.value(), true,  HttpStatus.CREATED.name(), billingServiceCreated, HttpStatus.OK);
 			

@@ -7,7 +7,5 @@ public interface PartnerRepository {
     public Partner findByName(String name);
 
 	public Partner create(Partner partner);
-
-	public Partner update(Partner partner);
     
 }

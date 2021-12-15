@@ -1,18 +1,15 @@
-/**
- * 
- */
 package com.cinetpay.billing.application.controllers;
 
 import javax.validation.Valid;
 
-import com.cinetpay.billing.application.dtos.country.CountryDto;
-import com.cinetpay.billing.application.dtos.country.CountryUpdateDto;
+import com.cinetpay.billing.application.dtos.currency.CurrencyDto;
+import com.cinetpay.billing.application.dtos.currency.CurrencyUpdateDto;
 import com.cinetpay.billing.application.mapper.Mapper;
 import com.cinetpay.billing.application.response.ResponseHandler;
 import com.cinetpay.billing.application.utils.NextSequence;
 import com.cinetpay.billing.application.utils.Properties;
-import com.cinetpay.billing.domain.country.entity.Country;
-import com.cinetpay.billing.domain.country.repository.CountryRepository;
+import com.cinetpay.billing.domain.currency.entity.Currency;
+import com.cinetpay.billing.domain.currency.repository.CurrencyRepository;
 import com.cinetpay.billing.domain.sequence.entity.Sequence;
 import com.cinetpay.billing.domain.sequence.repository.SequenceRepository;
 
@@ -35,8 +32,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
  */
 @Validated
 @RestController
-@RequestMapping(value = "/country")
-public class CountryController {
+@RequestMapping(value = "/currency")
+public class CurrencyController {
 
     @Autowired
 	private Mapper mapper;
@@ -45,7 +42,7 @@ public class CountryController {
 	private SequenceRepository sequenceRepository;
 
 	@Autowired
-	private CountryRepository countryRepository;
+	private CurrencyRepository currencyRepository;
 
 	@Autowired
 	private Properties properties;
@@ -54,33 +51,33 @@ public class CountryController {
 	private NextSequence nextSequence;
 
 	@RequestMapping(value = {"/find/name", "/find/name/{name}"}, method = RequestMethod.GET)
-	public ResponseEntity<Object> findByName(@PathVariable(name = "name") @Parameter(name ="name", schema = @Schema(description = "The country name ISO2", type = "string", required = true, example ="CI")) String name) {
+	public ResponseEntity<Object> findByName(@PathVariable(name = "name") @Parameter(name ="name", schema = @Schema(description = "The currency name", type = "string", required = true, example ="XOF")) String name) {
 		try {
-			Country country = countryRepository.findByName(name);
+			Currency currency = currencyRepository.findByName(name);
 
-			if (country == null) {
+			if (currency == null) {
 				return ResponseHandler.generateResponse(HttpStatus.NOT_FOUND.value(), false, HttpStatus.NOT_FOUND.name(), null, HttpStatus.NOT_FOUND);
 			}
 
-			return ResponseHandler.generateResponse(HttpStatus.OK.value(), true,  HttpStatus.FOUND.name(), country, HttpStatus.OK);
+			return ResponseHandler.generateResponse(HttpStatus.OK.value(), true,  HttpStatus.FOUND.name(), currency, HttpStatus.OK);
 		} catch (Exception e) {
 			return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), false,  e.getMessage(), null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public ResponseEntity<Object> create(@Valid @RequestBody CountryDto countryDto) {
+	public ResponseEntity<Object> create(@Valid @RequestBody CurrencyDto currencyDto) {
 		try {
-			Country optionalCountry = countryRepository.findByName(countryDto.getName());
+			Currency optionalCurrency = currencyRepository.findByName(currencyDto.getName());
 
-			if (optionalCountry != null) {
+			if (optionalCurrency != null) {
 
-				if (!optionalCountry.getIsActive()) {
-					optionalCountry.setIsActive(true);
+				if (!optionalCurrency.getIsActive()) {
+					optionalCurrency.setIsActive(true);
 
-					Country country = countryRepository.create(optionalCountry);
+					Currency currency = currencyRepository.create(optionalCurrency);
 		
-					return ResponseHandler.generateResponse(HttpStatus.OK.value(), true,  HttpStatus.OK.name(), country, HttpStatus.OK);
+					return ResponseHandler.generateResponse(HttpStatus.OK.value(), true,  HttpStatus.OK.name(), currency, HttpStatus.OK);
 				}
 
 				return ResponseHandler.generateResponse(400, false, HttpStatus.FOUND.name(), null, HttpStatus.FOUND);
@@ -88,19 +85,19 @@ public class CountryController {
 
 			Sequence sequence = sequenceRepository.find();
 
-			String code = sequence.getCountry();
+			String code = sequence.getCurrency();
 
-			Country data = mapper.mapper(countryDto, Country.class);
+			Currency data = mapper.mapper(currencyDto, Currency.class);
 			data.setCode(code);
 			data.setIsActive(true);
-			Country country = countryRepository.create(data);
+			Currency currency = currencyRepository.create(data);
 
 			String nextCode = nextSequence.nexCode(sequence, code);
 
-			sequence.setCountry(nextCode);
+			sequence.setCurrency(nextCode);
 			sequenceRepository.create(sequence);
 
-			return ResponseHandler.generateResponse(HttpStatus.OK.value(), true,  HttpStatus.CREATED.name(), country, HttpStatus.OK);
+			return ResponseHandler.generateResponse(HttpStatus.OK.value(), true,  HttpStatus.CREATED.name(), currency, HttpStatus.OK);
 			
 		} catch (Exception e) {
 			return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), false,  e.toString(), null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -108,27 +105,27 @@ public class CountryController {
 	}
 
 	@RequestMapping(value = {"/update", "/update/{name}"}, method = RequestMethod.PUT)
-	public ResponseEntity<Object> update(@PathVariable(name = "name") String name, @Valid @RequestBody CountryUpdateDto countryUpdateDto) {
+	public ResponseEntity<Object> update(@PathVariable(name = "name") String name, @Valid @RequestBody CurrencyUpdateDto currencyUpdateDto) {
 		try {
-			Country exist = countryRepository.findByName(name);
+			Currency exist = currencyRepository.findByName(name);
 
 			if (exist == null) {
 				return ResponseHandler.generateResponse(HttpStatus.NOT_FOUND.value(), false, HttpStatus.NOT_FOUND.name(), null, HttpStatus.NOT_FOUND);
 			}
 
-			properties.copyNonNullProperties(countryUpdateDto, exist);
+			properties.copyNonNullProperties(currencyUpdateDto, exist);
 
-			if (countryUpdateDto.check()) {
-				exist.setIsActive(Boolean.valueOf(countryUpdateDto.getIsActive()));
+			if (currencyUpdateDto.check()) {
+				exist.setIsActive(Boolean.valueOf(currencyUpdateDto.getIsActive()));
 			}
 
-			Country country = countryRepository.create(exist);
+			Currency currency = currencyRepository.create(exist);
 
-			return ResponseHandler.generateResponse(HttpStatus.OK.value(), true,  HttpStatus.OK.name(), country, HttpStatus.OK);
+			return ResponseHandler.generateResponse(HttpStatus.OK.value(), true,  HttpStatus.OK.name(), currency, HttpStatus.OK);
 		} catch (Exception e) {
 			System.out.println(e);
 			return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), false,  e.getMessage(), null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-
+    
 }

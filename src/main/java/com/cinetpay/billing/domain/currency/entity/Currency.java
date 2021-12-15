@@ -1,31 +1,19 @@
-package com.cinetpay.billing.application.dtos.partner;
+package com.cinetpay.billing.domain.currency.entity;
 
 import java.time.LocalDateTime;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
+public class Currency {
 
-import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
-
-@Data
-public class DeletePartnerDto {
-
-    @Schema(hidden = true)
     protected String id;
 	
-    @Schema(hidden = true)
+	private String code;
+	
     private String name;
 
-    @NotNull(message = "The partner is_active must not be null.")
-    @Pattern(regexp = "^true$|^false$", message = "The partner is_active must be : true or false")
-    @Schema(description = "The partner status active",  type = "boolean", required = true, allowableValues = {"true", "false"})
-    private String isActive;
+    private Boolean isActive;
 
-    @Schema(hidden = true)
     private LocalDateTime createdAt;
-
-    @Schema(hidden = true)
+    
     private LocalDateTime updatedAt;
 
     public String getId() {
@@ -36,6 +24,14 @@ public class DeletePartnerDto {
         this.id = id;
     }
 
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
     public String getName() {
         return name;
     }
@@ -44,11 +40,11 @@ public class DeletePartnerDto {
         this.name = name;
     }
 
-    public String getIsActive() {
+    public Boolean getIsActive() {
         return isActive;
     }
 
-    public void setIsActive(String isActive) {
+    public void setIsActive(Boolean isActive) {
         this.isActive = isActive;
     }
 
@@ -67,5 +63,6 @@ public class DeletePartnerDto {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
+    
     
 }

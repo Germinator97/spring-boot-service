@@ -2,10 +2,11 @@ package com.cinetpay.billing.application.controllers;
 
 import javax.validation.Valid;
 
-import com.cinetpay.billing.application.dtos.partner.DeletePartnerDto;
+import com.cinetpay.billing.application.dtos.partner.PartnerUpdateDto;
 import com.cinetpay.billing.application.dtos.partner.PartnerDto;
 import com.cinetpay.billing.application.mapper.Mapper;
 import com.cinetpay.billing.application.response.ResponseHandler;
+import com.cinetpay.billing.application.utils.Properties;
 import com.cinetpay.billing.domain.partner.entity.Partner;
 import com.cinetpay.billing.domain.partner.repository.PartnerRepository;
 
@@ -33,6 +34,9 @@ public class PartnerController {
 	@Autowired
 	private PartnerRepository partnerRepository;
 
+	@Autowired
+	private Properties properties;
+
 	@RequestMapping(value = {"/find/name", "/find/name/{name}"}, method = RequestMethod.GET)
 	public ResponseEntity<Object> findByName(@PathVariable(name = "name") @Parameter(name ="name", schema = @Schema(description = "The partner name",  type = "string", required = true, example ="OM")) String name) {
 		try {
@@ -58,7 +62,7 @@ public class PartnerController {
 				if (!optionalPartner.getIsActive()) {
 					optionalPartner.setIsActive(true);
 
-					Partner partner = partnerRepository.update(optionalPartner);
+					Partner partner = partnerRepository.create(optionalPartner);
 		
 					return ResponseHandler.generateResponse(HttpStatus.OK.value(), true,  HttpStatus.OK.name(), partner, HttpStatus.OK);
 				}
@@ -77,8 +81,8 @@ public class PartnerController {
 		}
 	}
 
-	@RequestMapping(value = {"/update", "/update/{name}"}, method = RequestMethod.POST)
-	public ResponseEntity<Object> update(@PathVariable(name = "name") String name, @Valid @RequestBody PartnerDto partnerDto) {
+	@RequestMapping(value = {"/update", "/update/{name}"}, method = RequestMethod.PUT)
+	public ResponseEntity<Object> update(@PathVariable(name = "name") String name, @Valid @RequestBody PartnerUpdateDto partnerUpdateDto) {
 		try {
 			Partner exist = partnerRepository.findByName(name);
 
@@ -86,28 +90,13 @@ public class PartnerController {
 				return ResponseHandler.generateResponse(HttpStatus.NOT_FOUND.value(), false, HttpStatus.NOT_FOUND.name(), null, HttpStatus.NOT_FOUND);
 			}
 
-			exist.setName(partnerDto.getName());
+			properties.copyNonNullProperties(partnerUpdateDto, exist);
 
-			Partner partner = partnerRepository.update(exist);
-
-			return ResponseHandler.generateResponse(HttpStatus.OK.value(), true,  HttpStatus.OK.name(), partner, HttpStatus.OK);
-		} catch (Exception e) {
-			return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), false,  e.getMessage(), null, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
-
-	@RequestMapping(value = {"/delete", "/delete/{name}"}, method = RequestMethod.POST)
-	public ResponseEntity<Object> delete(@PathVariable(name = "name") String name, @Valid @RequestBody DeletePartnerDto partnerDto) {
-		try {
-			Partner exist = partnerRepository.findByName(name);
-
-			if (exist == null) {
-				return ResponseHandler.generateResponse(HttpStatus.NOT_FOUND.value(), false, HttpStatus.NOT_FOUND.name(), null, HttpStatus.NOT_FOUND);
+			if (partnerUpdateDto.check()) {
+				exist.setIsActive(Boolean.valueOf(partnerUpdateDto.getIsActive()));
 			}
 
-			exist.setIsActive(Boolean.valueOf(partnerDto.getIsActive()));
-
-			Partner partner = partnerRepository.update(exist);
+			Partner partner = partnerRepository.create(exist);
 
 			return ResponseHandler.generateResponse(HttpStatus.OK.value(), true,  HttpStatus.OK.name(), partner, HttpStatus.OK);
 		} catch (Exception e) {

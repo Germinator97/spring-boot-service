@@ -42,7 +42,7 @@ public class BillingService {
     @Column(columnDefinition = "varchar(255)", name = "currency", nullable = false)
     private String currency;
 	
-    @Column(columnDefinition = "varchar(255)", name = "owner", nullable = false)
+    @Column(columnDefinition = "varchar(255)", name = "owner")
     private String owner;
     
     @Enumerated(EnumType.STRING)

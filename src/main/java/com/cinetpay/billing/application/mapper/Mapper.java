@@ -30,6 +30,6 @@ public class Mapper {
             return null;
         }
         return modelMapper.map(sources[0], destinationType);
-}
+    }
 
 }

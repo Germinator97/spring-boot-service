@@ -36,7 +36,8 @@ public class InitConfiguration {
             sequence.setCountry("03.1000");
             sequence.setCurrency("04.10");
             sequence.setProduct("02.100");
-            return args -> repository.update(sequence);
+            sequence.setServiceAccount("10000000");
+            return args -> repository.create(sequence);
         }
     }
 }

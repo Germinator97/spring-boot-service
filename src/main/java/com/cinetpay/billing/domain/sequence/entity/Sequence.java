@@ -10,6 +10,8 @@ public class Sequence {
 
     private String product;
 
+    private String serviceAccount;
+
     public int getId() {
         return id;
     }
@@ -40,6 +42,14 @@ public class Sequence {
 
     public void setProduct(String product) {
         this.product = product;
+    }
+
+    public String getServiceAccount() {
+        return serviceAccount;
+    }
+
+    public void setServiceAccount(String serviceAccount) {
+        this.serviceAccount = serviceAccount;
     }
     
 }

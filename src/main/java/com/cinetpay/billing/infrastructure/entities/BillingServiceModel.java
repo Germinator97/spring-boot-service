@@ -1,7 +1,7 @@
 package com.cinetpay.billing.infrastructure.entities;
 
 import java.time.LocalDateTime;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -34,6 +34,10 @@ import lombok.Data;
     name = "BillingServiceModel.findWithService",
     query = "SELECT t FROM BillingServiceModel t WHERE t.vendor = ?1 AND t.product = ?2 AND t.country = ?3 AND t.partner = ?4 AND t.currency = ?5 AND t.owner = ?6"
 )
+@NamedQuery(
+    name = "BillingServiceModel.findWithOutService",
+    query = "SELECT t FROM BillingServiceModel t WHERE t.vendor = ?1 AND t.product = ?2 AND t.country = ?3 AND t.partner = ?4 AND t.currency = ?5 AND t.option = 'DEFAULT'"
+)
 public class BillingServiceModel {
 
 	@Id
@@ -60,7 +64,7 @@ public class BillingServiceModel {
     @Column(columnDefinition = "varchar(255)", name = "currency", nullable = false)
     private String currency;
 	
-    @Column(columnDefinition = "varchar(255)", name = "owner", nullable = false)
+    @Column(columnDefinition = "varchar(255)", name = "owner")
     private String owner;
     
     @Enumerated(EnumType.STRING)
@@ -94,7 +98,7 @@ public class BillingServiceModel {
     private LocalDateTime updatedAt;
 	
 	@OneToMany(mappedBy = "billingService")
-    private Set<CommissionServiceModel> commissionsServices;
+    private List<CommissionServiceModel> commissionsServices;
 
     public String getId() {
         return id;
@@ -216,12 +220,17 @@ public class BillingServiceModel {
         this.updatedAt = updatedAt;
     }
 
-    public Set<CommissionServiceModel> getCommissionsServices() {
+    public List<CommissionServiceModel> getCommissionsServices() {
         return commissionsServices;
     }
 
-    public void setCommissionsServices(Set<CommissionServiceModel> commissionsServices) {
+    public void setCommissionsServices(List<CommissionServiceModel> commissionsServices) {
         this.commissionsServices = commissionsServices;
     }
-    
+
+    @Override
+    public String toString() {
+        return null;
+    }
+
 }

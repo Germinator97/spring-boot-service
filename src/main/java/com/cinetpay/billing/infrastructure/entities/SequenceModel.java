@@ -31,6 +31,9 @@ public class SequenceModel {
     @Column(columnDefinition = "varchar(255)", name = "product", nullable = false)
     private String product;
 
+    @Column(columnDefinition = "varchar(255)", name = "service_account", nullable = false)
+    private String serviceAccount;
+
     public int getId() {
         return id;
     }
@@ -61,6 +64,14 @@ public class SequenceModel {
 
     public void setProduct(String product) {
         this.product = product;
+    }
+
+    public String getServiceAccount() {
+        return serviceAccount;
+    }
+
+    public void setServiceAccount(String serviceAccount) {
+        this.serviceAccount = serviceAccount;
     }
 
 }

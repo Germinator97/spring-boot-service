@@ -6,10 +6,8 @@ public interface BillingServiceRepository {
 
     public BillingService findWithService(String vendor, String product, String country, String partner, String currency, String owner);
 
-    public BillingService findWithoutService(String vendor, String product, String country, String partner, String currency);
+    public BillingService findWithOutService(String vendor, String product, String country, String partner, String currency);
 
     public BillingService create(BillingService billingService);
-
-	// public BillingService update(BillingService billingService);
     
 }
