@@ -37,6 +37,7 @@ public class InitConfiguration {
             sequence.setCurrency("04.10");
             sequence.setProduct("02.100");
             sequence.setVendorAccount("01.1000");
+            sequence.setPartnerAccount("10");
             return args -> repository.update(sequence);
         }
     }

@@ -33,7 +33,6 @@ public class BillingServiceRepositoryAdapter implements BillingServiceRepository
     @Override
     public BillingService create(BillingService data) {
         BillingServiceModel model = mapper.mapper(data, BillingServiceModel.class);
-        model.getCommissionsServices().clear();
         BillingServiceModel commission = billingServiceJpaRepository.save(model);
         return mapper.mapper(commission, BillingService.class);
     }

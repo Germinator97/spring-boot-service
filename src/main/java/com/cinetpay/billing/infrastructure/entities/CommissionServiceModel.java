@@ -25,7 +25,15 @@ import lombok.Data;
 @Data
 @NamedQuery(
     name = "CommissionServiceModel.findByInterval",
-    query = "SELECT t FROM CommissionServiceModel t WHERE t.billingService = ?1 AND t.min = ?2 AND t.max = ?3 GROUP BY t.id, t.billingService, t.min, t.max HAVING t.min <= ?2 AND ?3 <= t.max OR t.min <= ?2 AND ?3 <= t.max OR ?2 > t.min AND ?3 < t.max"
+    query = "SELECT t FROM CommissionServiceModel t WHERE t.billingService = ?1 GROUP BY t.id, t.billingService, t.min, t.max HAVING t.min <= ?2 AND ?2 <= t.max OR t.min <= ?3 AND ?3 <= t.max OR ?2 > t.min AND ?3 < t.max"
+)
+@NamedQuery(
+    name = "CommissionServiceModel.findForOne",
+    query = "SELECT t FROM CommissionServiceModel t WHERE t.billingService = ?1 AND t.isActive = true"
+)
+@NamedQuery(
+    name = "CommissionServiceModel.findInInterval",
+    query = "SELECT t FROM CommissionServiceModel t WHERE t.billingService = ?1 AND t.isActive = true AND t.min <= ?2 AND t.max >= ?2"
 )
 public class CommissionServiceModel {
 

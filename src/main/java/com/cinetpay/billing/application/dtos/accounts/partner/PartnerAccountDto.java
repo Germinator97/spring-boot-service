@@ -1,36 +1,46 @@
-package com.cinetpay.billing.application.dtos.accounts.vendor;
-
+package com.cinetpay.billing.application.dtos.accounts.partner;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.GenericGenerator;
+import org.springframework.data.annotation.LastModifiedDate;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
-@Data
-public class VendorAccountDto {
+public class PartnerAccountDto {
+
     @Schema(hidden = true)
     protected String id;
 
-
-    @Schema(description = "The vendor name",  type = "string", required = true, example ="1")
+    @Schema(hidden = true)
     private String vendor;
-
 
     @NotNull(message = "The product name must not be null.")
     @NotEmpty(message = "The product name must not be empty.")
     @Schema(description = "The product name",  type = "string", required = true, example ="PAYIN")
+    @Column(columnDefinition = "varchar(255)", name = "product", nullable = false)
     private String product;
 
     @NotNull(message = "The country name must not be null.")
     @NotEmpty(message = "The country name must not be empty.")
     @Schema(description = "The country name",  type = "string", required = true, example ="CI")
+    @Column(columnDefinition = "varchar(255)", name = "country", nullable = false)
     private String country;
+
+    @NotNull(message = "The partner name must not be null.")
+    @NotEmpty(message = "The partner name must not be empty.")
+    @Schema(description = "The partner name",  type = "string", required = true, example ="OM")
+    @Column(columnDefinition = "varchar(255)", name = "partner", nullable = false)
+    private String partner;
 
     @NotNull(message = "The currency name must not be null.")
     @NotEmpty(message = "The currency name must not be empty.")
     @Schema(description = "The currency name",  type = "string", required = true, example ="XOF")
+    @Column(columnDefinition = "varchar(255)", name = "currency", nullable = false)
     private String currency;
 
 
@@ -40,14 +50,16 @@ public class VendorAccountDto {
     @Schema(hidden = true)
     private Double balance;
 
-
     @Schema(hidden = true)
     private Boolean isBlocked = false;
 
-    @Schema(hidden = true)
+    @Column(columnDefinition = "timestamp default CURRENT_TIMESTAMP", name = "created_at")
+    @CreationTimestamp
     private Timestamp createdAt;
 
-    @Schema(hidden = true)
+    @Column(columnDefinition = "timestamp default CURRENT_TIMESTAMP", name = "updated_at")
+    @CreationTimestamp
+    @LastModifiedDate
     private Timestamp updatedAt;
 
 
@@ -81,6 +93,14 @@ public class VendorAccountDto {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public String getPartner() {
+        return partner;
+    }
+
+    public void setPartner(String partner) {
+        this.partner = partner;
     }
 
     public String getCurrency() {

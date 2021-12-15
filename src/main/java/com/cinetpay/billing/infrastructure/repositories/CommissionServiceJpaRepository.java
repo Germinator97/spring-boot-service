@@ -8,5 +8,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface CommissionServiceJpaRepository extends JpaRepository<CommissionServiceModel, String> {
 
     public CommissionServiceModel findByInterval(BillingServiceModel billing, Double min, Double max);
-    
+
+    public CommissionServiceModel findInInterval(BillingServiceModel billing, Double amount);
+
+    public CommissionServiceModel findForOne(BillingServiceModel billing);
 }

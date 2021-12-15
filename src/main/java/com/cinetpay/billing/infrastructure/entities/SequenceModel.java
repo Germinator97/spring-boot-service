@@ -34,6 +34,9 @@ public class SequenceModel {
     @Column(columnDefinition = "varchar(255)", name = "vendor_account", nullable = false)
     private String vendorAccount;
 
+    @Column(columnDefinition = "varchar(255)", name = "partner_account", nullable = false)
+    private String partnerAccount;
+
     public int getId() {
         return id;
     }
@@ -72,5 +75,13 @@ public class SequenceModel {
 
     public void setVendorAccount(String vendorAccount) {
         this.vendorAccount = vendorAccount;
+    }
+
+    public String getPartnerAccount() {
+        return partnerAccount;
+    }
+
+    public void setPartnerAccount(String partnerAccount) {
+        this.partnerAccount = partnerAccount;
     }
 }

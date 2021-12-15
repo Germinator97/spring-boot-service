@@ -25,7 +25,9 @@ public class VendorAccountRepositoryAdapter implements VendorAccountRepository {
 
     @Override
     public VendorAccount create(VendorAccount vendorAccount) {
-        return null;
+        VendorAccountModel model = mapper.mapper(vendorAccount, VendorAccountModel.class);
+        VendorAccountModel vendorAccountModel = vendorAccountJpaRepository.save(model);
+        return mapper.mapper(vendorAccountModel, VendorAccount.class);
     }
 
     @Override

@@ -2,10 +2,11 @@ package com.cinetpay.billing.application.dtos.commissions.partner;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+
 import java.time.LocalDateTime;
 
 @Data
-public class CommissionPartnerDto {
+public class UpdateCommissionPartnerDto {
 
     @Schema(hidden = true)
     protected String id;
@@ -13,10 +14,10 @@ public class CommissionPartnerDto {
     @Schema(hidden = true)
     private String vendor;
 
-    @Schema(description = "The commissionFixe name",  type = "double", required = true, example ="0.012")
+    @Schema(description = "The commissionFixe name",  type = "double", example ="0.012")
     private Double commissionFixe;
 
-    @Schema(description = "The commissionVariable name",  type = "double", required = true, example ="0.025")
+    @Schema(description = "The commissionVariable name",  type = "double", example ="0.025")
     private Double commissionVariable;
 
     @Schema(hidden = true)
@@ -28,16 +29,16 @@ public class CommissionPartnerDto {
     @Schema(hidden = true)
     private LocalDateTime updatedAt;
 
-    @Schema(description = "The product name",  type = "string", required = true, example ="PAYIN")
+    @Schema(description = "The product name",  type = "string", example ="PAYIN")
     private String product;
 
-    @Schema(description = "The country name",  type = "string", required = true, example ="CI")
+    @Schema(description = "The country name",  type = "string", example ="CI")
     private String country;
 
-    @Schema(description = "The partner name",  type = "string", required = true, example ="OM")
+    @Schema(description = "The partner name",  type = "string", example ="OM")
     private String partner;
 
-    @Schema(description = "The currency name",  type = "string", required = true, example ="XOF")
+    @Schema(description = "The currency name",  type = "string", example ="XOF")
     private String currency;
 
     public String getId() {

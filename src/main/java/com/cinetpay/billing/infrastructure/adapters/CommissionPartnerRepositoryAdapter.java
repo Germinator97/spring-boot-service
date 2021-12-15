@@ -24,7 +24,7 @@ public class CommissionPartnerRepositoryAdapter implements CommissionPartnerRepo
     @Override
     public CommissionPartner findById(String id) {
         Optional<CommissionPartnerModel> commissionPartnerModel = commissionPartnerJpaRepository.findById(id);
-        return mapper.mapper(commissionPartnerModel, CommissionPartner.class);
+        return mapper.mapper(commissionPartnerModel.get(), CommissionPartner.class);
     }
 
     @Override

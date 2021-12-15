@@ -12,6 +12,8 @@ public class Sequence {
 
     private String vendorAccount;
 
+    private String partnerAccount;
+
     public int getId() {
         return id;
     }
@@ -50,5 +52,13 @@ public class Sequence {
 
     public void setVendorAccount(String vendorAccount) {
         this.vendorAccount = vendorAccount;
+    }
+
+    public String getPartnerAccount() {
+        return partnerAccount;
+    }
+
+    public void setPartnerAccount(String partnerAccount) {
+        this.partnerAccount = partnerAccount;
     }
 }

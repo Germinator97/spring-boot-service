@@ -4,45 +4,35 @@ package com.cinetpay.billing.application.dtos.accounts.vendor;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
 @Data
-public class VendorAccountDto {
+public class UpdateVendorAccountDto {
     @Schema(hidden = true)
     protected String id;
 
-
-    @Schema(description = "The vendor name",  type = "string", required = true, example ="1")
+    @Schema(description = "The vendor name",  type = "string", example ="1")
     private String vendor;
 
-
-    @NotNull(message = "The product name must not be null.")
-    @NotEmpty(message = "The product name must not be empty.")
-    @Schema(description = "The product name",  type = "string", required = true, example ="PAYIN")
+    @Schema(description = "The product name",  type = "string", example ="PAYIN")
     private String product;
 
-    @NotNull(message = "The country name must not be null.")
-    @NotEmpty(message = "The country name must not be empty.")
-    @Schema(description = "The country name",  type = "string", required = true, example ="CI")
+    @Schema(description = "The country name",  type = "string", example ="CI")
     private String country;
 
-    @NotNull(message = "The currency name must not be null.")
-    @NotEmpty(message = "The currency name must not be empty.")
-    @Schema(description = "The currency name",  type = "string", required = true, example ="XOF")
+    @Schema(description = "The currency name",  type = "string", example ="XOF")
     private String currency;
 
 
-    @Schema(hidden = true)
+    @Schema(description = "The account",  type = "string", example ="01.1000")
     private String account;
 
-    @Schema(hidden = true)
+    @Schema(description = "The balance",  type = "string", example ="500000")
     private Double balance;
 
 
-    @Schema(hidden = true)
-    private Boolean isBlocked = false;
+    @Schema(description = "The is_blocked name",  type = "boolean", example ="false")
+    private Boolean isBlocked;
 
     @Schema(hidden = true)
     private Timestamp createdAt;

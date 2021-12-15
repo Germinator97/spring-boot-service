@@ -7,7 +7,7 @@ import java.sql.Timestamp;
 
 import javax.persistence.*;
 
-import com.cinetpay.billing.infrastructure.enumerations.*;
+import com.cinetpay.billing.infrastructure.enums.*;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.LastModifiedDate;

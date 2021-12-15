@@ -11,6 +11,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingPathVariableException;
@@ -48,6 +49,24 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
           Set<HttpMethod> supportedMethods = ex.getSupportedHttpMethods();
 
           return ResponseHandler.generateResponse(status.value(), false, status.name(), supportedMethods, status);
+    }
+
+    @Override
+    protected ResponseEntity<Object> handleHttpMessageNotReadable(
+      HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        String message = ex.getMessage();
+
+        int indexValueStart = message.indexOf("[") + 1;
+        int indexValueEnd = message.indexOf("];");
+        CharSequence value = message.subSequence(indexValueStart, indexValueEnd);
+
+        int indexKeyStart = message.indexOf("Dto[") + 5;
+        int indexKeyEnd = message.indexOf("])") - 1;
+        CharSequence key = message.subSequence(indexKeyStart, indexKeyEnd);
+
+        String result = "The " + key + " can be : " + value;
+
+      return ResponseHandler.generateResponse(status.value(), false, status.name(), result, status);
     }
 
 }

@@ -4,8 +4,10 @@ package com.cinetpay.billing.application.controllers;
 
 
 import com.cinetpay.billing.application.dtos.commissions.partner.CommissionPartnerDto;
+import com.cinetpay.billing.application.dtos.commissions.partner.UpdateCommissionPartnerDto;
 import com.cinetpay.billing.application.mapper.Mapper;
 import com.cinetpay.billing.application.response.ResponseHandler;
+import com.cinetpay.billing.application.utils.Properties;
 import com.cinetpay.billing.domain.commissions.partner.entity.CommissionPartner;
 import com.cinetpay.billing.domain.commissions.partner.repository.CommissionPartnerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,8 @@ public class CommissionPartnerController {
 
     @Autowired
     private Mapper mapper;
+
+    private final Properties properties = new Properties();
 
     @RequestMapping(value = {"/"}, method = RequestMethod.GET)
     public ResponseEntity<Object> findByCode(
@@ -49,7 +53,7 @@ public class CommissionPartnerController {
 
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public ResponseEntity<Object> create(@Valid @RequestBody CommissionPartnerDto commissionPartnerDto) {
+    public ResponseEntity<Object> create(@RequestHeader(name = "vendor", required = true) String vendor, @Valid @RequestBody CommissionPartnerDto commissionPartnerDto) {
         try {
             CommissionPartner OptionalCommissionPartner = commissionPartnerRepository.findByVendorAndProductAndCurrencyAndPartnerAndCountry(commissionPartnerDto.getVendor(),commissionPartnerDto.getProduct(),commissionPartnerDto.getCurrency(),commissionPartnerDto.getPartner(),commissionPartnerDto.getCountry());
 
@@ -62,19 +66,11 @@ public class CommissionPartnerController {
 
                     return ResponseHandler.generateResponse(HttpStatus.OK.value(), true,  HttpStatus.OK.name(), commissionPartner, HttpStatus.OK);
                 }
-
                 return ResponseHandler.generateResponse(400, false, HttpStatus.FOUND.name(), null, HttpStatus.FOUND);
             }
 
             CommissionPartner data = mapper.mapper(commissionPartnerDto, CommissionPartner.class);
-            data.generateId();
-            data.setActive(commissionPartnerDto.getActive());
-            data.setCommissionFixe(commissionPartnerDto.getCommissionFixe());
-            data.setCommissionVariable(commissionPartnerDto.getCommissionVariable());
-            data.setPartner(commissionPartnerDto.getPartner());
-            data.setCountry(commissionPartnerDto.getCountry());
-            data.setCurrency(commissionPartnerDto.getCurrency());
-            data.setProduct(commissionPartnerDto.getProduct());
+            data.setVendor(vendor);
             CommissionPartner commissionPartner = commissionPartnerRepository.create(data);
             return ResponseHandler.generateResponse(HttpStatus.OK.value(), true,  HttpStatus.CREATED.name(), commissionPartner, HttpStatus.OK);
         } catch (Exception e) {
@@ -83,28 +79,22 @@ public class CommissionPartnerController {
     }
 
 
-    /*@RequestMapping(value = {"/update/{id}"}, method = RequestMethod.PUT)
-    public ResponseEntity<Object> update(@PathVariable(name = "id") String id, @Valid @RequestBody CommissionPartnerDto commissionPartnerDto) {
+    @RequestMapping(value = {"/update", "/update/{id}"}, method = RequestMethod.PUT)
+    public ResponseEntity<Object> update(@RequestHeader(name = "vendor", required = true) String vendor, @PathVariable(name = "id") String id, @Valid @RequestBody UpdateCommissionPartnerDto commissionPartnerDto) {
         try {
             CommissionPartner exist = commissionPartnerRepository.findById(id);
             if (exist == null) {
                 return ResponseHandler.generateResponse(HttpStatus.NOT_FOUND.value(), false, HttpStatus.NOT_FOUND.name(), null, HttpStatus.NOT_FOUND);
             }
-
-            exist.setId(id);
-            exist.setActive(commissionPartnerDto.getActive());
-            exist.setCommissionFixe(commissionPartnerDto.getCommissionFixe());
-            exist.setCommissionVariable(commissionPartnerDto.getCommissionVariable());
-            exist.setPartner(commissionPartnerDto.getPartner());
-            exist.setCountry(commissionPartnerDto.getCountry());
-            exist.setCurrency(commissionPartnerDto.getCurrency());
-            exist.setProduct(commissionPartnerDto.getProduct());
-            exist.setVendor(commissionPartnerDto.getVendor());
-            CommissionPartner commissionPartner = commissionPartnerRepository.update(exist);
-
+            commissionPartnerDto.setVendor(vendor);
+            System.out.println(exist.getCommissionFixe());
+            System.out.println(exist.getCountry());
+            System.out.println(exist.getCurrency());
+            properties.copyNonNullProperties(commissionPartnerDto, exist);
+            CommissionPartner commissionPartner = commissionPartnerRepository.create(exist);
             return ResponseHandler.generateResponse(HttpStatus.OK.value(), true,  HttpStatus.OK.name(), commissionPartner, HttpStatus.OK);
         } catch (Exception e) {
             return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), false,  e.getMessage(), null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-    }*/
+    }
 }

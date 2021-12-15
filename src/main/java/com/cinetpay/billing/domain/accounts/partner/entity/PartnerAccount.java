@@ -1,55 +1,30 @@
-package com.cinetpay.billing.application.dtos.accounts.vendor;
+package com.cinetpay.billing.domain.accounts.partner.entity;
 
-
-import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
-
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
-@Data
-public class VendorAccountDto {
-    @Schema(hidden = true)
+public class PartnerAccount {
+
     protected String id;
 
-
-    @Schema(description = "The vendor name",  type = "string", required = true, example ="1")
     private String vendor;
 
-
-    @NotNull(message = "The product name must not be null.")
-    @NotEmpty(message = "The product name must not be empty.")
-    @Schema(description = "The product name",  type = "string", required = true, example ="PAYIN")
     private String product;
 
-    @NotNull(message = "The country name must not be null.")
-    @NotEmpty(message = "The country name must not be empty.")
-    @Schema(description = "The country name",  type = "string", required = true, example ="CI")
     private String country;
 
-    @NotNull(message = "The currency name must not be null.")
-    @NotEmpty(message = "The currency name must not be empty.")
-    @Schema(description = "The currency name",  type = "string", required = true, example ="XOF")
+    private String partner;
+
     private String currency;
 
-
-    @Schema(hidden = true)
     private String account;
 
-    @Schema(hidden = true)
     private Double balance;
 
-
-    @Schema(hidden = true)
     private Boolean isBlocked = false;
 
-    @Schema(hidden = true)
     private Timestamp createdAt;
 
-    @Schema(hidden = true)
     private Timestamp updatedAt;
-
 
     public String getId() {
         return id;
@@ -81,6 +56,14 @@ public class VendorAccountDto {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public String getPartner() {
+        return partner;
+    }
+
+    public void setPartner(String partner) {
+        this.partner = partner;
     }
 
     public String getCurrency() {
