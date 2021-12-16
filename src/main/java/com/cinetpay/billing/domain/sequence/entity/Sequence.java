@@ -10,6 +10,9 @@ public class Sequence {
 
     private String product;
 
+    private String vendorAccount;
+
+    private String partnerAccount;
     private String serviceAccount;
 
     public int getId() {
@@ -44,6 +47,21 @@ public class Sequence {
         this.product = product;
     }
 
+    public String getVendorAccount() {
+        return vendorAccount;
+    }
+
+    public void setVendorAccount(String vendorAccount) {
+        this.vendorAccount = vendorAccount;
+    }
+
+    public String getPartnerAccount() {
+        return partnerAccount;
+    }
+
+    public void setPartnerAccount(String partnerAccount) {
+        this.partnerAccount = partnerAccount;
+    }
     public String getServiceAccount() {
         return serviceAccount;
     }

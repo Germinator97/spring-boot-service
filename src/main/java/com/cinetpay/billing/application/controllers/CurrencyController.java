@@ -1,30 +1,32 @@
 package com.cinetpay.billing.application.controllers;
 
-import javax.validation.Valid;
+
 
 import com.cinetpay.billing.application.dtos.currency.CurrencyDto;
-import com.cinetpay.billing.application.dtos.currency.CurrencyUpdateDto;
 import com.cinetpay.billing.application.mapper.Mapper;
 import com.cinetpay.billing.application.response.ResponseHandler;
+import javax.validation.Valid;
+
+import com.cinetpay.billing.application.dtos.currency.CurrencyUpdateDto;
 import com.cinetpay.billing.application.utils.NextSequence;
 import com.cinetpay.billing.application.utils.Properties;
 import com.cinetpay.billing.domain.currency.entity.Currency;
 import com.cinetpay.billing.domain.currency.repository.CurrencyRepository;
 import com.cinetpay.billing.domain.sequence.entity.Sequence;
 import com.cinetpay.billing.domain.sequence.repository.SequenceRepository;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
  * @author mac
@@ -35,7 +37,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 @RequestMapping(value = "/currency")
 public class CurrencyController {
 
-    @Autowired
+
 	private Mapper mapper;
 
 	@Autowired

@@ -1,19 +1,22 @@
 package com.cinetpay.billing.domain.currency.entity;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.UUID;
+
 
 import java.time.LocalDateTime;
 
 public class Currency {
 
     protected String id;
-	
-	private String code;
-	
+    private String code;
+
     private String name;
 
-    private Boolean isActive;
+    private Boolean isActive = true;
 
     private LocalDateTime createdAt;
-    
+
     private LocalDateTime updatedAt;
 
     public String getId() {
@@ -44,6 +47,7 @@ public class Currency {
         return isActive;
     }
 
+
     public void setIsActive(Boolean isActive) {
         this.isActive = isActive;
     }
@@ -63,6 +67,4 @@ public class Currency {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
-    
-    
 }

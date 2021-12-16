@@ -16,7 +16,7 @@ public class CurrencyRepositoryAdapter implements CurrencyRepository {
     private CurrencyJpaRepository currencyJpaRepository;
 
     @Autowired
-	private Mapper mapper;
+    private Mapper mapper;
 
     @Override
     public Currency findByName(String name) {
@@ -27,8 +27,7 @@ public class CurrencyRepositoryAdapter implements CurrencyRepository {
     @Override
     public Currency create(Currency data) {
         CurrencyModel model = mapper.mapper(data, CurrencyModel.class);
-        CurrencyModel currency = currencyJpaRepository.save(model);
-        return mapper.mapper(currency, Currency.class);
+        CurrencyModel currencyModel = currencyJpaRepository.save(model);
+        return mapper.mapper(currencyModel, Currency.class);
     }
-    
 }

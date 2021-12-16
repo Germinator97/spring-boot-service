@@ -1,15 +1,13 @@
 package com.cinetpay.billing.infrastructure.entities;
 
-import java.time.LocalDateTime;
-
-import javax.persistence.*;
-
+import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import lombok.Data;
+import javax.persistence.*;
+import java.time.LocalDateTime;
+import org.hibernate.annotations.GenericGenerator;
 
 /**
  * @author mac
@@ -42,8 +40,8 @@ public class CurrencyModel {
     @Column(updatable = false, columnDefinition = "timestamp default CURRENT_TIMESTAMP", name = "created_at")
     @CreationTimestamp
     private LocalDateTime createdAt;
-    
-	@Column(columnDefinition = "timestamp default CURRENT_TIMESTAMP", name = "updated_at")
+
+    @Column(columnDefinition = "timestamp default CURRENT_TIMESTAMP", name = "updated_at")
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
@@ -71,9 +69,10 @@ public class CurrencyModel {
         this.name = name;
     }
 
-    public Boolean getIsActive() {
+    public Boolean getActive() {
         return isActive;
     }
+
 
     public void setIsActive(Boolean isActive) {
         this.isActive = isActive;
@@ -94,5 +93,4 @@ public class CurrencyModel {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
-    
 }

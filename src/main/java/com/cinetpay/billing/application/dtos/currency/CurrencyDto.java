@@ -1,12 +1,14 @@
+/**
+ * 
+ */
 package com.cinetpay.billing.application.dtos.currency;
-
-import java.time.LocalDateTime;
-
-import javax.validation.constraints.*;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 /**
  * @author mac
  *
@@ -14,15 +16,15 @@ import lombok.Data;
 @Data
 public class CurrencyDto {
 
-    @Schema(hidden = true)
+	@Schema(hidden = true)
 	protected String id;
 	
 	@Schema(hidden = true)
 	private String code;
 	
-	@NotNull(message = "The country name must not be null.")
-	@NotEmpty(message = "The country name must not be empty.")
-    @Schema(description = "The country name ISO2",  type = "string", required = true, example ="XOF")
+	@NotNull(message = "The currency name must not be null.")
+	@NotEmpty(message = "The currency name must not be empty.")
+    @Schema(description = "The currency name",  type = "string", required = true, example ="XOF")
     private String name;
 
 	@Schema(hidden = true)
@@ -81,6 +83,4 @@ public class CurrencyDto {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
-    
-    
 }

@@ -9,6 +9,7 @@ import com.cinetpay.billing.application.dtos.country.CountryDto;
 import com.cinetpay.billing.application.dtos.country.CountryUpdateDto;
 import com.cinetpay.billing.application.mapper.Mapper;
 import com.cinetpay.billing.application.response.ResponseHandler;
+import com.cinetpay.billing.application.utils.KafkaProducer;
 import com.cinetpay.billing.application.utils.NextSequence;
 import com.cinetpay.billing.application.utils.Properties;
 import com.cinetpay.billing.domain.country.entity.Country;
@@ -16,6 +17,7 @@ import com.cinetpay.billing.domain.country.repository.CountryRepository;
 import com.cinetpay.billing.domain.sequence.entity.Sequence;
 import com.cinetpay.billing.domain.sequence.repository.SequenceRepository;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +31,8 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;
 
+import java.util.Map;
+
 /**
  * @author mac
  *
@@ -37,6 +41,12 @@ import io.swagger.v3.oas.annotations.media.Schema;
 @RestController
 @RequestMapping(value = "/country")
 public class CountryController {
+
+	private final KafkaProducer kafkaProducer;
+
+	public CountryController(KafkaProducer kafkaProducer) {
+		this.kafkaProducer = kafkaProducer;
+	}
 
     @Autowired
 	private Mapper mapper;
@@ -100,6 +110,8 @@ public class CountryController {
 			sequence.setCountry(nextCode);
 			sequenceRepository.create(sequence);
 
+			this.kafkaProducer.sendMessage(country.getCode()+"+"+country.getName());
+
 			return ResponseHandler.generateResponse(HttpStatus.OK.value(), true,  HttpStatus.CREATED.name(), country, HttpStatus.OK);
 			
 		} catch (Exception e) {
@@ -130,5 +142,4 @@ public class CountryController {
 			return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), false,  e.getMessage(), null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-
 }

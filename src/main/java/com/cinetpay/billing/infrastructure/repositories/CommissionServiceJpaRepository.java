@@ -12,5 +12,4 @@ public interface CommissionServiceJpaRepository extends JpaRepository<Commission
     public CommissionServiceModel findInInterval(BillingServiceModel billing, Double amount);
 
     public CommissionServiceModel findForOne(BillingServiceModel billing);
-    
 }

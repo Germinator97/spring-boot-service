@@ -1,5 +1,6 @@
 package com.cinetpay.billing.application.utils;
 
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -10,7 +11,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class Properties {
-
     public void copyNonNullProperties(Object src, Object target) {
         BeanUtils.copyProperties(src, target, getNullPropertyNames(src));
     }
@@ -29,5 +29,4 @@ public class Properties {
         String[] result = new String[emptyNames.size()];
         return emptyNames.toArray(result);
     }
-    
 }

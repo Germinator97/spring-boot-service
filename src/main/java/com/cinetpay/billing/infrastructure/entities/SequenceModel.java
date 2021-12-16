@@ -31,6 +31,12 @@ public class SequenceModel {
     @Column(columnDefinition = "varchar(255)", name = "product", nullable = false)
     private String product;
 
+    @Column(columnDefinition = "varchar(255)", name = "vendor_account", nullable = false)
+    private String vendorAccount;
+
+    @Column(columnDefinition = "varchar(255)", name = "partner_account", nullable = false)
+    private String partnerAccount;
+
     @Column(columnDefinition = "varchar(255)", name = "service_account", nullable = false)
     private String serviceAccount;
 
@@ -66,6 +72,21 @@ public class SequenceModel {
         this.product = product;
     }
 
+    public String getVendorAccount() {
+        return vendorAccount;
+    }
+
+    public void setVendorAccount(String vendorAccount) {
+        this.vendorAccount = vendorAccount;
+    }
+
+    public String getPartnerAccount() {
+        return partnerAccount;
+    }
+
+    public void setPartnerAccount(String partnerAccount) {
+        this.partnerAccount = partnerAccount;
+    }
     public String getServiceAccount() {
         return serviceAccount;
     }
