@@ -1,23 +1,19 @@
-package com.cinetpay.billing.application.dtos.billings.service;
+package com.cinetpay.billing.application.dtos.accounts.service;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-
-import com.cinetpay.billing.application.dtos.commissions.service.CommissionServiceDto;
-import com.cinetpay.billing.infrastructure.enums.Mode;
-import com.cinetpay.billing.infrastructure.enums.Option;
-import com.cinetpay.billing.infrastructure.enums.Period;
-import com.cinetpay.billing.infrastructure.enums.Type;
+import javax.validation.constraints.*;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
+/**
+ * @author mac
+ *
+ */
 @Data
-public class BillingServiceSearchDto {
-
+public class ServiceAccounSearchDto {
+    
     @Schema(hidden = true)
 	protected String id;
 	
@@ -34,11 +30,6 @@ public class BillingServiceSearchDto {
     @Schema(description = "The country name ISO2",  type = "string", required = true, example ="CI")
     private String country;
 
-    @NotNull(message = "The partner name must not be null.")
-	@NotEmpty(message = "The partner name must not be empty.")
-    @Schema(description = "The partner name",  type = "string", required = true, example ="OM")
-    private String partner;
-
     @NotNull(message = "The currency name must not be null.")
 	@NotEmpty(message = "The currency name must not be empty.")
     @Schema(description = "The currency name",  type = "string", required = true, example ="XOF")
@@ -50,31 +41,19 @@ public class BillingServiceSearchDto {
     private String owner;
     
     @Schema(hidden = true)
-    private Option option = Option.DEFAULT;
+    private String account;
     
     @Schema(hidden = true)
-    private Mode mode = Mode.ONCE;
-    
-    @Schema(hidden = true)
-    private Type type = Type.TRANSACTION;
-    
-    @Schema(hidden = true)
-    private Period period = Period.DAY;
-    
-    @Schema(hidden = true)
-    private Integer frequency = 1;
+    private Double balance;
 
-	@Schema(hidden = true)
-    private Boolean isActive;
+    @Schema(hidden = true)
+    private Boolean isBlocked;
 
 	@Schema(hidden = true)
 	private LocalDateTime createdAt;
 
 	@Schema(hidden = true)
     private LocalDateTime updatedAt;
-
-    @Schema(hidden = true)
-	private List<CommissionServiceDto> commissionsServices;
 
     public String getId() {
         return id;
@@ -108,14 +87,6 @@ public class BillingServiceSearchDto {
         this.country = country;
     }
 
-    public String getPartner() {
-        return partner;
-    }
-
-    public void setPartner(String partner) {
-        this.partner = partner;
-    }
-
     public String getCurrency() {
         return currency;
     }
@@ -132,52 +103,28 @@ public class BillingServiceSearchDto {
         this.owner = owner;
     }
 
-    public Option getOption() {
-        return option;
+    public String getAccount() {
+        return account;
     }
 
-    public void setOption(Option option) {
-        this.option = option;
+    public void setAccount(String account) {
+        this.account = account;
     }
 
-    public Mode getMode() {
-        return mode;
+    public Double getBalance() {
+        return balance;
     }
 
-    public void setMode(Mode mode) {
-        this.mode = mode;
+    public void setBalance(Double balance) {
+        this.balance = balance;
     }
 
-    public Type getType() {
-        return type;
+    public Boolean getIsBlocked() {
+        return isBlocked;
     }
 
-    public void setType(Type type) {
-        this.type = type;
-    }
-
-    public Period getPeriod() {
-        return period;
-    }
-
-    public void setPeriod(Period period) {
-        this.period = period;
-    }
-
-    public Integer getFrequency() {
-        return frequency;
-    }
-
-    public void setFrequency(Integer frequency) {
-        this.frequency = frequency;
-    }
-
-    public Boolean getIsActive() {
-        return isActive;
-    }
-
-    public void setIsActive(Boolean isActive) {
-        this.isActive = isActive;
+    public void setIsBlocked(Boolean isBlocked) {
+        this.isBlocked = isBlocked;
     }
 
     public LocalDateTime getCreatedAt() {
@@ -196,12 +143,4 @@ public class BillingServiceSearchDto {
         this.updatedAt = updatedAt;
     }
 
-    public List<CommissionServiceDto> getCommissionsServices() {
-        return commissionsServices;
-    }
-
-    public void setCommissionsServices(List<CommissionServiceDto> commissionsServices) {
-        this.commissionsServices = commissionsServices;
-    }
-    
 }

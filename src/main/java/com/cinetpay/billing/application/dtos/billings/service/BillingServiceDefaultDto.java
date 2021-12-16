@@ -1,47 +1,83 @@
-package com.cinetpay.billing.domain.billings.service.entity;
+package com.cinetpay.billing.application.dtos.billings.service;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-import com.cinetpay.billing.domain.commissions.service.entity.CommissionService;
+import javax.validation.constraints.*;
+
+import com.cinetpay.billing.application.dtos.commissions.service.CommissionServiceDefaultDto;
 import com.cinetpay.billing.infrastructure.enums.Mode;
 import com.cinetpay.billing.infrastructure.enums.Option;
 import com.cinetpay.billing.infrastructure.enums.Period;
 import com.cinetpay.billing.infrastructure.enums.Type;
 
-public class BillingService {
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
 
+/**
+ * @author mac
+ *
+ */
+@Data
+public class BillingServiceDefaultDto {
+
+    @Schema(hidden = true)
 	protected String id;
 	
+    @Schema(hidden = true)
     private String vendor;
 
+    @NotNull(message = "The product name must not be null.")
+	@NotEmpty(message = "The product name must not be empty.")
+    @Schema(description = "The product name",  type = "string", required = true, example ="PAYIN")
     private String product;
 
+    @NotNull(message = "The country name must not be null.")
+	@NotEmpty(message = "The country name must not be empty.")
+    @Schema(description = "The country name ISO2",  type = "string", required = true, example ="CI")
     private String country;
 
+    @NotNull(message = "The partner name must not be null.")
+	@NotEmpty(message = "The partner name must not be empty.")
+    @Schema(description = "The partner name",  type = "string", required = true, example ="OM")
     private String partner;
 
+    @NotNull(message = "The currency name must not be null.")
+	@NotEmpty(message = "The currency name must not be empty.")
+    @Schema(description = "The currency name",  type = "string", required = true, example ="XOF")
     private String currency;
 	
+    @Schema(hidden = true)
     private String owner;
     
-    private Option option;
+    @Schema(hidden = true)
+    private Option option = Option.DEFAULT;
     
-    private Mode mode;
+    @Schema(hidden = true)
+    private Mode mode = Mode.ONCE;
     
-    private Type type;
+    @Schema(hidden = true)
+    private Type type = Type.TRANSACTION;
     
-    private Period period;
+    @Schema(hidden = true)
+    private Period period = Period.DAY;
     
-    private Integer frequency;
+    @Schema(hidden = true)
+    private Integer frequency = 1;
 
-    private Boolean isActive = true;
+	@Schema(hidden = true)
+    private Boolean isActive;
 
-    private LocalDateTime createdAt;
+	@Schema(hidden = true)
+	private LocalDateTime createdAt;
 
+	@Schema(hidden = true)
     private LocalDateTime updatedAt;
 
-    private List<CommissionService> commissionsServices;
+    @NotNull(message = "The commission for the service must not be null.")
+	@NotEmpty(message = "The commission for the service must not be empty.")
+    @Schema(description = "The list of billing",  type = "array", required = true)
+	private List<CommissionServiceDefaultDto> commissionsServices;
 
     public String getId() {
         return id;
@@ -163,11 +199,11 @@ public class BillingService {
         this.updatedAt = updatedAt;
     }
 
-    public List<CommissionService> getCommissionsServices() {
+    public List<CommissionServiceDefaultDto> getCommissionsServices() {
         return commissionsServices;
     }
 
-    public void setCommissionsServices(List<CommissionService> commissionsServices) {
+    public void setCommissionsServices(List<CommissionServiceDefaultDto> commissionsServices) {
         this.commissionsServices = commissionsServices;
     }
     

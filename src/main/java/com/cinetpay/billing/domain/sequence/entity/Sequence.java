@@ -13,6 +13,7 @@ public class Sequence {
     private String vendorAccount;
 
     private String partnerAccount;
+    private String serviceAccount;
 
     public int getId() {
         return id;
@@ -61,4 +62,12 @@ public class Sequence {
     public void setPartnerAccount(String partnerAccount) {
         this.partnerAccount = partnerAccount;
     }
+    public String getServiceAccount() {
+        return serviceAccount;
+    }
+
+    public void setServiceAccount(String serviceAccount) {
+        this.serviceAccount = serviceAccount;
+    }
+    
 }

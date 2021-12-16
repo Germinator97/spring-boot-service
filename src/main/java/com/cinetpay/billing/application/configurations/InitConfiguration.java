@@ -38,7 +38,8 @@ public class InitConfiguration {
             sequence.setProduct("02.100");
             sequence.setVendorAccount("01.1000");
             sequence.setPartnerAccount("10");
-            return args -> repository.update(sequence);
+            sequence.setServiceAccount("10000000");
+            return args -> repository.create(sequence);
         }
     }
 }

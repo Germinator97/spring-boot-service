@@ -1,14 +1,14 @@
-package com.cinetpay.billing.application.dtos.currency;
+package com.cinetpay.billing.application.dtos.country;
+
+import java.time.LocalDateTime;
+
+import javax.validation.constraints.Pattern;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import java.time.LocalDateTime;
-
 @Data
-public class DeleteCurrencyDto {
+public class CountryUpdateDto {
 
     @Schema(hidden = true)
     protected String id;
@@ -16,12 +16,11 @@ public class DeleteCurrencyDto {
     @Schema(hidden = true)
     private String code;
 	
-    @Schema(hidden = true)
+    @Schema(description = "The country name ISO2",  type = "string", example ="CI")
     private String name;
 
-    @NotNull(message = "The currency is_active must not be null.")
-    @Pattern(regexp = "^true$|^false$", message = "The currency is_active must be : true or false")
-    @Schema(description = "The currency status active",  type = "boolean", required = true, allowableValues = {"true", "false"})
+    @Pattern(regexp = "^true$|^false$", message = "The country is_active must be : true or false")
+    @Schema(description = "The country status active",  type = "boolean", allowableValues = {"true", "false"})
     private String isActive;
 
     @Schema(hidden = true)
@@ -77,4 +76,12 @@ public class DeleteCurrencyDto {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
+
+    public boolean check() {
+        if (this.isActive == null) {
+            return false;
+        }
+        return true;
+    }
+
 }

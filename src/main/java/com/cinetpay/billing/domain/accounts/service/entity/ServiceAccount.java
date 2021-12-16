@@ -1,30 +1,30 @@
-package com.cinetpay.billing.domain.accounts.partner.entity;
+package com.cinetpay.billing.domain.accounts.service.entity;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
-public class PartnerAccount {
+public class ServiceAccount {
 
     protected String id;
-
+	
     private String vendor;
 
     private String product;
 
     private String country;
 
-    private String partner;
-
     private String currency;
-
+	
+    private String owner;
+    
     private String account;
-
+    
     private Double balance;
 
     private Boolean isBlocked = false;
 
-    private Timestamp createdAt;
+    private LocalDateTime createdAt;
 
-    private Timestamp updatedAt;
+    private LocalDateTime updatedAt;
 
     public String getId() {
         return id;
@@ -58,20 +58,20 @@ public class PartnerAccount {
         this.country = country;
     }
 
-    public String getPartner() {
-        return partner;
-    }
-
-    public void setPartner(String partner) {
-        this.partner = partner;
-    }
-
     public String getCurrency() {
         return currency;
     }
 
     public void setCurrency(String currency) {
         this.currency = currency;
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
     }
 
     public String getAccount() {
@@ -94,23 +94,25 @@ public class PartnerAccount {
         return isBlocked;
     }
 
-    public void setIsBlocked(Boolean blocked) {
-        isBlocked = blocked;
+    public void setIsBlocked(Boolean isBlocked) {
+        this.isBlocked = isBlocked;
     }
 
-    public Timestamp getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Timestamp createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Timestamp getUpdatedAt() {
+    public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Timestamp updatedAt) {
+    public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
+    
+    
 }

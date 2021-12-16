@@ -6,6 +6,6 @@ public interface SequenceRepository {
 
     public Sequence find();
 
-    public Sequence update(Sequence sequence);
+    public Sequence create(Sequence sequence);
     
 }

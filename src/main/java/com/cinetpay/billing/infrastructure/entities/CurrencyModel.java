@@ -1,6 +1,5 @@
 package com.cinetpay.billing.infrastructure.entities;
 
-import com.cinetpay.billing.models.*;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -8,20 +7,30 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Set;
+import org.hibernate.annotations.GenericGenerator;
 
+/**
+ * @author mac
+ *
+ */
 @Entity
 @Table(name = "currencies")
 @EntityListeners(AuditingEntityListener.class)
 @Data
 public class CurrencyModel {
+
     @Id
-    @Column(columnDefinition = "varchar(255)", nullable = false, unique = true)
-    protected String id;
-
-    @Column(columnDefinition = "varchar(255)", name = "code", nullable = false, unique = true)
-    private String code;
-
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+        name = "UUID",
+        strategy = "org.hibernate.id.UUIDGenerator"
+    )
+    @Column(columnDefinition = "varchar(255)", updatable = false, nullable = false, unique = true)
+	protected String id;
+	
+	@Column(columnDefinition = "varchar(255)", name = "code", nullable = false, unique = true)
+	private String code;
+	
     @Column(columnDefinition = "varchar(255)", name = "name", nullable = false, unique = true)
     private String name;
 
@@ -64,8 +73,9 @@ public class CurrencyModel {
         return isActive;
     }
 
-    public void setActive(Boolean active) {
-        isActive = active;
+
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
     }
 
     public LocalDateTime getCreatedAt() {
@@ -83,26 +93,4 @@ public class CurrencyModel {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
-
-
-    /*@OneToMany(fetch = FetchType.LAZY, mappedBy = "currency", cascade = CascadeType.ALL)
-    private Set<CommissionPartner> commissions_partners;*/
-
-    /*@OneToMany(fetch = FetchType.LAZY, mappedBy = "currency", cascade = CascadeType.ALL)
-    private Set<BillingService> billingsServices;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "currency", cascade = CascadeType.ALL)
-    private Set<VendorAccount> vendorsAccounts;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "currency", cascade = CascadeType.ALL)
-    private Set<MerchantAccount> merchantsAccounts;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "currency", cascade = CascadeType.ALL)
-    private Set<ServiceAccount> servicesAccounts;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "currency", cascade = CascadeType.ALL)
-    private Set<PartnerAccount> partnersAccounts;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "currency", cascade = CascadeType.ALL)
-    private Set<CustomerAccount> customersAccounts;*/
 }

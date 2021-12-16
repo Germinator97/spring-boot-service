@@ -1,28 +1,23 @@
-package com.cinetpay.billing.application.dtos.product;
+package com.cinetpay.billing.application.dtos.partner;
 
 import java.time.LocalDateTime;
 
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 @Data
-public class DeleteProductDto {
-    
+public class PartnerUpdateDto {
+
     @Schema(hidden = true)
     protected String id;
-
-    @Schema(hidden = true)
-    private String code;
 	
-    @Schema(hidden = true)
+    @Schema(description = "The partner name",  type = "string", example ="OM")
     private String name;
 
-    @NotNull(message = "The product is_active must not be null.")
-    @Pattern(regexp = "^true$|^false$", message = "The product is_active must be : true or false")
-    @Schema(description = "The product status active",  type = "boolean", required = true, allowableValues = {"true", "false"})
+    @Pattern(regexp = "^true$|^false$", message = "The partner is_active must be : true or false")
+    @Schema(description = "The partner status active",  type = "boolean", allowableValues = {"true", "false"})
     private String isActive;
 
     @Schema(hidden = true)
@@ -37,14 +32,6 @@ public class DeleteProductDto {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
     }
 
     public String getName() {
@@ -77,6 +64,13 @@ public class DeleteProductDto {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public boolean check() {
+        if (this.isActive == null) {
+            return false;
+        }
+        return true;
     }
     
 }

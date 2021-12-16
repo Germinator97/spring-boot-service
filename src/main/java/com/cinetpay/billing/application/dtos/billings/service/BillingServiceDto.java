@@ -1,7 +1,7 @@
 package com.cinetpay.billing.application.dtos.billings.service;
 
 import java.time.LocalDateTime;
-import java.util.Set;
+import java.util.List;
 
 import javax.validation.constraints.*;
 
@@ -79,7 +79,7 @@ public class BillingServiceDto {
     @NotNull(message = "The commission for the service must not be null.")
 	@NotEmpty(message = "The commission for the service must not be empty.")
     @Schema(description = "The list of billing",  type = "array", required = true)
-	private Set<CommissionServiceDto> commissionsServices;
+	private List<CommissionServiceDto> commissionsServices;
 
     public String getId() {
         return id;
@@ -201,13 +201,12 @@ public class BillingServiceDto {
         this.updatedAt = updatedAt;
     }
 
-    public Set<CommissionServiceDto> getCommissionsServices() {
+    public List<CommissionServiceDto> getCommissionsServices() {
         return commissionsServices;
     }
 
-    public void setCommissionsServices(Set<CommissionServiceDto> commissionsServices) {
+    public void setCommissionsServices(List<CommissionServiceDto> commissionsServices) {
         this.commissionsServices = commissionsServices;
     }
 
-    
 }

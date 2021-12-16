@@ -2,10 +2,12 @@ package com.cinetpay.billing.application.controllers;
 
 import javax.validation.Valid;
 
-import com.cinetpay.billing.application.dtos.product.DeleteProductDto;
+import com.cinetpay.billing.application.dtos.product.ProductUpdateDto;
 import com.cinetpay.billing.application.dtos.product.ProductDto;
 import com.cinetpay.billing.application.mapper.Mapper;
 import com.cinetpay.billing.application.response.ResponseHandler;
+import com.cinetpay.billing.application.utils.NextSequence;
+import com.cinetpay.billing.application.utils.Properties;
 import com.cinetpay.billing.domain.product.entity.Product;
 import com.cinetpay.billing.domain.product.repository.ProductRepository;
 import com.cinetpay.billing.domain.sequence.entity.Sequence;
@@ -38,6 +40,12 @@ public class ProductController {
 	@Autowired
 	private ProductRepository productRepository;
 
+	@Autowired
+	private Properties properties;
+
+	@Autowired
+	private NextSequence nextSequence;
+
 	@RequestMapping(value = {"/find/name", "/find/name/{name}"}, method = RequestMethod.GET)
 	public ResponseEntity<Object> findByName(@PathVariable(name = "name") @Parameter(name ="name", schema = @Schema(description = "The product name",  type = "string", required = true, example ="PAYIN")) String name) {
 		try {
@@ -63,7 +71,7 @@ public class ProductController {
 				if (!optionalProduct.getIsActive()) {
 					optionalProduct.setIsActive(true);
 
-					Product product = productRepository.update(optionalProduct);
+					Product product = productRepository.create(optionalProduct);
 		
 					return ResponseHandler.generateResponse(HttpStatus.OK.value(), true,  HttpStatus.OK.name(), product, HttpStatus.OK);
 				}
@@ -80,14 +88,10 @@ public class ProductController {
 			data.setIsActive(true);
 			Product product = productRepository.create(data);
 
-			String[] array = code.split("\\.");
-			String prefix = array[0];
-			String suffix = array[1];
-			Integer newSuffix = Integer.parseInt(suffix) + 1;
-			String nextCoce = prefix + "." + newSuffix.toString();
+			String nextCode = nextSequence.nexCode(sequence, code);
 
-			sequence.setProduct(nextCoce);
-			sequenceRepository.update(sequence);
+			sequence.setProduct(nextCode);
+			sequenceRepository.create(sequence);
 
 			return ResponseHandler.generateResponse(HttpStatus.OK.value(), true,  HttpStatus.CREATED.name(), product, HttpStatus.OK);
 			
@@ -96,8 +100,8 @@ public class ProductController {
 		}
 	}
 
-	@RequestMapping(value = {"/update", "/update/{name}"}, method = RequestMethod.POST)
-	public ResponseEntity<Object> update(@PathVariable(name = "name") String name, @Valid @RequestBody ProductDto productDto) {
+	@RequestMapping(value = {"/update", "/update/{name}"}, method = RequestMethod.PUT)
+	public ResponseEntity<Object> update(@PathVariable(name = "name") String name, @Valid @RequestBody ProductUpdateDto productUpdateDto) {
 		try {
 			Product exist = productRepository.findByName(name);
 
@@ -105,34 +109,18 @@ public class ProductController {
 				return ResponseHandler.generateResponse(HttpStatus.NOT_FOUND.value(), false, HttpStatus.NOT_FOUND.name(), null, HttpStatus.NOT_FOUND);
 			}
 
-			exist.setName(productDto.getName());
+			properties.copyNonNullProperties(productUpdateDto, exist);
 
-			Product product = productRepository.update(exist);
-
-			return ResponseHandler.generateResponse(HttpStatus.OK.value(), true,  HttpStatus.OK.name(), product, HttpStatus.OK);
-		} catch (Exception e) {
-			return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), false,  e.getMessage(), null, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
-
-	@RequestMapping(value = {"/delete", "/delete/{name}"}, method = RequestMethod.POST)
-	public ResponseEntity<Object> delete(@PathVariable(name = "name") String name, @Valid @RequestBody DeleteProductDto productDto) {
-		try {
-			Product exist = productRepository.findByName(name);
-
-			if (exist == null) {
-				return ResponseHandler.generateResponse(HttpStatus.NOT_FOUND.value(), false, HttpStatus.NOT_FOUND.name(), null, HttpStatus.NOT_FOUND);
+			if (productUpdateDto.check()) {
+				exist.setIsActive(Boolean.valueOf(productUpdateDto.getIsActive()));
 			}
 
-			exist.setIsActive(Boolean.valueOf(productDto.getIsActive()));
-
-			Product product = productRepository.update(exist);
+			Product product = productRepository.create(exist);
 
 			return ResponseHandler.generateResponse(HttpStatus.OK.value(), true,  HttpStatus.OK.name(), product, HttpStatus.OK);
 		} catch (Exception e) {
 			return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), false,  e.getMessage(), null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-
-    
+ 
 }

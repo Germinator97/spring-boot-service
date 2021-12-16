@@ -25,8 +25,8 @@ public class BillingServiceRepositoryAdapter implements BillingServiceRepository
     }
 
     @Override
-    public BillingService findWithoutService(String vendor, String product, String country, String partner, String currency) {
-        BillingServiceModel commission = billingServiceJpaRepository.findWithoutService(vendor, product, country, partner, currency);
+    public BillingService findWithOutService(String vendor, String product, String country, String partner, String currency) {
+        BillingServiceModel commission = billingServiceJpaRepository.findWithOutService(vendor, product, country, partner, currency);
         return mapper.mapper(commission, BillingService.class);
     }
 

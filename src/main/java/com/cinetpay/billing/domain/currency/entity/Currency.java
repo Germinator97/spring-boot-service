@@ -4,10 +4,11 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 
+import java.time.LocalDateTime;
+
 public class Currency {
 
     protected String id;
-
     private String code;
 
     private String name;
@@ -46,8 +47,9 @@ public class Currency {
         return isActive;
     }
 
-    public void setIsActive(Boolean active) {
-        isActive = active;
+
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
     }
 
     public LocalDateTime getCreatedAt() {
@@ -64,13 +66,5 @@ public class Currency {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
-    }
-
-    public void generateId() {
-        this.id = UUID.randomUUID().toString();
-    }
-
-    public void passCode(String sequence) {
-        this.code = sequence;
     }
 }

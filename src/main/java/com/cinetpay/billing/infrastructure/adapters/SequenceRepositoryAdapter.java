@@ -27,7 +27,7 @@ public class SequenceRepositoryAdapter implements SequenceRepository {
     }
 
     @Override
-    public Sequence update(Sequence data) {
+    public Sequence create(Sequence data) {
         SequenceModel model = mapper.mapper(data, SequenceModel.class);
         SequenceModel sequence = sequenceJpaRepository.save(model);
         return mapper.mapper(sequence, Sequence.class);

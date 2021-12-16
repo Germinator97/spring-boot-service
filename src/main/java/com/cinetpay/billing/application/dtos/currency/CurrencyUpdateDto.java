@@ -1,15 +1,14 @@
-package com.cinetpay.billing.application.dtos.country;
+package com.cinetpay.billing.application.dtos.currency;
 
 import java.time.LocalDateTime;
 
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 @Data
-public class DeleteCountryDto {
+public class CurrencyUpdateDto {
 
     @Schema(hidden = true)
     protected String id;
@@ -17,12 +16,11 @@ public class DeleteCountryDto {
     @Schema(hidden = true)
     private String code;
 	
-    @Schema(hidden = true)
+    @Schema(description = "The country name ISO2",  type = "string", example ="XOF")
     private String name;
 
-    @NotNull(message = "The country is_active must not be null.")
     @Pattern(regexp = "^true$|^false$", message = "The country is_active must be : true or false")
-    @Schema(description = "The country status active",  type = "boolean", required = true, allowableValues = {"true", "false"})
+    @Schema(description = "The country status active",  type = "boolean", allowableValues = {"true", "false"})
     private String isActive;
 
     @Schema(hidden = true)
@@ -78,6 +76,12 @@ public class DeleteCountryDto {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
-
+    
+    public boolean check() {
+        if (this.isActive == null) {
+            return false;
+        }
+        return true;
+    }
 
 }

@@ -86,7 +86,7 @@ public class VendorAccountController {
             String nextCode = prefix + "." + newSuffix;
 
             sequence.setVendorAccount(nextCode);
-            sequenceRepository.update(sequence);
+            sequenceRepository.create(sequence);
             return ResponseHandler.generateResponse(HttpStatus.OK.value(), true,  HttpStatus.CREATED.name(), vendorAccount, HttpStatus.OK);
         } catch (Exception e) {
             return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), false,  e.toString(), null, HttpStatus.INTERNAL_SERVER_ERROR);

@@ -30,12 +30,5 @@ public class ProductRepositoryAdapter implements ProductRepository {
         ProductModel product = productJpaRepository.save(model);
         return mapper.mapper(product, Product.class);
     }
-
-    @Override
-    public Product update(Product data) {
-        ProductModel model = mapper.mapper(data, ProductModel.class);
-        ProductModel product = productJpaRepository.save(model);
-        return mapper.mapper(product, Product.class);
-    }
     
 }

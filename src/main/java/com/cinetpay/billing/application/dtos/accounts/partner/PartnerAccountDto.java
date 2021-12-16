@@ -50,16 +50,14 @@ public class PartnerAccountDto {
     @Schema(hidden = true)
     private Double balance;
 
-    @Schema(hidden = true)
-    private Boolean isBlocked = false;
+    @Schema(hidden = true,  example = "false")
+    private Boolean isBlocked;
 
-    @Column(columnDefinition = "timestamp default CURRENT_TIMESTAMP", name = "created_at")
-    @CreationTimestamp
+
+    @Schema(hidden = true)
     private Timestamp createdAt;
 
-    @Column(columnDefinition = "timestamp default CURRENT_TIMESTAMP", name = "updated_at")
-    @CreationTimestamp
-    @LastModifiedDate
+    @Schema(hidden = true)
     private Timestamp updatedAt;
 
 
@@ -127,11 +125,11 @@ public class PartnerAccountDto {
         this.balance = balance;
     }
 
-    public Boolean getBlocked() {
+    public Boolean getIsBlocked() {
         return isBlocked;
     }
 
-    public void setBlocked(Boolean blocked) {
+    public void setIsBlocked(Boolean blocked) {
         isBlocked = blocked;
     }
 

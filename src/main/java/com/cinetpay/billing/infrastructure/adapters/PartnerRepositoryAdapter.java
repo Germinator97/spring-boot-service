@@ -30,12 +30,5 @@ public class PartnerRepositoryAdapter implements PartnerRepository {
         PartnerModel product = partnerJpaRepository.save(model);
         return mapper.mapper(product, Partner.class);
     }
-
-    @Override
-    public Partner update(Partner data) {
-        PartnerModel model = mapper.mapper(data, PartnerModel.class);
-        PartnerModel product = partnerJpaRepository.save(model);
-        return mapper.mapper(product, Partner.class);
-    }
     
 }

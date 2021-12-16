@@ -3,151 +3,131 @@ package com.cinetpay.billing.application.controllers;
 
 
 import com.cinetpay.billing.application.dtos.currency.CurrencyDto;
-import com.cinetpay.billing.application.dtos.currency.DeleteCurrencyDto;
 import com.cinetpay.billing.application.mapper.Mapper;
 import com.cinetpay.billing.application.response.ResponseHandler;
+import javax.validation.Valid;
+
+import com.cinetpay.billing.application.dtos.currency.CurrencyUpdateDto;
+import com.cinetpay.billing.application.utils.NextSequence;
+import com.cinetpay.billing.application.utils.Properties;
 import com.cinetpay.billing.domain.currency.entity.Currency;
 import com.cinetpay.billing.domain.currency.repository.CurrencyRepository;
 import com.cinetpay.billing.domain.sequence.entity.Sequence;
 import com.cinetpay.billing.domain.sequence.repository.SequenceRepository;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * @author mac
+ *
+ */
 @Validated
 @RestController
 @RequestMapping(value = "/currency")
 public class CurrencyController {
 
-    @Autowired
-    private CurrencyRepository currencyRepository;
 
-    @Autowired
-    private SequenceRepository sequenceRepository;
+	private Mapper mapper;
 
-    @Autowired
-    private Mapper mapper;
+	@Autowired
+	private SequenceRepository sequenceRepository;
 
-    @RequestMapping(value = {"/find/code", "/find/code/{code}"}, method = RequestMethod.GET)
-    public ResponseEntity<Object> findByCode(@PathVariable(name = "code") String code)
-    {
-        try {
-            Currency currency = currencyRepository.findByCode(code);
-            if (currency == null){
-                return ResponseHandler.generateResponse(HttpStatus.NOT_FOUND.value(), false, HttpStatus.NOT_FOUND.name(), null, HttpStatus.NOT_FOUND);
-            }else {
-                return ResponseHandler.generateResponse(HttpStatus.OK.value(), true,  HttpStatus.FOUND.name(), currency, HttpStatus.OK);
-            }
-        }catch (Exception e){
-            return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), false,  e.getMessage(), null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+	@Autowired
+	private CurrencyRepository currencyRepository;
 
+	@Autowired
+	private Properties properties;
 
-    @RequestMapping(value = {"/find/name", "/find/name/{name}"}, method = RequestMethod.GET)
-    public ResponseEntity<Object> findByName(@PathVariable(name = "name") @Parameter(name ="name", schema = @Schema(description = "The currency name",  type = "string", required = true, example ="XOF")) String name) {
-        try {
-            Currency currency = currencyRepository.findByName(name);
-            if (currency == null) {
-                return ResponseHandler.generateResponse(HttpStatus.NOT_FOUND.value(), false, HttpStatus.NOT_FOUND.name(), null, HttpStatus.NOT_FOUND);
-            }
-            return ResponseHandler.generateResponse(HttpStatus.OK.value(), true,  HttpStatus.FOUND.name(), currency, HttpStatus.OK);
-        } catch (Exception e) {
-            return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), false,  e.getMessage(), null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+	@Autowired
+	private NextSequence nextSequence;
 
+	@RequestMapping(value = {"/find/name", "/find/name/{name}"}, method = RequestMethod.GET)
+	public ResponseEntity<Object> findByName(@PathVariable(name = "name") @Parameter(name ="name", schema = @Schema(description = "The currency name", type = "string", required = true, example ="XOF")) String name) {
+		try {
+			Currency currency = currencyRepository.findByName(name);
 
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public ResponseEntity<Object> create(@Valid @RequestBody CurrencyDto currencyDto) {
-        try {
-            //get currency by name
-            Currency optionalCurrency = currencyRepository.findByName(currencyDto.getName());
+			if (currency == null) {
+				return ResponseHandler.generateResponse(HttpStatus.NOT_FOUND.value(), false, HttpStatus.NOT_FOUND.name(), null, HttpStatus.NOT_FOUND);
+			}
 
-            if (optionalCurrency != null) { //if currency exist
-                if (!optionalCurrency.getIsActive()) { //if currency is disabled
-                    System.out.println(optionalCurrency);
-                    optionalCurrency.setIsActive(true); //enable currency
+			return ResponseHandler.generateResponse(HttpStatus.OK.value(), true,  HttpStatus.FOUND.name(), currency, HttpStatus.OK);
+		} catch (Exception e) {
+			return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), false,  e.getMessage(), null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 
-                    Currency currency = currencyRepository.update(optionalCurrency); //update new currency status
+	@RequestMapping(value = "/create", method = RequestMethod.POST)
+	public ResponseEntity<Object> create(@Valid @RequestBody CurrencyDto currencyDto) {
+		try {
+			Currency optionalCurrency = currencyRepository.findByName(currencyDto.getName());
 
-                    //return endpoint response
-                    return ResponseHandler.generateResponse(HttpStatus.OK.value(), true,  HttpStatus.OK.name(), currency, HttpStatus.OK);
-                }
+			if (optionalCurrency != null) {
 
-                //currency already exists
-                return ResponseHandler.generateResponse(400, false, HttpStatus.FOUND.name(), null, HttpStatus.FOUND);
-            }
+				if (!optionalCurrency.getIsActive()) {
+					optionalCurrency.setIsActive(true);
 
-            Sequence sequence = sequenceRepository.find();
+					Currency currency = currencyRepository.create(optionalCurrency);
+		
+					return ResponseHandler.generateResponse(HttpStatus.OK.value(), true,  HttpStatus.OK.name(), currency, HttpStatus.OK);
+				}
 
-            String code = sequence.getCurrency(); //get last currency code
+				return ResponseHandler.generateResponse(400, false, HttpStatus.FOUND.name(), null, HttpStatus.FOUND);
+			}
 
-            Currency data = mapper.mapper(currencyDto, Currency.class);
-            data.generateId();
-            data.passCode(code);
-            data.setIsActive(true);
-            Currency currency = currencyRepository.create(data); //save new currency
+			Sequence sequence = sequenceRepository.find();
 
-            String[] array = code.split("\\.");
-            String prefix = array[0];
-            String suffix = array[1];
-            int newSuffix = Integer.parseInt(suffix) + 1;
-            String nextCode = prefix + "." + newSuffix;
+			String code = sequence.getCurrency();
 
-            sequence.setCurrency(nextCode);
-            sequenceRepository.update(sequence);
+			Currency data = mapper.mapper(currencyDto, Currency.class);
+			data.setCode(code);
+			data.setIsActive(true);
+			Currency currency = currencyRepository.create(data);
 
-            return ResponseHandler.generateResponse(HttpStatus.OK.value(), true,  HttpStatus.CREATED.name(), currency, HttpStatus.OK);
+			String nextCode = nextSequence.nexCode(sequence, code);
 
-        } catch (Exception e) {
-            //return response with exception message
-            return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), false,  e.toString(), null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+			sequence.setCurrency(nextCode);
+			sequenceRepository.create(sequence);
 
-    @RequestMapping(value = {"/update", "/update/{name}"}, method = RequestMethod.PUT)
-    public ResponseEntity<Object> update(@PathVariable(name = "name") String name, @Valid @RequestBody CurrencyDto currencyDto) {
-        try {
-            Currency exist = currencyRepository.findByName(name);
+			return ResponseHandler.generateResponse(HttpStatus.OK.value(), true,  HttpStatus.CREATED.name(), currency, HttpStatus.OK);
+			
+		} catch (Exception e) {
+			return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), false,  e.toString(), null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 
-            if (exist == null) {
-                return ResponseHandler.generateResponse(HttpStatus.NOT_FOUND.value(), false, HttpStatus.NOT_FOUND.name(), null, HttpStatus.NOT_FOUND);
-            }
+	@RequestMapping(value = {"/update", "/update/{name}"}, method = RequestMethod.PUT)
+	public ResponseEntity<Object> update(@PathVariable(name = "name") String name, @Valid @RequestBody CurrencyUpdateDto currencyUpdateDto) {
+		try {
+			Currency exist = currencyRepository.findByName(name);
 
-            exist.setName(currencyDto.getName());
+			if (exist == null) {
+				return ResponseHandler.generateResponse(HttpStatus.NOT_FOUND.value(), false, HttpStatus.NOT_FOUND.name(), null, HttpStatus.NOT_FOUND);
+			}
 
-            Currency currency = currencyRepository.update(exist);
+			properties.copyNonNullProperties(currencyUpdateDto, exist);
 
-            return ResponseHandler.generateResponse(HttpStatus.OK.value(), true,  HttpStatus.OK.name(), currency, HttpStatus.OK);
-        } catch (Exception e) {
-            return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), false,  e.getMessage(), null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+			if (currencyUpdateDto.check()) {
+				exist.setIsActive(Boolean.valueOf(currencyUpdateDto.getIsActive()));
+			}
 
-    @RequestMapping(value = {"/delete", "/delete/{name}"}, method = RequestMethod.DELETE)
-    public ResponseEntity<Object> delete(@PathVariable(name = "name") String name, @Valid @RequestBody DeleteCurrencyDto deleteCurrencyDto) {
-        try {
-            Currency exist = currencyRepository.findByName(name);
+			Currency currency = currencyRepository.create(exist);
 
-            System.out.println(exist);
-            if (exist == null) {
-                return ResponseHandler.generateResponse(HttpStatus.NOT_FOUND.value(), false, HttpStatus.NOT_FOUND.name(), null, HttpStatus.NOT_FOUND);
-            }
-
-            exist.setIsActive(Boolean.valueOf(deleteCurrencyDto.getIsActive()));
-
-            Currency currency = currencyRepository.update(exist);
-
-            return ResponseHandler.generateResponse(HttpStatus.OK.value(), true,  HttpStatus.OK.name(), currency, HttpStatus.OK);
-        } catch (Exception e) {
-            return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), false,  e.getMessage(), null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+			return ResponseHandler.generateResponse(HttpStatus.OK.value(), true,  HttpStatus.OK.name(), currency, HttpStatus.OK);
+		} catch (Exception e) {
+			System.out.println(e);
+			return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), false,  e.getMessage(), null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+    
 }

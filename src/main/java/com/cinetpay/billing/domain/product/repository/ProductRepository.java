@@ -7,7 +7,5 @@ public interface ProductRepository {
     public Product findByName(String name);
 
 	public Product create(Product product);
-
-	public Product update(Product product);
     
 }

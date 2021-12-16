@@ -144,5 +144,10 @@ public class CommissionServiceModel {
     public void setBillingService(BillingServiceModel billingService) {
         this.billingService = billingService;
     }
-    
+
+    @Override
+    public String toString() {
+        return null;
+    }
+
 }
